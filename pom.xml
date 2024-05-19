@@ -88,7 +88,9 @@
 <!--		</dependency>-->
 	</dependencies>
 
+
 	<build>
+<!--		плагин, позволяющий упаковывать архивы jar или war и запускать их «на месте»:-->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
