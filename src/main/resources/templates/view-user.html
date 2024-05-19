@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>View_user</title>
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/styles.css">
+    </head>
+
+    <body>
+        <H2 class="page-info-text">page: View user</H2>
+        <br/>
+
+        <table border="5">
+            <tr>
+                <td style = "width: 200px; background-color: lightcyan; text-align: center;">Parameter</td>
+                <td style = "width: 500px; background-color: lightcyan; text-align: center;">Value</td>
+            </tr>
+            <tr>
+                <td  style = "background-color: aqua;"></td>
+                <td style = "background-color: aqua; text-align: center;">Personal info:</td>
+            </tr>
+            <tr>
+                <td>User Id</td>
+                <td th:text="${viewUser.getId()}">User Id</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td th:text="${viewUser.getName()}">Name</td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td th:text="${viewUser.getDateBirth()}">dateBirth</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td th:text="${viewUser.getAddress()}">Address</td>
+            </tr>
+        </table>
+        <br/> <br/> <hr/> <br/>
+
+        <form th:action="@{/users/edit}" method="get">
+            <input type="hidden" name="user_id" th:value="${viewUser.getId()}" />
+            <button type="submit">Edit this user</button>
+        </form>
+        <br/>
+
+        <form th:action="@{/users/delete}" method="get">
+            <input type="hidden" name="user_id" th:value="${viewUser.getId()}" />
+            <button type="submit">Delete this user</button>
+        </form>
+        <br/>
+
+        <form th:method="GET" th:action="@{/users}">
+            <input type="submit" value="Go to the main page"/>
+        </form>
+    </body>
+</html>

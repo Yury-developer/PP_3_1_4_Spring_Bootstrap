@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Greeting page</title>
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/styles.css">
+    </head>
+
+    <body>
+        <H2 class="page-info-text">page: Greeting page</H2>
+        <br/>
+
+        <div>
+            <h1 th:text="${greeting}"></h1>
+            <h2 th:text="${greetingMessage}"></h2>
+            <h3 th:text="${author}"></h3>
+        </div>
+        <br/> <br/> <hr/> <br/>
+
+        <form th:method="GET" th:action="@{/users}">
+            <input type="submit" value="    Перейти на страницу с решением задачи   "/>
+        </form>
+        <br/> <br/> <hr/> <br/>
+
+        <H3>Сгенерировать тестовые данные для всех таблиц</H3>
+        <form action="#" th:action="@{/generate}" method="post">
+            <label for="userCountLabel">Введите количество генерируемых пользователей:</label>
+            <input type="number" id="userCountLabel" name="user_count" th:value="${user_count_default}" size="8" maxlength="6" required>
+            <button type="submit">Сгенерировать</button>
+        </form>
+        <br/> <br/> <hr/> <br/>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+.highlighted-text {
+    color: blue;
+    background-color: lawngreen;
+    padding: 5px;
+}
+
+.page-info-text {
+    color: green;
+    background-color: gold;
+    padding: 5px;
+}

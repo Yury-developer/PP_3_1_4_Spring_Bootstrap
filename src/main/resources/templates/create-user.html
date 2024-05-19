@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create_user</title>
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/styles.css">
+    </head>
+
+    <body>
+        <H2 class="page-info-text">page: Create user</H2>
+        <br/>
+
+        <form action="#" th:action="@{/users/create}" th:object="${createdUser}" method="post">
+            <label for="name_user">Name (*):</label>
+            <input type="text" id="name_user" th:field="*{name}" placeholder="Name" required>
+            <br> <br/> <br/>
+
+            <label for="date_birth">Date of Birth (*):</label>
+            <input type="date" id="date_birth" th:field="*{dateBirth}" required>
+            <br> <br/> <br/>
+
+            <label for="address_user">Address:</label>
+            <input type="text" id="address_user" th:field="*{address}" placeholder="Address">
+            <br> <br/> <br/>
+
+            <input type="submit" value="Create this User">
+        </form>
+        <br/>
+
+        <h5>(*) - поля обязательные для заполнения</h5>
+        <br/> <hr/> <br/> <br/>
+
+        <form th:method="GET" th:action="@{/users}">
+            <input type="submit" value="To main page"/>
+        </form>
+    </body>
+</html>
