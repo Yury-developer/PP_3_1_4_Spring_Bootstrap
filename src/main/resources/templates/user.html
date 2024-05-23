@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example</title>
-</head>
-<body>
-<h1>User, welcome spring boot security page!</h1>
+    <head>
+        <meta charset="UTF-8">
+        <title>user _ Spring Security</title>
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/styles.css">
+    </head>
+
+    <body>
+        <H2 class="page-info-text">page: User</H2>
+        <br/> <br/>
+
+        <h1>User, добро пожаловать на страницу 'spring boot security page'!</h1>
 
 
-</body>
+        <table border="5">
+            <tr>
+                <td style = "width: 200px; background-color: lightcyan; text-align: center;">Parameter</td>
+                <td style = "width: 500px; background-color: lightcyan; text-align: center;">Value</td>
+            </tr>
+            <tr>
+                <td  style = "background-color: aqua;"></td>
+                <td style = "background-color: aqua; text-align: center;">Personal info:</td>
+            </tr>
+            <tr>
+                <td>User Id</td>
+                <td th:text="${infoUser.getId()}">User Id</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td th:text="${infoUser.getName()}">Name</td>
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td th:text="${infoUser.getDateBirth()}">dateBirth</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td th:text="${infoUser.getAddress()}">Address</td>
+            </tr>
+        </table>
+
+        <br/> <hr/> <br/> <br/>
+
+        <form th:method="GET" th:action="@{/logout}">
+            <input type="submit" value="logout"/>
+        </form>
+        <br/> <br/> <hr/> <br/>
+    </body>
 </html>

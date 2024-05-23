@@ -33,6 +33,10 @@ public class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id") // указываем внешний ключ в таблице ролей
+    private List<Role> roleList;
+
 
     public User(String name, Date dateBirth, String address) {
         this.name = name;

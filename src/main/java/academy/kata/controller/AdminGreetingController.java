@@ -26,7 +26,7 @@ public class AdminGreetingController {
     public String greetingPage(Model model) {
         Integer userCountDefault = 15;   // По умолчанию будет предложено создать такое количество пользователей.
         model.addAttribute("greeting", "Hello!");
-        model.addAttribute("greetingMessage", "Практическая задача 3.1.2 Java pre-project. Задача 3.1. Начинаем работу со Spring Boot.");
+        model.addAttribute("greetingMessage", "Практическая задача 3.1.3 Java pre-project. Задача 3.1.2. Spring Boot, Security.");
         model.addAttribute("author", "Выполнил: Лапицкий Юрий   //   Performed by: Yury Lapitski");
         model.addAttribute("user_count_default", userCountDefault);
         return "greeting-page";

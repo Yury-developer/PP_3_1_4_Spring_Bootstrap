@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 /**
  * @Author: Yury Lapitski
- * 2024-05-18
+ * 2024-05-23
  */
 @Controller
 @RequestMapping(value = "/users/admin")
@@ -31,7 +31,7 @@ public class AdminController {
 
     static {
         try {
-            Resource resource = new ClassPathResource("userController_loggerConfig.properties");
+            Resource resource = new ClassPathResource("adminController_loggerConfig.properties");
             InputStream ins = resource.getInputStream();
             LogManager.getLogManager().readConfiguration(ins);
             LOGGER = Logger.getLogger(AdminController.class.getName());
@@ -86,7 +86,6 @@ public class AdminController {
 
 
     @GetMapping("")
-//    @GetMapping("/")
     public String showAllUsersForm(Model model) {
         LOGGER.fine("UserController: showAllUsersForm");
         List<User> userList = userService.findAll();

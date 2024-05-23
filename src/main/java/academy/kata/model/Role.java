@@ -1,13 +1,11 @@
 package academy.kata.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Set;
 
 
 @Entity
@@ -18,13 +16,11 @@ import java.util.Set;
 public class Role implements GrantedAuthority {
 
     @Id
+    @Column(name = "role_id")
     private Long id;
 
+    @Column(name = "role_name")
     private String name;
-
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
 
 
     public Role(Long id) {
@@ -41,5 +37,4 @@ public class Role implements GrantedAuthority {
     public String getAuthority() { // возвращает имя роли, должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER
         return getName();
     }
-
 }
