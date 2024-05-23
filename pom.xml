@@ -86,6 +86,14 @@
 <!--			<artifactId>spring-boot-starter-tomcat</artifactId>-->
 <!--			<scope>provided</scope>-->
 <!--		</dependency>-->
+
+
+		<!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
+		<dependency>
+			<groupId>net.datafaker</groupId>
+			<artifactId>datafaker</artifactId>
+			<version>2.2.2</version>
+		</dependency>
 	</dependencies>
 
 
