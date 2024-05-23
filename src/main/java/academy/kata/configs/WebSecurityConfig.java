@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 
-@Configuration
+@Configuration // можно не указывать, т.к. по цепочке достанется
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -21,19 +21,52 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.successUserHandler = successUserHandler;
     }
 
+//    // это было в базовом конфиге  взадании
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/", "/index").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().successHandler(successUserHandler)
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
+//    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-                .anyRequest().authenticated()
+                .authorizeRequests() // настроим фauthorize reqwests
+                .antMatchers("/users/**").authenticated() // если пойдем в сторону "/users/**" то пустит только авторизированных пользователей.
+                .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только админов
+                .antMatchers("/profile/**").authenticated() // в страницу профиля могут заходить только аутенцированные пользователи, у кого есть учетка
+
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
+//                .httpBasic() // cстандартная уунтефикация
+                .formLogin() // для авторизации будет наша красивая сверстанная форма/ kлибо по умолччанию как в нашем случае.
+//                .loginProcessingUrl("/hellologin") // логиниться будем по этому URL
+                .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
+
                 .and()
-                .logout()
-                .permitAll();
+                .logout().logoutSuccessUrl("/"); // при дlogout будет вести на корневую страницу нашего приложения.
+
+//                .antMatchers("/", "/index").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().successHandler(successUserHandler)
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
     }
+
+
+
+
+
 
     // аутентификация inMemory
     @Bean

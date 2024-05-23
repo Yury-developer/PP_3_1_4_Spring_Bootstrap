@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -24,8 +22,8 @@ import java.util.logging.Logger;
  * 2024-05-18
  */
 @Controller
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/users/admin")
+public class AdminController {
 
     private final UserService userService;
 
@@ -36,7 +34,7 @@ public class UserController {
             Resource resource = new ClassPathResource("userController_loggerConfig.properties");
             InputStream ins = resource.getInputStream();
             LogManager.getLogManager().readConfiguration(ins);
-            LOGGER = Logger.getLogger(UserController.class.getName());
+            LOGGER = Logger.getLogger(AdminController.class.getName());
             LOGGER.setLevel(Level.ALL);
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +43,7 @@ public class UserController {
     }
 
 
-    public UserController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
@@ -71,7 +69,7 @@ public class UserController {
     public String createUser(@ModelAttribute("createdUser") User user) {
         LOGGER.fine("UserController: addUser, user = " + user);
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/users/admin";
     }
 
 
@@ -112,7 +110,7 @@ public class UserController {
                            @ModelAttribute("editUser") User user) {
         LOGGER.fine("UserController: editUser, user_id = " + userId + "\n user = " + user);
         userService.updateUser(user);
-        return "redirect:/users";
+        return "redirect:/users/admin";
     }
 
 
@@ -121,13 +119,13 @@ public class UserController {
     public String deleteUser(@RequestParam(name = "user_id") Long userId) {
         LOGGER.fine("UserController: deleteUser, user_id = " + userId);
         userService.deleteById(userId);
-        return "redirect:/users";
+        return "redirect:/users/admin";
     }
 
     @PostMapping("/delete-all")
     public String deleteAllUsers() {
         LOGGER.fine("UserController: deleteAllUsers");
         userService.deleteAll();
-        return "redirect:/users";
+        return "redirect:/users/admin";
     }
 }

@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping(value = "/")
-public class GreetingController {
+@RequestMapping(value = "/users/admin/welcome")
+public class AdminGreetingController {
 
     private final UserService userService;
 
 
-    public GreetingController(UserService userService) {
+    public AdminGreetingController(UserService userService) {
         this.userService = userService;
     }
 
@@ -37,6 +37,6 @@ public class GreetingController {
     public String generateTestData(@RequestParam(name = "user_count") Integer userCount) {
         System.out.println("GreetingController: generateTestData");
         userService.generateTestData(userCount);
-        return "redirect:/users";
+        return "redirect:/users/admin";
     }
 }

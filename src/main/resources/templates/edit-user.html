@@ -10,7 +10,7 @@
         <H2 class="page-info-text">page: Edit user</H2>
         <br/>
 
-        <form th:action="@{/users/edit}" th:object="${editUser}" method="post">
+        <form th:action="@{/users/admin/edit}" th:object="${editUser}" method="post">
             <input type="hidden" th:field="*{id}">
             <label for="name">Name:</label>
             <input type="text" id="name" th:field="*{name}" size="70" maxlength="150" required>
@@ -36,6 +36,11 @@
 
         <form th:method="GET" th:action="@{/users}">
             <input type="submit" value="Go to the main page"/>
+        </form>
+        <br/> <hr/> <br/> <br/>
+
+        <form th:method="GET" th:action="@{/logout}">
+            <input type="submit" value="logout"/>
         </form>
         <br/> <br/> <hr/>
     </body>
