@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -35,7 +36,7 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id") // указываем внешний ключ в таблице ролей
-    private List<Role> roleList;
+    private Set<Role> roleList;
 
 
     public User(String name, Date dateBirth, String address) {
