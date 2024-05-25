@@ -2,7 +2,7 @@ package academy.kata.controller;
 
 import academy.kata.model.User;
 import academy.kata.service.UserService;
-import academy.kata.utils.UserFactory;
+import academy.kata.utils.UserGenerator;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
@@ -61,7 +61,7 @@ public class AdminController {
     @GetMapping("/create")
     public String showCreateUserForm(Model model) {
         LOGGER.fine("UserController: showCreateUserForm");
-        model.addAttribute("createdUser", UserFactory.getDefaultUser());
+        model.addAttribute("createdUser", UserGenerator.getDefaultUser());
         return "create-user";
     }
 

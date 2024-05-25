@@ -2,8 +2,7 @@ package academy.kata.service;
 
 import academy.kata.repository.*;
 import academy.kata.model.User;
-import academy.kata.utils.UserFactory;
-import academy.kata.utils.UserFaker;
+import academy.kata.utils.UserGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void generateTestData(Integer count) {
-        userRepository.saveAll(Arrays.asList(UserFactory.generateUsers(count)));
-//        userRepository.saveAll(Arrays.asList(UserFaker.generateUsers(count)));
+//        userRepository.saveAll(Arrays.asList(UserFactory.generateUsers(count)));
+        userRepository.saveAll(Arrays.asList(UserGenerator.generateUsers(count)));
     }
 }

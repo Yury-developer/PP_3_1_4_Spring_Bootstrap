@@ -25,6 +25,9 @@ public class User implements UserDetails {
     @Column(name = "user_id", updatable = false, nullable = false) // поле не может быть обновлено при выполнении операции обновления (UPDATE) в базе данных; не может содержать значение NULL
     private Long id;
 
+    @Column(name = "login", length = 50, nullable = false)
+    private String login;
+
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
@@ -39,7 +42,8 @@ public class User implements UserDetails {
     private Set<Role> roleList;
 
 
-    public User(String name, Date dateBirth, String address) {
+    public User(String login, String name, Date dateBirth, String address) {
+        this.login = login;
         this.name = name;
         this.dateBirth = dateBirth;
         this.address = address;
@@ -50,6 +54,7 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", dateBirth=" + dateBirth +
                 ", address='" + address + '\'' +

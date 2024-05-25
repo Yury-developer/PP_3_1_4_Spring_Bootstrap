@@ -2,7 +2,7 @@ package academy.kata.controller;
 
 import academy.kata.model.User;
 import academy.kata.service.UserService;
-import academy.kata.utils.UserFactory;
+import academy.kata.utils.UserGenerator;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
@@ -52,7 +52,7 @@ public class UserController {
         LOGGER.fine("UserController: userPage");
 
         System.out.println(principal.getName());
-        User user = UserFactory.getDefaultUser();
+        User user = UserGenerator.getDefaultUser();
         user.setName(principal.getName());
 
         model.addAttribute("infoUser", user);
