@@ -72,19 +72,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("u")
-                        .roles("USER")
-                        .build();
+        UserDetails user = User.builder() // минимальная информация о пользователе
+                .username("user")
+//                .password("{bcrypt}$2a$10$4sqSaa4di9Y511hsKxoe3u9Ri85EQOxqbwfFV0RAAAnxUMKYll542") // password=user
+                .password("{bcrypt}$2a$10$Iom7deSLgxAxykvuANH2s.KpMy5xWbjgQmcsuiycdJt0UMoQflKaC") // password=u
+                .roles("USER")
+                .build();
+        UserDetails admin = User.builder() // минимальная информация о пользователе
+                .username("admin")
+//                .password("{bcrypt}$2a$10$yRrs63ZIWDxNIB6LmmwVu.h243nBteNei2Gs4Llt7bymuJZQOoRYG") // password=admin
+                .password("{bcrypt}$2a$10$dWJyopJqWj/PDxEozd6MzOzTwV.5c2GNoU6hUiou0YOF2CHkfDoZK") // password=a
+                .roles("ADMIN")
+                .build();
 
-        UserDetails admin =
-                User.withDefaultPasswordEncoder()
-                        .username("admin")
-                        .password("a")
-                        .roles("ADMIN")
-                        .build();
+
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username("user")
+//                        .password("u")
+//                        .roles("USER")
+//                        .build();
+//
+//        UserDetails admin =
+//                User.withDefaultPasswordEncoder()
+//                        .username("admin")
+//                        .password("a")
+//                        .roles("ADMIN")
+//                        .build();
 
         return new InMemoryUserDetailsManager(user, admin);
     }
