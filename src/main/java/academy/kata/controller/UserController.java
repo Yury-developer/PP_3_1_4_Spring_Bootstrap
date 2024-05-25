@@ -53,7 +53,7 @@ public class UserController {
 
         System.out.println(principal.getName());
         User user = UserGenerator.getDefaultUser();
-        user.setName(principal.getName());
+        user.setFullName(principal.getName());
 
         model.addAttribute("infoUser", user);
         return "user";

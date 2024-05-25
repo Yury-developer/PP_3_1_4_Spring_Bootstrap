@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <td  style = "background-color: aqua;"></td>
-                <td style = "background-color: aqua; text-align: center;">Personal info:</td>
+                <td style = "background-color: aqua; text-align: center;">User info:</td>
             </tr>
             <tr>
                 <td>User Id</td>
@@ -25,11 +25,27 @@
             </tr>
             <tr>
                 <td>Login</td>
-                <td th:text="${viewUser.getLogin()}">Login</td>
+                <td th:text="${viewUser.getUsername()}">Login</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td th:text="${viewUser.getPassword()}">Password</td>
+            </tr>
+            <tr>
+                <td>Roles</td>
+                <td></td>
+                <tr th:each="itemRole : ${viewUser.roles}">
+                    <td style="text-align: right;"> <em>Role:</em> </td>
+                    <td style="text-align: center;" th:utext="${itemRole.getName()}">id</td>
+                </tr>
+            </tr>
+            <tr>
+                <td  style = "background-color: aqua;"></td>
+                <td style = "background-color: aqua; text-align: center;">Personal info:</td>
             </tr>
             <tr>
                 <td>Name</td>
-                <td th:text="${viewUser.getName()}">Name</td>
+                <td th:text="${viewUser.getFullName()}">Name</td>
             </tr>
             <tr>
                 <td>Date of Birth</td>

@@ -13,20 +13,24 @@
         <form th:action="@{/users/admin/edit}" th:object="${editUser}" method="post">
             <input type="hidden" th:field="*{id}">
 
-            <label for="login">Login:</label>
-            <input type="text" id="login" th:field="*{login}" size="70" maxlength="150" required>
+            <label for="login">Login (*):</label>
+            <input type="text" id="login" th:field="*{username}" size="70" maxlength="150" required>
             <br/> <br/>
 
-            <label for="name">Name:</label>
-            <input type="text" id="name" th:field="*{name}" size="70" maxlength="150" required>
+            <label for="password">Password (*):</label>
+            <input type="text" id="password" th:field="*{password}" size="70" maxlength="128" required>
+            <br> <br/> <br/>
+
+            <label for="name">Full Name (*):</label>
+            <input type="text" id="name" th:field="*{fullName}" size="70" maxlength="150" required>
             <br/> <br/>
 
             <label for="dateBirth">Date of Birth:</label>
-            <input type="date" id="dateBirth" th:field="*{dateBirth}">
+            <input type="date" id="dateBirth" th:field="*{dateBirth}" required>
             <br/> <br/>
 
             <label for="address">Address:</label>
-            <input type="text" id="address" th:field="*{address}" size="70" maxlength="200" required>
+            <input type="text" id="address" th:field="*{address}" size="70" maxlength="200">
             <br/> <br/> <br/>
 
             <input type="submit" value="Save">

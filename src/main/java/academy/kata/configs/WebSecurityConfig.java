@@ -1,13 +1,18 @@
 package academy.kata.configs;
 
+import academy.kata.service.UserUtilService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
@@ -19,9 +24,12 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
+    private UserUtilService userUtilService;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
+    @Autowired
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserUtilService userUtilService) {
         this.successUserHandler = successUserHandler;
+        this.userUtilService = userUtilService;
     }
 
 //    // это было в базовом конфиге  взадании
@@ -70,41 +78,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-
-    // аутентификация inMemory
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder() // минимальная информация о пользователе
-                .username("user")
-//                .password("{bcrypt}$2a$10$4sqSaa4di9Y511hsKxoe3u9Ri85EQOxqbwfFV0RAAAnxUMKYll542") // password=user
-                .password("{bcrypt}$2a$10$Iom7deSLgxAxykvuANH2s.KpMy5xWbjgQmcsuiycdJt0UMoQflKaC") // password=u
-                .roles("USER")
-                .build();
-        UserDetails admin = User.builder() // минимальная информация о пользователе
-                .username("admin")
-//                .password("{bcrypt}$2a$10$yRrs63ZIWDxNIB6LmmwVu.h243nBteNei2Gs4Llt7bymuJZQOoRYG") // password=admin
-                .password("{bcrypt}$2a$10$dWJyopJqWj/PDxEozd6MzOzTwV.5c2GNoU6hUiou0YOF2CHkfDoZK") // password=a
-                .roles("ADMIN")
-                .build();
-
-// Так было  в базовом варианте, пароли хранились в незашифрованном виде
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("u")
-//                        .roles("USER")
-//                        .build();
+//    // аутентификация inMemory
+//    @Bean
+//    @Override
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user = User.builder() // минимальная информация о пользователе
+//                .username("user")
+////                .password("{bcrypt}$2a$10$4sqSaa4di9Y511hsKxoe3u9Ri85EQOxqbwfFV0RAAAnxUMKYll542") // password=user
+//                .password("{bcrypt}$2a$10$Iom7deSLgxAxykvuANH2s.KpMy5xWbjgQmcsuiycdJt0UMoQflKaC") // password=u
+//                .roles("USER")
+//                .build();
+//        UserDetails admin = User.builder() // минимальная информация о пользователе
+//                .username("admin")
+////                .password("{bcrypt}$2a$10$yRrs63ZIWDxNIB6LmmwVu.h243nBteNei2Gs4Llt7bymuJZQOoRYG") // password=admin
+//                .password("{bcrypt}$2a$10$dWJyopJqWj/PDxEozd6MzOzTwV.5c2GNoU6hUiou0YOF2CHkfDoZK") // password=a
+//                .roles("ADMIN")
+//                .build();
 //
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("a")
-//                        .roles("ADMIN")
-//                        .build();
+//// Так было  в базовом варианте, пароли хранились в незашифрованном виде
+////        UserDetails user =
+////                User.withDefaultPasswordEncoder()
+////                        .username("user")
+////                        .password("u")
+////                        .roles("USER")
+////                        .build();
+////
+////        UserDetails admin =
+////                User.withDefaultPasswordEncoder()
+////                        .username("admin")
+////                        .password("a")
+////                        .roles("ADMIN")
+////                        .build();
+//
+//        return new InMemoryUserDetailsManager(user, admin);
+//    }
 
-        return new InMemoryUserDetailsManager(user, admin);
-    }
+
 
 
 
@@ -138,4 +147,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return manager;
 //    }
 
+
+    // для преобразования паролей
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+
+    // аутентификация jdbcAuthenticator
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        authenticationProvider.setUserDetailsService(userUtilService);
+        return authenticationProvider;
+    }
 }

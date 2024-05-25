@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -25,20 +24,21 @@ public class User implements UserDetails {
     @Column(name = "user_id", updatable = false, nullable = false) // поле не может быть обновлено при выполнении операции обновления (UPDATE) в базе данных; не может содержать значение NULL
     private Long id;
 
-    @Column(name = "login", length = 50, nullable = false)
-    private String login;
+    @Column(name = "username", length = 50, nullable = false) // login
+    private String username;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
+    @Column(name = "password", length = 128, nullable = false) // password
+    private String password;
 
-    @Column(name = "dateBirth")
+    @Column(name = "full_name", length = 50, nullable = false)
+    private String fullName;
+
+    @Column(name = "date_birth")
     private Date dateBirth;
 
     @Column(name = "address")
     private String address;
 
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id") // указываем внешний ключ в таблице ролей
     @ManyToMany
     @JoinTable(name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id"),
@@ -46,9 +46,15 @@ public class User implements UserDetails {
     private Collection<Role> roles;
 
 
-    public User(String login, String name, Date dateBirth, String address) {
-        this.login = login;
-        this.name = name;
+    public User(String login, String password, Collection<Role> roles, String fullName, Date dateBirth, String address) {
+        this(login, password, fullName, dateBirth, address);
+        this.roles = roles;
+    }
+
+    public User(String login, String password, String fullName, Date dateBirth, String address) {
+        this.username = login;
+        this.password = password;
+        this.fullName = fullName;
         this.dateBirth = dateBirth;
         this.address = address;
     }
@@ -58,14 +64,14 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", dateBirth=" + dateBirth +
                 ", address='" + address + '\'' +
+                ", roles=" + roles +
                 '}';
     }
-
-
 
 
     @Override
@@ -74,13 +80,13 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return "";
+    public String getUsername() {
+        return username;
     }
 
     @Override
-    public String getUsername() {
-        return "";
+    public String getPassword() {
+        return password;
     }
 
     @Override

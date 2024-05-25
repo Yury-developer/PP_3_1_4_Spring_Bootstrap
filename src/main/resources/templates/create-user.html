@@ -13,11 +13,15 @@
         <form action="#" th:action="@{/users/admin/create}" th:object="${createdUser}" method="post">
 
             <label for="login_user">Login (*):</label>
-            <input type="text" id="login_user" th:field="*{login}" placeholder="Login" required>
+            <input type="text" id="login_user" th:field="*{username}" placeholder="Login" required>
             <br> <br/> <br/>
 
-            <label for="name_user">Name (*):</label>
-            <input type="text" id="name_user" th:field="*{name}" placeholder="Name" required>
+            <label for="password_user">Password (*):</label>
+            <input type="text" id="password_user" th:field="*{password}" placeholder="Password" required>
+            <br> <br/> <br/>
+
+            <label for="name_user">Full Name (*):</label>
+            <input type="text" id="name_user" th:field="*{fullName}" placeholder="Full Name" required>
             <br> <br/> <br/>
 
             <label for="date_birth">Date of Birth (*):</label>
