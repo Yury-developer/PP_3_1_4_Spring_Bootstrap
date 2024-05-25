@@ -37,9 +37,13 @@ public class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id") // указываем внешний ключ в таблице ролей
-    private Set<Role> roleList;
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "user_id") // указываем внешний ключ в таблице ролей
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")) // указываем внешний ключ в таблице ролей
+    private Collection<Role> roles;
 
 
     public User(String login, String name, Date dateBirth, String address) {

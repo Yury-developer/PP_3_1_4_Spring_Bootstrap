@@ -47,7 +47,7 @@ public class UserGenerator {
             users[i] = new User(login, name, dateBirth, address);
             Set<Role> roleList = new HashSet<Role>();
 //            roleList.add(new Role(0L, "USER"));
-            users[i].setRoleList(roleList);
+//            users[i].setRoleList(roleList);
         }
         return users;
     }
