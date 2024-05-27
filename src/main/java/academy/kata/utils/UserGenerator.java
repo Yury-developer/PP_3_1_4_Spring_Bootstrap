@@ -3,8 +3,10 @@ package academy.kata.utils;
 import academy.kata.model.Role;
 import academy.kata.model.Roles;
 import academy.kata.model.User;
+import academy.kata.repository.RoleRepository;
 import com.ibm.icu.text.Transliterator;
 import net.datafaker.Faker;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -18,6 +20,9 @@ public class UserGenerator {
 
     private static final String DEFAULT_PASSWORD = "$2a$10$XtQgyP.gzuElotzb/lZDtORvqquxzcuZvifWc8NsCOFR6Lml1zpQS"; // defaultPassword = "1"
 
+
+
+
     public static User getDefaultUser() {
 
         String login = "userLogin";
@@ -25,6 +30,7 @@ public class UserGenerator {
         LocalDate localDate = LocalDate.now();   // Получаем текущую дату как LocalDate
         Date sqlDate = Date.valueOf(localDate);   // Преобразуем LocalDate в java.sql.Date
         String address = "userAddress";
+//        Role role = ro
         User user =  new User(login, DEFAULT_PASSWORD, name, sqlDate, address);
 //        User user = generateUsers(1)[0];
 

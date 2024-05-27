@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests() // настроим фauthorize reqwests
+                .authorizeRequests() // настроим authorize requests
                 .antMatchers("/users/**").authenticated() // если пойдем в сторону "/users/**" то пустит только авторизированных пользователей.
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только админов
                 .antMatchers("/profile/**").authenticated() // в страницу профиля могут заходить только аутенцированные пользователи, у кого есть учетка

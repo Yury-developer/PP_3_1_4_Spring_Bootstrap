@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -39,14 +40,15 @@ public class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) //*
     @JoinTable(name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")) // указываем внешний ключ в таблице ролей
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
 
-    public User(String login, String password, Collection<Role> roles, String fullName, Date dateBirth, String address) {
+
+    public User(String login, String password, Set<Role> roles, String fullName, Date dateBirth, String address) {
         this(login, password, fullName, dateBirth, address);
         this.roles = roles;
     }
@@ -58,6 +60,7 @@ public class User implements UserDetails {
         this.dateBirth = dateBirth;
         this.address = address;
     }
+
 
 
     @Override
@@ -74,38 +77,45 @@ public class User implements UserDetails {
     }
 
 
+    // Возвращает коллекцию прав (или ролей), предоставленных пользователю. Возвращаемый тип — Collection<? extends GrantedAuthority>.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
 
+    // Возвращает имя пользователя, используемое для аутентификации.
     @Override
     public String getUsername() {
         return username;
     }
 
+    //  Возвращает пароль пользователя.
     @Override
     public String getPassword() {
         return password;
     }
 
+    // Указывает, не истёк ли срок действия аккаунта пользователя. Если истёк, то пользователю запрещается аутентификация.
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
+    // Указывает, не заблокирован ли аккаунт пользователя. Если аккаунт заблокирован, то пользователю запрещается аутентификация.
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
+    // Указывает, не истёк ли срок действия учетных данных пользователя (пароля). Если истёк, то пользователю запрещается аутентификация.
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
+    //  Указывает, включён ли пользователь. Отключённый пользователь не может быть аутентифицирован.
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
