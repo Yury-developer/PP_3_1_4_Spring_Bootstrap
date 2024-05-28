@@ -8,7 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
+    // при обращении 'http://localhost:8080/user' перебросит сразу на 'user.html' минуя контроллер
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/user").setViewName("user");
+        registry.addViewController("/user").setViewName("user"); // переделать!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 }
