@@ -20,7 +20,8 @@ import javax.sql.DataSource;
 
 
 @Configuration // можно не указывать, т.к. по цепочке достанется
-@EnableWebSecurity(debug = true) // 'debug = true' -в консоль высыпется вс цепочка фильтров   https://www.youtube.com/live/HvovW6Uh1yU?si=C4vl98El9oe2b89-&t=6108
+@EnableWebSecurity
+//@EnableWebSecurity(debug = true) // 'debug = true' -в консоль высыпется вс цепочка фильтров   https://www.youtube.com/live/HvovW6Uh1yU?si=C4vl98El9oe2b89-&t=6108
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
@@ -51,15 +52,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests() // настроим authorize requests
-                .antMatchers("/users/**").authenticated() // если пойдем в сторону "/users/**" то пустит только авторизированных пользователей.
-                .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только С РОЛЯМИ 'ADMIN' и 'SUPERADMIN'
-                .antMatchers("/admin/**").hasAuthority("ONLY_REED") // а также в админку пустит С ПРАВАМИ 'ONLY_REED' (тут сравнивает один к одному)
-                .antMatchers("/profile/**").authenticated() // в страницу профиля могут заходить только аутенцированные пользователи, у кого есть учетка
+                .antMatchers("/css/**", "/index").permitAll() // Разрешить доступ к стилям и главной странице
+
+//                .antMatchers("/user/**").authenticated() // если пойдем в сторону "/user/**" то пустит только авторизированных пользователей.
+                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN") // в админку пускаем только С РОЛЯМИ 'ADMIN' и 'SUPERADMIN'
+//                .antMatchers("/admin/**").hasAuthority("ONLY_REED") // а также в админку пустит С ПРАВАМИ 'ONLY_REED' (тут сравнивает один к одному)
 
                 .and()
 //                .httpBasic() // cстандартная уунтефикация
                 .formLogin() // для авторизации будет НАША красивая сверстанная форма/ либо по умолчанию Spring сгенерит, как в нашем случае.
 //                .loginProcessingUrl("/hellologin") // логиниться будем по этому URL
+                .permitAll()  // Разрешение доступа к странице логина для всех
                 .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
 
                 .and()

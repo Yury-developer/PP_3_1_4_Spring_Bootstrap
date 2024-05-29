@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping(value = "/users/admin/welcome")
+@RequestMapping(value = "/admin/welcome")
 public class AdminGreetingController {
 
     private final UserService userService;
@@ -29,7 +29,7 @@ public class AdminGreetingController {
         model.addAttribute("greetingMessage", "Практическая задача 3.1.3 Java pre-project. Задача 3.1.2. Spring Boot, Security.");
         model.addAttribute("author", "Выполнил: Лапицкий Юрий   //   Performed by: Yury Lapitski");
         model.addAttribute("user_count_default", userCountDefault);
-        return "greeting-page";
+        return "admin/greeting-page";
     }
 
 
@@ -37,6 +37,6 @@ public class AdminGreetingController {
     public String generateTestData(@RequestParam(name = "user_count") Integer userCount) {
         System.out.println("GreetingController: generateTestData");
         userService.generateTestData(userCount);
-        return "redirect:/users/admin";
+        return "redirect:/admin";
     }
 }

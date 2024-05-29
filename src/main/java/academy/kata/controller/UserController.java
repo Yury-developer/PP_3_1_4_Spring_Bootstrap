@@ -5,6 +5,8 @@ import academy.kata.service.UserService;
 import academy.kata.utils.UserGenerator;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,7 @@ import java.util.logging.Logger;
 
 
 @Controller
-@RequestMapping(value = "/users/user")
+@RequestMapping(value = "/user")
 public class UserController {
 
     private final UserService userService;
@@ -51,11 +53,12 @@ public class UserController {
     public String userPage(Model model, Principal principal) {
         LOGGER.fine("UserController: userPage");
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User currentUser = userService.findByUsername(currentUserName);
         System.out.println(principal.getName());
-        User user = UserGenerator.getDefaultUser();
-        user.setFullName(principal.getName());
 
-        model.addAttribute("infoUser", user);
-        return "user";
+        model.addAttribute("infoUser", currentUser);
+        return "user/user";
     }
 }

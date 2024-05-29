@@ -58,19 +58,19 @@
         </table>
         <br/> <br/> <hr/> <br/>
 
-        <form th:action="@{/users/admin/edit}" method="get">
+        <form th:action="@{/admin/edit}" method="get">
             <input type="hidden" name="user_id" th:value="${viewUser.getId()}" />
             <button type="submit">Edit this user</button>
         </form>
         <br/>
 
-        <form th:action="@{/users/admin/delete}" method="get">
+        <form th:action="@{/admin/delete}" method="get">
             <input type="hidden" name="user_id" th:value="${viewUser.getId()}" />
             <button type="submit">Delete this user</button>
         </form>
         <br/>
 
-        <form th:method="GET" th:action="@{/users/admin}">
+        <form th:method="GET" th:action="@{/admin}">
             <input type="submit" value="Go to the main page"/>
         </form>
         <br/> <hr/> <br/> <br/>

@@ -10,7 +10,7 @@
         <H2 class="page-info-text">page: Create user</H2>
         <br/>
 
-        <form action="#" th:action="@{/users/admin/create}" th:object="${createdUser}" method="post">
+        <form action="#" th:action="@{/admin/create}" th:object="${createdUser}" method="post">
 
             <label for="login_user">Login (*):</label>
             <input type="text" id="login_user" th:field="*{username}" placeholder="Login" required>
@@ -39,7 +39,7 @@
         <h5>(*) - поля обязательные для заполнения</h5>
         <br/> <hr/> <br/> <br/>
 
-        <form th:method="GET" th:action="@{/users/admin}">
+        <form th:method="GET" th:action="@{/admin}">
             <input type="submit" value="To main page"/>
         </form>
         <br/> <hr/> <br/> <br/>

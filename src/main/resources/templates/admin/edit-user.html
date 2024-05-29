@@ -10,7 +10,7 @@
         <H2 class="page-info-text">page: Edit user</H2>
         <br/>
 
-        <form th:action="@{/users/admin/edit}" th:object="${editUser}" method="post">
+        <form th:action="@{/admin/edit}" th:object="${editUser}" method="post">
             <input type="hidden" th:field="*{id}">
 
             <label for="login">Login (*):</label>
@@ -37,13 +37,13 @@
         </form>
         <br/> <br/> <hr/> <br/> <br/>
 
-        <form th:action="@{/users/admin/delete}" method="get">
+        <form th:action="@{/admin/delete}" method="get">
             <input type="hidden" name="user_id" th:value="${editUser.getId()}" />
             <button type="submit">Delete this user</button>
         </form>
         <br/>
 
-        <form th:method="GET" th:action="@{/users/admin}">
+        <form th:method="GET" th:action="@{/admin}">
             <input type="submit" value="Go to the main page"/>
         </form>
         <br/> <hr/> <br/> <br/>

@@ -19,10 +19,10 @@ import java.util.logging.Logger;
 
 /**
  * @Author: Yury Lapitski
- * 2024-05-23
+ * 2024-05-29
  */
 @Controller
-@RequestMapping(value = "/users/admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     private final UserService userService;
@@ -52,7 +52,7 @@ public class AdminController {
     // просто возвращает страницу приветствия (с нее можно сгенерировать тестовые данные во все таблицы)
     @RequestMapping(method = RequestMethod.HEAD)
     public String ping() {
-        LOGGER.fine("UserController: ping");
+        LOGGER.fine("AdminController: ping");
         return "redirect:/";
     }
 
@@ -60,16 +60,16 @@ public class AdminController {
 
     @GetMapping("/create")
     public String showCreateUserForm(Model model) {
-        LOGGER.fine("UserController: showCreateUserForm");
+        LOGGER.fine("AdminController: showCreateUserForm");
         model.addAttribute("createdUser", UserGenerator.getDefaultUser());
-        return "create-user";
+        return "admin/create-user";
     }
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("createdUser") User user) {
-        LOGGER.fine("UserController: addUser, user = " + user);
+        LOGGER.fine("AdminController: addUser, user = " + user);
         userService.saveUser(user);
-        return "redirect:/users/admin";
+        return "redirect:/admin";
     }
 
 
@@ -77,20 +77,20 @@ public class AdminController {
     @GetMapping("/view")
     public String showUserDetailsForm(@RequestParam(defaultValue = "0", required = false, name = "user_id") Long userId,
                                       Model model) {
-        LOGGER.fine("UserController: showUserDetailsForm, user_id = " + userId);
+        LOGGER.fine("AdminController: showUserDetailsForm, user_id = " + userId);
         User user = userService.findById(userId);
         model.addAttribute("viewUser", user);
-        return "view-user";
+        return "admin/view-user";
     }
 
 
 
     @GetMapping("")
     public String showAllUsersForm(Model model) {
-        LOGGER.fine("UserController: showAllUsersForm");
+        LOGGER.fine("AdminController: showAllUsersForm");
         List<User> userList = userService.findAll();
         model.addAttribute("viewAllUsers", userList);
-        return "all-users";
+        return "admin/all-users";
     }
 
 
@@ -98,33 +98,33 @@ public class AdminController {
     @GetMapping("/edit")
     public String showEditUserForm(@RequestParam(name = "user_id") Long userId,
                                    Model model) {
-        LOGGER.fine("UserController: showEditUserForm, user_id = " + userId);
+        LOGGER.fine("AdminController: showEditUserForm, user_id = " + userId);
         User user = userService.findById(userId);
         model.addAttribute("editUser", user);
-        return "edit-user";
+        return "admin/edit-user";
     }
 
     @PostMapping("/edit")
     public String editUser(@RequestParam(name = "id") Long userId,
                            @ModelAttribute("editUser") User user) {
-        LOGGER.fine("UserController: editUser, user_id = " + userId + "\n user = " + user);
+        LOGGER.fine("AdminController: editUser, user_id = " + userId + "\n user = " + user);
         userService.updateUser(user);
-        return "redirect:/users/admin";
+        return "redirect:/admin";
     }
 
 
 
     @GetMapping("/delete")
     public String deleteUser(@RequestParam(name = "user_id") Long userId) {
-        LOGGER.fine("UserController: deleteUser, user_id = " + userId);
+        LOGGER.fine("AdminController: deleteUser, user_id = " + userId);
         userService.deleteById(userId);
-        return "redirect:/users/admin";
+        return "redirect:/admin";
     }
 
     @PostMapping("/delete-all")
     public String deleteAllUsers() {
-        LOGGER.fine("UserController: deleteAllUsers");
+        LOGGER.fine("AdminController: deleteAllUsers");
         userService.deleteAll();
-        return "redirect:/users/admin";
+        return "redirect:/admin";
     }
 }

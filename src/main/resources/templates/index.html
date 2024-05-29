@@ -12,11 +12,12 @@
 
         <h1>Добро пожаловать в систему!</h1>
         <br/> <br/>
+
         <h2>Для работы с системой вам необходимо залогиниться.</h2>
         <br/> <br/> <br/> <hr/> <br/> <br/>
-        <form th:method="GET" th:action="@{/users}">
+
+        <form th:method="POST" th:action="@{/login}">
             <input type="submit" value="Ввести логин и пароль"/>
         </form>
-
     </body>
 </html>

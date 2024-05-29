@@ -21,8 +21,8 @@ SELECT * FROM users_roles;
 USE `PP_3_1_3_spring-boot-security`;
 
 -- Добавление ролей
-INSERT INTO t_role (role_id, role_name) VALUES (1, 'USER');
-INSERT INTO t_role (role_id, role_name) VALUES (2, 'ADMIN');
+INSERT INTO t_role (role_id, role_name) VALUES (1, 'ROLE_USER');
+INSERT INTO t_role (role_id, role_name) VALUES (2, 'ROLE_ADMIN');
 
 -- Добавление пользователей
 INSERT INTO users (user_id, address, date_birth, fullName, password, username) 

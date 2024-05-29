@@ -34,6 +34,6 @@ public class DefaultController {
 
     @GetMapping("/authenticated")
     public String authenticatedPage() {
-        return "user";
+        return "user/user";
     }
 }

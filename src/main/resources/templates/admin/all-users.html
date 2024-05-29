@@ -31,7 +31,7 @@
                         <td style="text-align: center;" th:utext="${itemUser.getId()}">id</td>
                         <td th:utext="${itemUser.getFullName()}">FirstName</td>
                         <td style="text-align: center;" th:utext="${itemUser.getDateBirth()}">DateBirth</td>
-                        <td style="text-align: center;"> <em> <a th:href="@{/users/admin/view(user_id=${itemUser.getId()})}">View info</a> </em> </td>
+                        <td style="text-align: center;"> <em> <a th:href="@{/admin/view(user_id=${itemUser.getId()})}">View info</a> </em> </td>
                     </tr>
                 </table>
             </div>
@@ -39,17 +39,17 @@
         </div>
         <br/> <br/> <hr/> <br/>
 
-        <form th:method="GET" th:action="@{/users/admin/create}">
+        <form th:method="GET" th:action="@{/admin/create}">
             <input type="submit" value="Create new user"/>
         </form>
         <br/> <br/>
 
-        <form th:method="POST" th:action="@{/users/admin/delete-all}">
+        <form th:method="POST" th:action="@{/admin/delete-all}">
             <input type="submit" value="Delete all users"/>
         </form>
         <br/> <br/>
 
-        <form th:method="GET" th:action="@{/users/admin/welcome}">
+        <form th:method="GET" th:action="@{/admin/welcome}">
             <input type="submit" value="Welcome to the greeting page"/>
         </form>
         <br/> <hr/> <br/> <br/>
