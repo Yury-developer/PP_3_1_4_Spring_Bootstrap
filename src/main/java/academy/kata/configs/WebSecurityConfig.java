@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 
 
 @Configuration // можно не указывать, т.к. по цепочке достанется
-@EnableWebSecurity
+@EnableWebSecurity(debug = true) // 'debug = true' -в консоль высыпется вс цепочка фильтров   https://www.youtube.com/live/HvovW6Uh1yU?si=C4vl98El9oe2b89-&t=6108
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
@@ -52,17 +52,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests() // настроим authorize requests
                 .antMatchers("/users/**").authenticated() // если пойдем в сторону "/users/**" то пустит только авторизированных пользователей.
-                .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только админов
+                .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только С РОЛЯМИ 'ADMIN' и 'SUPERADMIN'
+                .antMatchers("/admin/**").hasAuthority("ONLY_REED") // а также в админку пустит С ПРАВАМИ 'ONLY_REED' (тут сравнивает один к одному)
                 .antMatchers("/profile/**").authenticated() // в страницу профиля могут заходить только аутенцированные пользователи, у кого есть учетка
 
                 .and()
 //                .httpBasic() // cстандартная уунтефикация
-                .formLogin() // для авторизации будет наша красивая сверстанная форма/ kлибо по умолччанию как в нашем случае.
+                .formLogin() // для авторизации будет НАША красивая сверстанная форма/ либо по умолчанию Spring сгенерит, как в нашем случае.
 //                .loginProcessingUrl("/hellologin") // логиниться будем по этому URL
                 .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
 
                 .and()
-                .logout().logoutSuccessUrl("/"); // при дlogout будет вести на корневую страницу нашего приложения.
+                .logout().logoutSuccessUrl("/"); // при logout будет вести на корневую страницу нашего приложения.
 
 //                .antMatchers("/", "/index").permitAll()
 //                .anyRequest().authenticated()
@@ -119,6 +120,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    // аутентификация jdbcAuthenticator
 //    @Bean
+//     // DaoAuthenticationProvider является и UserDetails (знает как из стандартных таблиц дергнуть User'ов и AuthenticationProvider, т.к. он умее делать сверку.
 //    public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) { // при старте будем засовывать в базу этих пользователей.
 //        UserDetails user = User.builder() // минимальная информация о пользователе
 //                .username("user")
@@ -164,4 +166,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setUserDetailsService(userUtilService);
         return authenticationProvider;
     }
+    /*
+     Задача AuthenticationProvider у UserDetailsService запросить User'а взять token и сравнить совпадают ли эти данные. Совпадают -кладем в контекст.
+     UserDetailsService -источник User'ов
+     AuthenticationProvider -сверщик
+     */
 }

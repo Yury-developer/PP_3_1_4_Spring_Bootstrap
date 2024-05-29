@@ -3,6 +3,7 @@ package academy.kata.service;
 import academy.kata.repository.*;
 import academy.kata.model.User;
 import academy.kata.utils.UserGenerator;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    @Secured("ROLE_ADMIN") // так можно точечно защитить на уровне методов (если злоумыш_ обошел все-же все защиты)
     public void deleteAll() {
         List<User> userList = findAll();
         userRepository.deleteAll();

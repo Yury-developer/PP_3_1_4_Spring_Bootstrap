@@ -1,7 +1,6 @@
 package academy.kata.utils;
 
 import academy.kata.model.Role;
-import academy.kata.model.Roles;
 import academy.kata.model.User;
 import academy.kata.repository.RoleRepository;
 import com.ibm.icu.text.Transliterator;
@@ -12,8 +11,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static academy.kata.model.Roles.USER;
 
 
 public class UserGenerator {
