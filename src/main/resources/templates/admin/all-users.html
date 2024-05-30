@@ -49,13 +49,18 @@
         </form>
         <br/> <br/>
 
-        <form th:method="GET" th:action="@{/admin/welcome}">
+        <form th:method="GET" th:action="@{/admin/admin}">
             <input type="submit" value="Welcome to the greeting page"/>
+        </form>
+        <br/> <br/>
+
+        <form th:method="GET" th:action="@{/user}">
+            <input type="submit" value="View information about the current user of the system"/>
         </form>
         <br/> <hr/> <br/> <br/>
 
         <form th:method="GET" th:action="@{/logout}">
-            <input type="submit" value="logout"/>
+            <input type="submit" value="Logout"/>
         </form>
         <br/> <br/> <hr/> <br/>
     </body>

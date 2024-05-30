@@ -1,6 +1,7 @@
 package academy.kata.controller;
 
 import academy.kata.model.User;
+import academy.kata.repository.RoleRepository;
 import academy.kata.service.UserService;
 import academy.kata.utils.UserGenerator;
 import org.springframework.core.io.ClassPathResource;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  * @Author: Yury Lapitski
- * 2024-05-29
+ * 2024-05-30
  */
 @Controller
 @RequestMapping(value = "/admin")
@@ -61,7 +62,7 @@ public class AdminController {
     @GetMapping("/create")
     public String showCreateUserForm(Model model) {
         LOGGER.fine("AdminController: showCreateUserForm");
-        model.addAttribute("createdUser", UserGenerator.getDefaultUser());
+        model.addAttribute("createdUser", userService.generateNewUsers(0)[0]);
         return "admin/create-user";
     }
 
@@ -85,7 +86,7 @@ public class AdminController {
 
 
 
-    @GetMapping("")
+    @GetMapping
     public String showAllUsersForm(Model model) {
         LOGGER.fine("AdminController: showAllUsersForm");
         List<User> userList = userService.findAll();
@@ -101,6 +102,8 @@ public class AdminController {
         LOGGER.fine("AdminController: showEditUserForm, user_id = " + userId);
         User user = userService.findById(userId);
         model.addAttribute("editUser", user);
+        User rolesSource = userService.generateNewUsers(0)[0]; // это нужно просто чтобы вытащить все возможные роли
+        model.addAttribute("availableRoles", rolesSource.getRoles());
         return "admin/edit-user";
     }
 
@@ -125,6 +128,26 @@ public class AdminController {
     public String deleteAllUsers() {
         LOGGER.fine("AdminController: deleteAllUsers");
         userService.deleteAll();
+        return "redirect:/admin";
+    }
+
+
+
+    // отдает страницу при входе  admin'a
+    @GetMapping("/admin")
+    public String greetingPage(Model model) {
+        Integer userCountDefault = 15;   // По умолчанию будет предложено создать такое количество пользователей.
+        model.addAttribute("greeting", "Hello!");
+        model.addAttribute("greetingMessage", "Практическая задача 3.1.3 Java pre-project. Задача 3.1.2. Spring Boot, Security.");
+        model.addAttribute("author", "Выполнил: Лапицкий Юрий   //   Performed by: Yury Lapitski");
+        model.addAttribute("user_count_default", userCountDefault);
+        return "admin/admin";
+    }
+
+    @PostMapping(value = "/generate")
+    public String generateTestData(@RequestParam(name = "user_count") Integer userCount) {
+        System.out.println("GreetingController: generateTestData");
+        userService.generateTestData(userCount);
         return "redirect:/admin";
     }
 }

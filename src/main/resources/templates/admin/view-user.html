@@ -75,8 +75,13 @@
         </form>
         <br/> <hr/> <br/> <br/>
 
+        <form th:method="GET" th:action="@{/user}">
+            <input type="submit" value="View information about the current user of the system"/>
+        </form>
+        <br/> <br/> <hr/> <br/> <br/>
+
         <form th:method="GET" th:action="@{/logout}">
-            <input type="submit" value="logout"/>
+            <input type="submit" value="Logout"/>
         </form>
     </body>
 </html>

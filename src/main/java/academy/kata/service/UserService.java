@@ -22,5 +22,7 @@ public interface UserService {
     void deleteAll();
 
 
+    User[] generateNewUsers(int count);
+
     void generateTestData(Integer count);
 }

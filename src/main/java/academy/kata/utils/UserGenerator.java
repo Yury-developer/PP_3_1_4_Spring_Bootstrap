@@ -6,6 +6,7 @@ import academy.kata.repository.RoleRepository;
 import com.ibm.icu.text.Transliterator;
 import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -13,37 +14,29 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 
+
+@Component
 public class UserGenerator {
 
     private static final String DEFAULT_PASSWORD = "$2a$10$XtQgyP.gzuElotzb/lZDtORvqquxzcuZvifWc8NsCOFR6Lml1zpQS"; // defaultPassword = "1"
 
+    private final RoleRepository roleRepository;
 
 
-
-    public static User getDefaultUser() {
-
-        String login = "userLogin";
-        String name = "userName";
-        LocalDate localDate = LocalDate.now();   // Получаем текущую дату как LocalDate
-        Date sqlDate = Date.valueOf(localDate);   // Преобразуем LocalDate в java.sql.Date
-        String address = "userAddress";
-//        Role role = ro
-        User user =  new User(login, DEFAULT_PASSWORD, name, sqlDate, address);
-//        User user = generateUsers(1)[0];
-
-        return user;
+    @Autowired
+    public UserGenerator(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
-    public static User[] generateUsers(int count) {
+
+    public User[] generateUsers(int count) {
         Faker faker = new Faker(new Locale("ru"));
         Transliterator transliterator = Transliterator.getInstance("Russian-Latin/BGN");   // Создание транслитератора
         User[] users = new User[count];
+        final Role role = roleRepository.findByName("ROLE_USER");
 
-        LocalDate startDate = LocalDate.of(1974, 05, 31);
-        LocalDate endDate = LocalDate.of(2024, 05, 31);
-
-        LocalDate randomDate = generateRandomDate(startDate, endDate);
-
+        final LocalDate startDate = LocalDate.of(1970, 1, 1);
+        final LocalDate endDate = LocalDate.of(2024, 05, 31);
 
         for (int i = 0; i < users.length; i++) {
             String name = faker.name().fullName();
@@ -57,21 +50,19 @@ public class UserGenerator {
                             + scanner.next() + "."
                             + dateBirth.getYear()).toLowerCase();
             String address = faker.address().fullAddress();
-//            Collection<Role> roles = new HashSet<>();
-//            roles.add(USER);
             users[i] = new User(login, DEFAULT_PASSWORD, name, dateBirth, address);
-//            users[i] = new User(login, DEFAULT_PASSWORD, roles, name, dateBirth, address);
-//            roleList.add(new Role(0L, "USER"));
-//            users[i].setRoleList(roleList);
+
+            Set<Role> roles = new HashSet<>();
+            roles.add(role);
+            users[i].setRoles(roles);
         }
         return users;
     }
 
-    public static LocalDate generateRandomDate(LocalDate startDate, LocalDate endDate) {
+    private static LocalDate generateRandomDate(LocalDate startDate, LocalDate endDate) {
         long startEpochDay = startDate.toEpochDay();
         long endEpochDay = endDate.toEpochDay();
         long randomEpochDay = ThreadLocalRandom.current().nextLong(startEpochDay, endEpochDay + 1);
-
         return LocalDate.ofEpochDay(randomEpochDay);
     }
 }

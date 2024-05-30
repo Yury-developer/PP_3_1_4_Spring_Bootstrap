@@ -1,7 +1,6 @@
 package academy.kata.repository;
 
 import academy.kata.model.User;
-//import org.springframework.security.core.userdetails.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

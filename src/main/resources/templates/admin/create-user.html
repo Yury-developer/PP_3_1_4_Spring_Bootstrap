@@ -32,9 +32,28 @@
             <input type="text" id="address_user" th:field="*{address}" placeholder="Address">
             <br> <br/> <br/>
 
+
+            <div>
+                <h3>Available Roles:</h3>
+                <ul>
+                    <li th:each="role : ${createdUser.roles}">
+                        <span th:text="${role.id} + ' - ' + ${role.name}"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <label for="role_user">Role (*):</label>
+            <select id="role_user" th:field="*{roles}" required>
+                <option value="" disabled selected>Select role</option>
+                <option th:each="role : ${createdUser.roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
+            <br> <br/> <br/>
+
+
             <input type="submit" value="Create this User">
         </form>
         <br/>
+
 
         <h5>(*) - поля обязательные для заполнения</h5>
         <br/> <hr/> <br/> <br/>
@@ -45,7 +64,7 @@
         <br/> <hr/> <br/> <br/>
 
         <form th:method="GET" th:action="@{/logout}">
-            <input type="submit" value="logout"/>
+            <input type="submit" value="Logout"/>
         </form>
     </body>
 </html>

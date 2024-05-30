@@ -3,12 +3,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Greeting page</title>
+        <title>Admin page</title>
         <link rel="stylesheet" type="text/css" href="http://localhost:8080/css/styles.css">
     </head>
 
     <body>
-        <H2 class="page-info-text">page: Greeting page</H2>
+        <H2 class="page-info-text">page: Admin page</H2>
         <br/>
 
         <div>
@@ -19,20 +19,20 @@
         <br/> <br/> <hr/> <br/>
 
         <form th:method="GET" th:action="@{/admin}">
-            <input type="submit" value="    Перейти на страницу с решением задачи   "/>
+            <input type="submit" value="    Go to main page   "/>
         </form>
         <br/> <br/> <hr/> <br/>
 
         <H3>Сгенерировать тестовые данные для всех таблиц</H3>
-        <form action="#" th:action="@{/users/admin/welcome/generate}" method="post">
+        <form action="#" th:action="@{/admin/generate}" method="post">
             <label for="userCountLabel">Введите количество генерируемых пользователей:</label>
             <input type="number" id="userCountLabel" name="user_count" th:value="${user_count_default}" size="8" maxlength="6" required>
-            <button type="submit">Сгенерировать</button>
+            <button type="submit">Generate!</button>
         </form>
         <br/> <hr/> <br/> <br/>
 
         <form th:method="GET" th:action="@{/logout}">
-            <input type="submit" value="logout"/>
+            <input type="submit" value="Logout"/>
         </form>
         <br/> <br/> <hr/> <br/>
     </body>

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,8 +21,9 @@ import javax.sql.DataSource;
 
 
 @Configuration // можно не указывать, т.к. по цепочке достанется
-@EnableWebSecurity
-//@EnableWebSecurity(debug = true) // 'debug = true' -в консоль высыпется вс цепочка фильтров   https://www.youtube.com/live/HvovW6Uh1yU?si=C4vl98El9oe2b89-&t=6108
+//@EnableWebSecurity
+@EnableWebSecurity(debug = true) // 'debug = true' -в консоль высыпется вс цепочка фильтров   https://www.youtube.com/live/HvovW6Uh1yU?si=C4vl98El9oe2b89-&t=6108
+@EnableGlobalMethodSecurity(securedEnabled = true)   // Включаем доп. защиту на уровне методдов
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
@@ -54,29 +56,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() // настроим authorize requests
                 .antMatchers("/css/**", "/index").permitAll() // Разрешить доступ к стилям и главной странице
 
-//                .antMatchers("/user/**").authenticated() // если пойдем в сторону "/user/**" то пустит только авторизированных пользователей.
-                .antMatchers("/user/**").hasAnyRole("USER")
-                .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN") // в админку пускаем только С РОЛЯМИ 'ADMIN' и 'SUPERADMIN'
+                .antMatchers("/user/**").authenticated() // если пойдем в сторону "/user/**" то пустит только авторизированных пользователей.
+//                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только С РОЛЯМИ 'ADMIN' и 'SUPERADMIN'
 //                .antMatchers("/admin/**").hasAuthority("ONLY_REED") // а также в админку пустит С ПРАВАМИ 'ONLY_REED' (тут сравнивает один к одному)
 
                 .and()
-//                .httpBasic() // cстандартная уунтефикация
+//                .httpBasic() // стандартная аунтефикация
                 .formLogin() // для авторизации будет НАША красивая сверстанная форма/ либо по умолчанию Spring сгенерит, как в нашем случае.
 //                .loginProcessingUrl("/hellologin") // логиниться будем по этому URL
                 .permitAll()  // Разрешение доступа к странице логина для всех
                 .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
 
                 .and()
-                .logout().logoutSuccessUrl("/"); // при logout будет вести на корневую страницу нашего приложения.
-
-//                .antMatchers("/", "/index").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().successHandler(successUserHandler)
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
+                .logout().logoutSuccessUrl("/") // при logout будет вести на корневую страницу нашего приложения.
+                .permitAll();
     }
 
 

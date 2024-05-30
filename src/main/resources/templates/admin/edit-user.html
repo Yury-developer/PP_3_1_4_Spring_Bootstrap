@@ -33,6 +33,40 @@
             <input type="text" id="address" th:field="*{address}" size="70" maxlength="200">
             <br/> <br/> <br/>
 
+
+            <div>
+                <h3>Current Role is:</h3>
+                <ul>
+                    <li th:each="role : ${editUser.roles}">
+                        <span th:text="${role.id} + ' - ' + ${role.name}"></span>
+                    </li>
+                </ul>
+                <br/>
+                <h3>Assign a new role.</h3>
+            </div>
+
+
+            <div>
+                <h3>Available Roles:</h3>
+                <ul>
+                    <li th:each="role : ${availableRoles}">
+                        <span th:text="${role.id} + ' - ' + ${role.name}"></span>
+                    </li>
+                </ul>
+            </div>
+            <br/>
+
+            <h3>New role is:</h3>
+
+            <label for="role_user">Role (*):</label>
+            <select id="role_user" th:field="*{roles}" required>
+                <option value="" disabled selected>Select role</option>
+                <option th:each="role : ${availableRoles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
+            <br> <br/> <br/>
+
+
+
             <input type="submit" value="Save">
         </form>
         <br/> <br/> <hr/> <br/> <br/>
@@ -49,7 +83,7 @@
         <br/> <hr/> <br/> <br/>
 
         <form th:method="GET" th:action="@{/logout}">
-            <input type="submit" value="logout"/>
+            <input type="submit" value="Logout"/>
         </form>
         <br/> <br/> <hr/>
     </body>
