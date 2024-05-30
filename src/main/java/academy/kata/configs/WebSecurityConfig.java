@@ -35,21 +35,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userUtilService = userUtilService;
     }
 
-//    // это было в базовом конфиге  взадании
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/", "/index").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().successHandler(successUserHandler)
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -57,14 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/index").permitAll() // Разрешить доступ к стилям и главной странице
 
                 .antMatchers("/user/**").authenticated() // если пойдем в сторону "/user/**" то пустит только авторизированных пользователей.
-//                .antMatchers("/user/**").hasAnyRole("USER")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только С РОЛЯМИ 'ADMIN' и 'SUPERADMIN'
 //                .antMatchers("/admin/**").hasAuthority("ONLY_REED") // а также в админку пустит С ПРАВАМИ 'ONLY_REED' (тут сравнивает один к одному)
 
                 .and()
 //                .httpBasic() // стандартная аунтефикация
                 .formLogin() // для авторизации будет НАША красивая сверстанная форма/ либо по умолчанию Spring сгенерит, как в нашем случае.
-//                .loginProcessingUrl("/hellologin") // логиниться будем по этому URL
+//                .loginProcessingUrl("/hellologin") // логиниться будем по этому альтернативному URL
                 .permitAll()  // Разрешение доступа к странице логина для всех
                 .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
 
@@ -146,6 +130,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //        return manager;
 //    }
+
+
+
 
 
     // для преобразования паролей

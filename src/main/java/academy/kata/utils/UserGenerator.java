@@ -41,7 +41,6 @@ public class UserGenerator {
         for (int i = 0; i < users.length; i++) {
             String name = faker.name().fullName();
             Date dateBirth = Date.valueOf(generateRandomDate(startDate, endDate));
-//            Date dateBirth = new Date(faker.date().birthday(18, 63).getDate());
             System.out.println(dateBirth);
 
             Scanner scanner = new Scanner(name);

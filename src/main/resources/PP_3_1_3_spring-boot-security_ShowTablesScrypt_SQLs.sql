@@ -1,3 +1,7 @@
+-- ---------------------------------------
+-- СКРИПТ ВЫВОДИТ СОСТОЯНИЕ ВСЕХ ТАБЛИЦ --
+-- ---------------------------------------
+
 USE `PP_3_1_3_spring-boot-security`;
 SHOW TABLES FROM `PP_3_1_3_spring-boot-security`;
 SELECT * FROM users;
