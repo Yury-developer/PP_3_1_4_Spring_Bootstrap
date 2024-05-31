@@ -2,9 +2,7 @@ package academy.kata.controller;
 
 import academy.kata.constants.Constants;
 import academy.kata.model.User;
-import academy.kata.repository.RoleRepository;
 import academy.kata.service.UserService;
-import academy.kata.utils.UserGenerator;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.crypto.password.PasswordEncoder;

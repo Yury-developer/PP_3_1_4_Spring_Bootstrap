@@ -23,17 +23,17 @@ public class UserServiceImpl implements UserService, Constants {
 
     private final UserRepository userRepository;
     private final UserGenerator userGenerator;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
 
     public UserServiceImpl(UserRepository userRepository,
                            UserGenerator userGenerator,
-                           RoleRepository roleRepository,
+                           RoleService roleService,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userGenerator = userGenerator;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService, Constants {
             users[0].setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
             users[0].setFullName("userName");
             users[0].setAddress("userAddress");
-            Set<Role> roles = new HashSet<>(roleRepository.findAll());
+            Set<Role> roles = new HashSet<>(roleService.findAll());
 
             roles.stream().forEach(i -> System.out.println(i.getName())); ///////////////////////////////////////////////
 

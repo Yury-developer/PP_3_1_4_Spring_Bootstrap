@@ -3,6 +3,7 @@ package academy.kata.utils;
 import academy.kata.model.Role;
 import academy.kata.model.User;
 import academy.kata.repository.RoleRepository;
+import academy.kata.service.RoleService;
 import com.ibm.icu.text.Transliterator;
 import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,13 @@ public class UserGenerator {
 
     private static final String DEFAULT_PASSWORD = "$2a$10$XtQgyP.gzuElotzb/lZDtORvqquxzcuZvifWc8NsCOFR6Lml1zpQS"; // defaultPassword = "1"
 
-    private final RoleRepository roleRepository;
+//    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
 
     @Autowired
-    public UserGenerator(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    public UserGenerator(RoleService roleService) {
+        this.roleService = roleService;
     }
 
 
@@ -33,7 +35,7 @@ public class UserGenerator {
         Faker faker = new Faker(new Locale("ru"));
         Transliterator transliterator = Transliterator.getInstance("Russian-Latin/BGN");   // Создание транслитератора
         User[] users = new User[count];
-        final Role role = roleRepository.findByName("ROLE_USER");
+        final Role role = roleService.findByName("ROLE_USER");
 
         final LocalDate startDate = LocalDate.of(1970, 1, 1);
         final LocalDate endDate = LocalDate.of(2024, 05, 31);
