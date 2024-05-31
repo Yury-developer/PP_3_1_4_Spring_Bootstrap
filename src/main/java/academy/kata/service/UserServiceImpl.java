@@ -1,10 +1,12 @@
 package academy.kata.service;
 
+import academy.kata.constants.Constants;
 import academy.kata.model.Role;
 import academy.kata.repository.*;
 import academy.kata.model.User;
 import academy.kata.utils.UserGenerator;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,18 +16,25 @@ import java.util.List;
 import java.util.Set;
 
 
+
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, Constants {
+
 
     private final UserRepository userRepository;
     private final UserGenerator userGenerator;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
-    public UserServiceImpl(UserRepository userRepository, UserGenerator userGenerator, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserGenerator userGenerator,
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userGenerator = userGenerator;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -83,6 +92,7 @@ public class UserServiceImpl implements UserService {
         if (count == 0) {
             users = userGenerator.generateUsers(1);
             users[0].setUsername("userLogin");
+            users[0].setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
             users[0].setFullName("userName");
             users[0].setAddress("userAddress");
             Set<Role> roles = new HashSet<>(roleRepository.findAll());

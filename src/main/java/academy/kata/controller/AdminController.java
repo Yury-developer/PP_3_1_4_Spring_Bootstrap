@@ -1,11 +1,13 @@
 package academy.kata.controller;
 
+import academy.kata.constants.Constants;
 import academy.kata.model.User;
 import academy.kata.repository.RoleRepository;
 import academy.kata.service.UserService;
 import academy.kata.utils.UserGenerator;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +26,10 @@ import java.util.logging.Logger;
  */
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController {
+public class AdminController implements Constants {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     private static Logger LOGGER;
 
@@ -44,8 +47,9 @@ public class AdminController {
     }
 
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -62,12 +66,16 @@ public class AdminController {
     @GetMapping("/create")
     public String showCreateUserForm(Model model) {
         LOGGER.fine("AdminController: showCreateUserForm");
-        model.addAttribute("createdUser", userService.generateNewUsers(0)[0]);
+        User defaultUser = userService.generateNewUsers(0)[0];
+        model.addAttribute("createdUser", defaultUser);
+        model.addAttribute("default_password", DEFAULT_PASSWORD);
         return "admin/create-user";
     }
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("createdUser") User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         LOGGER.fine("AdminController: addUser, user = " + user);
         userService.saveUser(user);
         return "redirect:/admin";
@@ -110,6 +118,8 @@ public class AdminController {
     @PostMapping("/edit")
     public String editUser(@RequestParam(name = "id") Long userId,
                            @ModelAttribute("editUser") User user) {
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
         LOGGER.fine("AdminController: editUser, user_id = " + userId + "\n user = " + user);
         userService.updateUser(user);
         return "redirect:/admin";
@@ -141,6 +151,7 @@ public class AdminController {
         model.addAttribute("greetingMessage", "Практическая задача 3.1.3 Java pre-project. Задача 3.1.2. Spring Boot, Security.");
         model.addAttribute("author", "Выполнил: Лапицкий Юрий   //   Performed by: Yury Lapitski");
         model.addAttribute("user_count_default", userCountDefault);
+        model.addAttribute("default_password", DEFAULT_PASSWORD);
         return "admin/admin";
     }
 

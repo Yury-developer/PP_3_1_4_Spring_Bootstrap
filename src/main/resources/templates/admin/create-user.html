@@ -16,6 +16,9 @@
             <input type="text" id="login_user" th:field="*{username}" placeholder="Login" required>
             <br> <br/> <br/>
 
+            <H5>По умолчанию пароль будет назначен: '<H4 th:text="${default_password}"></H4>'. </H5>
+            <H5>Вы видите <em> ХЭШ </em> этого пароля. Вы можете ввести свой пароль прописав его непосредственно в поле ниже:</H5>
+
             <label for="password_user">Password (*):</label>
             <input type="text" id="password_user" th:field="*{password}" placeholder="Password" required>
             <br> <br/> <br/>
