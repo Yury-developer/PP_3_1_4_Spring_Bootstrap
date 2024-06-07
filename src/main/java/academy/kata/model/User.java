@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -40,7 +41,7 @@ public class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) //*
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) //* при LAZY выдает ошибку "org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: academy.kata.model.User.roles, could not initialize proxy - no Session ..."
     @JoinTable(name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")) // указываем внешний ключ в таблице ролей
@@ -80,7 +81,9 @@ public class User implements UserDetails {
     // Возвращает коллекцию прав (или ролей), предоставленных пользователю. Возвращаемый тип — Collection<? extends GrantedAuthority>.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
     }
 
     // Возвращает имя пользователя, используемое для аутентификации.

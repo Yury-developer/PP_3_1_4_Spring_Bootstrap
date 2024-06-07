@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -164,6 +165,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    /*
+     Использую DebugFilter.
+     Это позволит увидеть дополнительную информацию в логах, чтобы более точно определить причину проблем.
+     После отладки удалю
+     */
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.debug(true);
+    }
 
     /*
      Задача AuthenticationProvider у UserDetailsService запросить User'а взять token и сравнить совпадают ли эти данные. Совпадают -кладем в контекст.
