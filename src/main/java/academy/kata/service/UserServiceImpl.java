@@ -76,7 +76,6 @@ public class UserServiceImpl implements UserService, Constants {
     @Override
     @Transactional
     public void deleteAll() {
-        List<User> userList = findAll();
         userRepository.deleteAll();
     }
 
@@ -92,9 +91,6 @@ public class UserServiceImpl implements UserService, Constants {
             users[0].setFullName("userName");
             users[0].setAddress("userAddress");
             Set<Role> roles = new HashSet<>(roleService.findAll());
-
-            roles.stream().forEach(i -> System.out.println(i.getName()));
-
             users[0].setRoles(roles);
         } else {
             users = userGenerator.generateUsers(count);

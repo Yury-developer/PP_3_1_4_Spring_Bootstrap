@@ -2,7 +2,6 @@ package academy.kata.utils;
 
 import academy.kata.model.Role;
 import academy.kata.model.User;
-import academy.kata.repository.RoleRepository;
 import academy.kata.service.RoleService;
 import com.ibm.icu.text.Transliterator;
 import net.datafaker.Faker;
@@ -21,7 +20,6 @@ public class UserGenerator {
 
     private static final String DEFAULT_PASSWORD = "$2a$10$XtQgyP.gzuElotzb/lZDtORvqquxzcuZvifWc8NsCOFR6Lml1zpQS"; // defaultPassword = "1"
 
-//    private final RoleRepository roleRepository;
     private final RoleService roleService;
 
 
@@ -43,7 +41,6 @@ public class UserGenerator {
         for (int i = 0; i < users.length; i++) {
             String name = faker.name().fullName();
             Date dateBirth = Date.valueOf(generateRandomDate(startDate, endDate));
-            System.out.println(dateBirth);
 
             Scanner scanner = new Scanner(name);
             String login = transliterator.transliterate(scanner.next()

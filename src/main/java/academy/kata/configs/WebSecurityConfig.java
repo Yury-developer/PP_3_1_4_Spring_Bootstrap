@@ -19,7 +19,7 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
-    private UserUtilService userUtilService;
+    private final UserUtilService userUtilService;
 
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserUtilService userUtilService) {

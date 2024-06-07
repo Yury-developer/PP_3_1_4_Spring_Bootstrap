@@ -29,18 +29,18 @@ public class AdminController implements Constants {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    private static Logger LOGGER;
+    private static Logger logger;
 
     static {
         try {
             Resource resource = new ClassPathResource("adminController_loggerConfig.properties");
             InputStream ins = resource.getInputStream();
             LogManager.getLogManager().readConfiguration(ins);
-            LOGGER = Logger.getLogger(AdminController.class.getName());
-            LOGGER.setLevel(Level.ALL);
+            logger = Logger.getLogger(AdminController.class.getName());
+            logger.setLevel(Level.ALL);
         } catch (IOException e) {
             e.printStackTrace();
-            LOGGER = null;
+            logger = null;
         }
     }
 
@@ -55,7 +55,7 @@ public class AdminController implements Constants {
     // просто возвращает страницу приветствия (с нее можно сгенерировать тестовые данные во все таблицы)
     @RequestMapping(method = RequestMethod.HEAD)
     public String ping() {
-        LOGGER.fine("AdminController: ping");
+        logger.fine("AdminController: ping");
         return "redirect:/";
     }
 
@@ -63,7 +63,7 @@ public class AdminController implements Constants {
 
     @GetMapping("/create")
     public String showCreateUserForm(Model model) {
-        LOGGER.fine("AdminController: showCreateUserForm");
+        logger.fine("AdminController: showCreateUserForm");
         User defaultUser = userService.generateNewUsers(0)[0];
         model.addAttribute("createdUser", defaultUser);
         model.addAttribute("default_password", DEFAULT_PASSWORD);
@@ -74,7 +74,7 @@ public class AdminController implements Constants {
     public String createUser(@ModelAttribute("createdUser") User user) {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
-        LOGGER.fine("AdminController: addUser, user = " + user);
+        logger.fine("AdminController: addUser, user = " + user);
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -84,7 +84,7 @@ public class AdminController implements Constants {
     @GetMapping("/view")
     public String showUserDetailsForm(@RequestParam(defaultValue = "0", required = false, name = "user_id") Long userId,
                                       Model model) {
-        LOGGER.fine("AdminController: showUserDetailsForm, user_id = " + userId);
+        logger.fine("AdminController: showUserDetailsForm, user_id = " + userId);
         User user = userService.findById(userId);
         model.addAttribute("viewUser", user);
         return "admin/view-user";
@@ -94,7 +94,7 @@ public class AdminController implements Constants {
 
     @GetMapping
     public String showAllUsersForm(Model model) {
-        LOGGER.fine("AdminController: showAllUsersForm");
+        logger.fine("AdminController: showAllUsersForm");
         List<User> userList = userService.findAll();
         model.addAttribute("viewAllUsers", userList);
         return "admin/all-users";
@@ -105,7 +105,7 @@ public class AdminController implements Constants {
     @GetMapping("/edit")
     public String showEditUserForm(@RequestParam(name = "user_id") Long userId,
                                    Model model) {
-        LOGGER.fine("AdminController: showEditUserForm, user_id = " + userId);
+        logger.fine("AdminController: showEditUserForm, user_id = " + userId);
         User user = userService.findById(userId);
         model.addAttribute("editUser", user);
         User rolesSource = userService.generateNewUsers(0)[0]; // это нужно просто чтобы вытащить все возможные роли
@@ -118,7 +118,7 @@ public class AdminController implements Constants {
                            @ModelAttribute("editUser") User user) {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
-        LOGGER.fine("AdminController: editUser, user_id = " + userId + "\n user = " + user);
+        logger.fine("AdminController: editUser, user_id = " + userId + "\n user = " + user);
         userService.updateUser(user);
         return "redirect:/admin";
     }
@@ -127,14 +127,14 @@ public class AdminController implements Constants {
 
     @DeleteMapping("/delete")
     public String deleteUser(@RequestParam(name = "user_id") Long userId) {
-        LOGGER.fine("AdminController: deleteUser, user_id = " + userId);
+        logger.fine("AdminController: deleteUser, user_id = " + userId);
         userService.deleteById(userId);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/delete-all")
     public String deleteAllUsers() {
-        LOGGER.fine("AdminController: deleteAllUsers");
+        logger.fine("AdminController: deleteAllUsers");
         userService.deleteAll();
         return "redirect:/admin";
     }
@@ -144,6 +144,7 @@ public class AdminController implements Constants {
     // отдает страницу при входе  admin'a
     @GetMapping("/admin")
     public String greetingPage(Model model) {
+        logger.fine("AdminController: greetingPage");
         Integer userCountDefault = 15;   // По умолчанию будет предложено создать такое количество пользователей.
         model.addAttribute("greeting", "Hello!");
         model.addAttribute("greetingMessage", "Практическая задача 3.1.3 Java pre-project. Задача 3.1.2. Spring Boot, Security.");
@@ -155,7 +156,7 @@ public class AdminController implements Constants {
 
     @PostMapping(value = "/generate")
     public String generateTestData(@RequestParam(name = "user_count") Integer userCount) {
-        System.out.println("GreetingController: generateTestData");
+        logger.fine("AdminController: generateTestData");
         userService.generateTestData(userCount);
         return "redirect:/admin";
     }

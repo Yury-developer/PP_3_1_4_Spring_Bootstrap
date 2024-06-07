@@ -25,18 +25,18 @@ public class UserController {
 
     private final UserService userService;
 
-    private static Logger LOGGER;
+    private static Logger logger;
 
     static {
         try {
             Resource resource = new ClassPathResource("userController_loggerConfig.properties");
             InputStream ins = resource.getInputStream();
             LogManager.getLogManager().readConfiguration(ins);
-            LOGGER = Logger.getLogger(UserController.class.getName());
-            LOGGER.setLevel(Level.ALL);
+            logger = Logger.getLogger(UserController.class.getName());
+            logger.setLevel(Level.ALL);
         } catch (IOException e) {
             e.printStackTrace();
-            LOGGER = null;
+            logger = null;
         }
     }
 
@@ -50,13 +50,10 @@ public class UserController {
 
     @GetMapping
     public String userPage(Model model, Principal principal) {
-        LOGGER.fine("UserController: userPage");
-
+        logger.fine("UserController: userPage");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         User currentUser = userService.findByUsername(currentUserName);
-        System.out.println(principal.getName());
-
         model.addAttribute("infoUser", currentUser);
         return "user/user";
     }
