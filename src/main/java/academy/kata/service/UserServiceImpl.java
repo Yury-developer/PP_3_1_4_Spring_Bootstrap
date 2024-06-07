@@ -5,7 +5,6 @@ import academy.kata.model.Role;
 import academy.kata.repository.*;
 import academy.kata.model.User;
 import academy.kata.utils.UserGenerator;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,14 +69,12 @@ public class UserServiceImpl implements UserService, Constants {
 
     @Override
     @Transactional
-    @Secured("ROLE_ADMIN")
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    @Secured("ROLE_ADMIN") // предварительно включить '@EnableGlobalMethodSecurity' в классе 'WebSecurityConfig' // так можно точечно защитить на уровне методов (если злоумыш_ обошел все-же все защиты)
     public void deleteAll() {
         List<User> userList = findAll();
         userRepository.deleteAll();
@@ -86,7 +83,6 @@ public class UserServiceImpl implements UserService, Constants {
 
 
     @Override
-    @Secured("ROLE_ADMIN")
     public User[] generateNewUsers(int count) {
         User[] users;
         if (count == 0) {
@@ -97,7 +93,7 @@ public class UserServiceImpl implements UserService, Constants {
             users[0].setAddress("userAddress");
             Set<Role> roles = new HashSet<>(roleService.findAll());
 
-            roles.stream().forEach(i -> System.out.println(i.getName())); ///////////////////////////////////////////////
+            roles.stream().forEach(i -> System.out.println(i.getName()));
 
             users[0].setRoles(roles);
         } else {
@@ -109,7 +105,6 @@ public class UserServiceImpl implements UserService, Constants {
 
     @Override
     @Transactional
-    @Secured("ROLE_ADMIN")
     public void generateTestData(Integer count) {
         userRepository.saveAll(Arrays.asList(generateNewUsers(count)));
     }

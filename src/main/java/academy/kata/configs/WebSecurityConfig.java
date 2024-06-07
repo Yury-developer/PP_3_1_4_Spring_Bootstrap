@@ -24,7 +24,6 @@ import javax.sql.DataSource;
 @Configuration // можно не указывать, т.к. по цепочке достанется
 //@EnableWebSecurity
 @EnableWebSecurity(debug = true) // 'debug = true' -в консоль высыпется вс цепочка фильтров   https://www.youtube.com/live/HvovW6Uh1yU?si=C4vl98El9oe2b89-&t=6108
-@EnableGlobalMethodSecurity(securedEnabled = true)   // Включаем доп. защиту на уровне методдов
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
