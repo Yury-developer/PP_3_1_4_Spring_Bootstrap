@@ -3,6 +3,6 @@
 
 [video (11мин) - ВСЯ СЛОЖНОСТЬ АЛГОРИТМОВ ЗА 11 МИНУТ](https://youtu.be/cXCuXNwzdfY?si=k0Fz5uYU27DaJxDl)
 
-SonarLint IDE Plugin -отличный плагин для поиска багов в коде!
+**SonarLint** IDE Plugin -отличный плагин для поиска багов и уязвимостей в коде! // _JetBrains IDEs_
 
 
