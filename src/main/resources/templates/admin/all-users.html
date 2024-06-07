@@ -45,7 +45,9 @@
         <br/> <br/>
 
         <form th:method="POST" th:action="@{/admin/delete-all}">
+            <input type="hidden" name="_method" value="delete" />
             <input type="submit" value="Delete all users"/>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         </form>
         <br/> <br/>
 

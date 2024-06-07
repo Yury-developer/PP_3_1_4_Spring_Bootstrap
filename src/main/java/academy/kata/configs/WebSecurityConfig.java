@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 import javax.sql.DataSource;
 
@@ -151,6 +152,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setUserDetailsService(userUtilService);
         return authenticationProvider;
     }
+
+
+    /*
+    Spring Boot автоматически добавляет HiddenHttpMethodFilter, который позволяет использовать скрытые методы.
+    Если фильтр по какой-то причине не активен, его можно добавить вручную.
+    В моем случае это именно так и случилось! Убираю этот бин - ошибка 405.
+     */
+    @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+        return new HiddenHttpMethodFilter();
+    }
+
+
+
     /*
      Задача AuthenticationProvider у UserDetailsService запросить User'а взять token и сравнить совпадают ли эти данные. Совпадают -кладем в контекст.
      UserDetailsService -источник User'ов

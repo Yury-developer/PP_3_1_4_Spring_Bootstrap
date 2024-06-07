@@ -64,8 +64,10 @@
         </form>
         <br/>
 
-        <form th:action="@{/admin/delete}" method="get">
+        <form th:action="@{/admin/delete}" method="post">
+            <input type="hidden" name="_method" value="delete" />
             <input type="hidden" name="user_id" th:value="${viewUser.getId()}" />
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <button type="submit">Delete this user</button>
         </form>
         <br/>

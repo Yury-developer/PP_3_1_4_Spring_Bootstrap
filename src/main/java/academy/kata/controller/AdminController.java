@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  * @Author: Yury Lapitski
- * 2024-05-30
+ * 2024-06-07
  */
 @Controller
 @RequestMapping(value = "/admin")
@@ -113,7 +113,7 @@ public class AdminController implements Constants {
         return "admin/edit-user";
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public String editUser(@RequestParam(name = "id") Long userId,
                            @ModelAttribute("editUser") User user) {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
@@ -125,14 +125,14 @@ public class AdminController implements Constants {
 
 
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteUser(@RequestParam(name = "user_id") Long userId) {
         LOGGER.fine("AdminController: deleteUser, user_id = " + userId);
         userService.deleteById(userId);
         return "redirect:/admin";
     }
 
-    @PostMapping("/delete-all")
+    @DeleteMapping("/delete-all")
     public String deleteAllUsers() {
         LOGGER.fine("AdminController: deleteAllUsers");
         userService.deleteAll();
