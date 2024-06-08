@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER) //* при LAZY выдает ошибку "org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: academy.kata.model.User.roles, could not initialize proxy - no Session ..."
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) //* при LAZY выдает ошибку "org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: academy.kata.model.User.roles, could not initialize proxy - no Session ..."
     @JoinTable(name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")) // указываем внешний ключ в таблице ролей

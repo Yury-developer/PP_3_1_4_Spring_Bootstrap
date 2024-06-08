@@ -5,7 +5,6 @@ import academy.kata.model.Role;
 import academy.kata.repository.*;
 import academy.kata.model.User;
 import academy.kata.utils.UserGenerator;
-import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,11 +51,7 @@ public class UserServiceImpl implements UserService, Constants {
 
 
     @Override
-//    @Transactional
     public User findByUsername(String username) {
-//        User user = userRepository.findByUsername(username);
-//        Hibernate.initialize(user.getRoles());
-//        return user;
         return userRepository.findByUsername(username);
     }
 
