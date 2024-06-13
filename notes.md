@@ -14,3 +14,10 @@
 
 [неплохое получасовое видео по созданию CRUD приложения с использованием Spring Boot](https://youtu.be/NA6n1Xu7o_g?si=Ja0gXw5eTnA2zC8Z)
 
+---
+
+[Видео-уроки по **Bootstrap 4**](https://youtube.com/playlist?list=PLLhZvA0NHjMC28roikd_hGKUdUb0qu79T&si=w3Ln96Xqt_UIzLQE)
+
+
+
+

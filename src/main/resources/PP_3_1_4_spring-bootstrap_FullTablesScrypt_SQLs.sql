@@ -3,9 +3,9 @@
 -- -----------------------------------------------------------------------
 
 SHOW DATABASES;
-DROP DATABASE IF EXISTS`PP_3_1_3_spring-boot-security`;
-CREATE SCHEMA IF NOT EXISTS `PP_3_1_3_spring-boot-security` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
-USE `PP_3_1_3_spring-boot-security`;
+DROP DATABASE IF EXISTS`PP_3_1_4_spring-bootstrap`;
+CREATE SCHEMA IF NOT EXISTS `PP_3_1_4_spring-bootstrap` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+USE `PP_3_1_4_spring-bootstrap`;
 
 -- ----------------------------------------------------------------------------------------------------
 -- СОЗДАДИМ ТАБЛИЦЫ --
@@ -64,7 +64,7 @@ INSERT INTO users_roles (user_id, role_id) VALUES (3, 3);  -- Связываем
 
 -- ----------------------------------------------------------------------------------------------------
 -- Выведем то, что получилось
-SHOW TABLES FROM `PP_3_1_3_spring-boot-security`;
+SHOW TABLES FROM `PP_3_1_4_spring-bootstrap`;
 SELECT * FROM users;
 SELECT * FROM t_role;
 SELECT * FROM users_roles;

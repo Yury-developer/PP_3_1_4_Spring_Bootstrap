@@ -1,6 +1,6 @@
 # При разработке часто использовались запросы, вывел в этот фаил.
-DROP DATABASE IF EXISTS`PP_3_1_3_spring-boot-security`;
-CREATE SCHEMA IF NOT EXISTS `PP_3_1_3_spring-boot-security` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+DROP DATABASE IF EXISTS`PP_3_1_4_spring-bootstrap`;
+CREATE SCHEMA IF NOT EXISTS `PP_3_1_4_spring-bootstrap` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 
 create table users (username varchar(255) not null primary key, password varchar(255) not null, eneble boolean not null);
 create table authoririties (username varchar(255) not null, authoririty varchar(255) not null, foreign key (username) references users (username), unique(username, authoririty));
@@ -9,8 +9,8 @@ select * from authoririties;
 
 
 SHOW DATABASES;
-USE `PP_3_1_3_spring-boot-security`;
-SHOW TABLES FROM `PP_3_1_3_spring-boot-security`;
+USE `PP_3_1_4_spring-bootstrap`;
+SHOW TABLES FROM `PP_3_1_4_spring-bootstrap`;
 SELECT * FROM users;
 SELECT * FROM t_role;
 SELECT * FROM users_roles;
@@ -18,7 +18,7 @@ SELECT * FROM users_roles;
 
 -- ----------------------------------------------------------------------------------------------------
 -- ЗАПОЛНИТЬ ВРУЧНУЮ ТАБЛИЦУ С ПОЛЬЗОВАТЕЛЯМИ --
-USE `PP_3_1_3_spring-boot-security`;
+USE `PP_3_1_4_spring-bootstrap`;
 
 -- Добавление ролей
 INSERT INTO t_role (role_id, role_name) VALUES (1, 'ROLE_USER');
