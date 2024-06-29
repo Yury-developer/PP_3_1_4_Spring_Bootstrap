@@ -4,6 +4,7 @@ import academy.kata.model.Role;
 import academy.kata.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -25,6 +26,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> findAll() {
-        return roleRepository.findAll();
+        List<Role> roleList = roleRepository.findAll();
+        roleList.sort(Comparator.comparing(Role::getName)); // отсортируем для красивого вывода в браузере
+        return roleList;
     }
 }

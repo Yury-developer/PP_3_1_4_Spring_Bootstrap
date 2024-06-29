@@ -1,10 +1,15 @@
 package academy.kata.controller;
 
 import academy.kata.constants.Constants;
+import academy.kata.model.Role;
 import academy.kata.model.User;
+import academy.kata.service.RoleService;
+import academy.kata.service.RoleServiceImpl;
 import academy.kata.service.UserService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +32,7 @@ import java.util.logging.Logger;
 public class AdminController implements Constants {
 
     private final UserService userService;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
     private static Logger logger;
@@ -45,8 +51,9 @@ public class AdminController implements Constants {
     }
 
 
-    public AdminController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -97,6 +104,14 @@ public class AdminController implements Constants {
         logger.fine("AdminController: showAllUsersForm");
         List<User> userList = userService.findAll();
         model.addAttribute("viewAllUsers", userList);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User currentUser = userService.findByUsername(currentUserName);
+        model.addAttribute("current_user", currentUser);
+
+        List<Role> roleList = roleService.findAll();
+        model.addAttribute("role_list", roleList);
         return "admin/all-users";
     }
 

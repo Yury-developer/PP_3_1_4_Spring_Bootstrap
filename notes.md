@@ -19,5 +19,8 @@
 [Видео-уроки по **Bootstrap 4**](https://youtube.com/playlist?list=PLLhZvA0NHjMC28roikd_hGKUdUb0qu79T&si=w3Ln96Xqt_UIzLQE)
 
 
+[**Bootstrap 5 CheatSheet** - удобная вещь для этой задачи](https://bootstrap-cheatsheet.themeselection.com/)
+
+
 
 
