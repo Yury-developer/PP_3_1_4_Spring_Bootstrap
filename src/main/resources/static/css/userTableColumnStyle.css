@@ -1,0 +1,37 @@
+/* styles.css */
+
+th.id-column {
+    width: 20px;
+}
+
+th.username-column {
+    width: 100px;
+}
+
+th.fullname-column {
+    width: 100px;
+}
+
+th.datebirth-column {
+    width: 100px;
+}
+
+th.address-column {
+    width: 100px;
+}
+
+th.email-column {
+    width: 100px;
+}
+
+th.role-column {
+    width: 100px;
+}
+
+th.edit-column {
+    width: 40px;
+}
+
+th.delete-column {
+    width: 40px;
+}
