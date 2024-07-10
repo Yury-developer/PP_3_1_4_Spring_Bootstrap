@@ -147,7 +147,7 @@
                                                                             <form th:action="@{/admin/update/{id}(id=${user.id})}" th:method="PATCH" th:object="${user}">
                                                                                 <div class="modal-body col-7 mx-auto text-center">
                                                                                     <label for="idEdit" class="form-label fw-bold mb-0">ID</label>
-                                                                                    <input type="text" th:value="${user.id}" class="form-control" id="idEdit" readonly>
+                                                                                    <input type="number" th:value="${user.id}" class="form-control" id="idEdit" readonly>
                                                                                     <br>
                                                                                     <label for="userNameEdit" class="form-label fw-bold mb-0">User name</label>
                                                                                     <input type="text" th:value="${user.getUsername()}"  class="form-control" id="userNameEdit" name="userName">
@@ -156,16 +156,16 @@
                                                                                     <input type="text" th:value="${user.getFullName()}" class="form-control" id="fullNameEdit" name="fullName">
                                                                                     <br>
                                                                                     <label for="dateBirthEdit" class="form-label fw-bold mb-0">Date birth</label>
-                                                                                    <input type="number" th:value="${user.getDateBirth()}"  class="form-control" id="dateBirthEdit" name="dateBirth">
+                                                                                    <input type="date" th:value="${user.getDateBirth()}"  class="form-control" id="dateBirthEdit" name="dateBirth">
                                                                                     <br>
                                                                                     <label for="addressEdit" class="form-label fw-bold mb-0">Address</label>
                                                                                     <input type="text" th:value="${user.getAddress()}"  class="form-control" id="addressEdit" name="address">
                                                                                     <br>
                                                                                     <label for="emailEdit" class="form-label fw-bold mb-0">Email</label>
-                                                                                    <input type="text" th:value="${user.getEmail()}"  class="form-control" id="emailEdit" name="email">
+                                                                                    <input type="email" th:value="${user.getEmail()}"  class="form-control" id="emailEdit" name="email">
                                                                                     <br>
                                                                                     <label for="passwordEdit" class="form-label fw-bold mb-0">Password</label>
-                                                                                    <input type="text" th:value="${user.getPassword()}"  class="form-control" id="passwordEdit" name="password">
+                                                                                    <input type="password" th:value="${user.getPassword()}"  class="form-control" id="passwordEdit" name="password">
                                                                                     <br>
                                                                                     <label for="rolesEdit" class="form-label fw-bold mb-0">Role</label>
                                                                                     <select class="form-select" id="rolesEdit" size="2" multiple="multiple" name="rolesForController" required>
@@ -205,7 +205,7 @@
 
                                                                                 <div class="modal-body col-7 mx-auto text-center">
                                                                                     <label for="idDelete" class="form-label fw-bold mb-0">ID</label>
-                                                                                    <input type="text" th:value="${user.getId()}" class="form-control" id="idDelete" readonly>
+                                                                                    <input type="number" th:value="${user.getId()}" class="form-control" id="idDelete" readonly>
                                                                                     <br>
                                                                                     <label for="userNameDelete" class="form-label fw-bold mb-0">User name</label>
                                                                                     <input type="text" th:value="${user.getUsername()}" class="form-control" id="userNameDelete" readonly>
@@ -220,7 +220,10 @@
                                                                                     <input type="text" th:value="${user.getAddress()}" class="form-control" id="addressDelete" readonly>
                                                                                     <br>
                                                                                     <label for="emailDelete" class="form-label fw-bold mb-0">Email</label>
-                                                                                    <input type="text" th:value="${user.getEmail()}" class="form-control" id="emailDelete" readonly>
+                                                                                    <input type="email" th:value="${user.getEmail()}" class="form-control" id="emailDelete" readonly>
+                                                                                    <br>
+                                                                                    <label for="passwordDelete" class="form-label fw-bold mb-0">Password</label>
+                                                                                    <input type="password" th:value="${user.getPassword()}"  class="form-control" id="passwordDelete" name="password">
                                                                                     <br>
                                                                                     <label for="rolesDelete" class="form-label fw-bold mb-0">Role</label>
                                                                                     <select class="form-select" id="rolesDelete" size="2" multiple="multiple" disabled>
