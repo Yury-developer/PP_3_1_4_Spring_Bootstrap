@@ -112,6 +112,9 @@ public class AdminController implements Constants {
 
         List<Role> roleList = roleService.findAll();
         model.addAttribute("role_list", roleList);
+
+        User defaultUser = userService.generateNewUsers(0)[0];
+        model.addAttribute("createdUser", defaultUser);
         return "admin/all-users";
     }
 

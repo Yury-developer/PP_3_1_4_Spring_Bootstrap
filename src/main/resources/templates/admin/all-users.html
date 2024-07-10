@@ -255,6 +255,47 @@
                                     </div>
                                 </div>
 
+                                <!--new User-->
+                                <div class="tab-pane fade" id="new_user-form" role="form">
+                                    <div class="card">
+                                        <div class="container-fluid px-0">
+                                            <h5 class="card-header">
+                                                Add new user</h5>
+                                        </div>
+                                        <div class="card-body col-5 mx-auto text-center mt-3">
+                                            <form th:method="POST" th:action="@{/admin/create}" th:object="${createdUser}">
+                                                <label for="userName" class="form-label fw-bold mb-0">First name</label>
+                                                <input type="text" class="form-control" id="userName" placeholder="User name" th:field="*{username}">
+                                                <br>
+                                                <label for="fullName" class="form-label fw-bold mb-0">Full name</label>
+                                                <input type="text" class="form-control" id="fullName" placeholder="Last name" th:field="*{fullName}">
+                                                <br>
+                                                <label for="dateBirth" class="form-label fw-bold mb-0">Date birth</label>
+                                                <input type="date" class="form-control" id="dateBirth" placeholder="Age" th:field="*{dateBirth}">
+                                                <br>
+                                                <label for="address" class="form-label fw-bold mb-0">Address</label>
+                                                <input type="text" class="form-control" id="address" placeholder="Email" th:field="*{address}">
+                                                <br>
+                                                <label for="email" class="form-label fw-bold mb-0">Email</label>
+                                                <input type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}">
+                                                <br>
+                                                <label for="password" class="form-label fw-bold mb-0">Password</label>
+                                                <input type="text" class="form-control" id="password" placeholder="Password" th:field="*{password}">
+                                                <br>
+                                                <label for="roles" class="form-label fw-bold mb-0">Role</label>
+                                                <select class="form-select" id="roles" size="2" multiple="multiple" name="rolesForController" required>
+                                                    <option th:value="${role_list.get(0).getName()}">USER</option>
+                                                    <option th:value="${role_list.get(1).getName()}">ADMIN</option>
+                                                </select>
+                                                <br>
+                                                <div>
+                                                    <button type="submit" class="btn btn-success">Add new user</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
                         </div>
                     </div>
                 </div>
