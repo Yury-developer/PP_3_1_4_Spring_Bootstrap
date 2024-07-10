@@ -115,6 +115,8 @@ public class AdminController implements Constants {
 
         User defaultUser = userService.generateNewUsers(0)[0];
         model.addAttribute("createdUser", defaultUser);
+
+        model.addAttribute("currentUser", currentUser);
         return "admin/all-users";
     }
 
