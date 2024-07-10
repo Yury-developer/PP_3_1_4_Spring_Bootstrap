@@ -1,0 +1,168 @@
+/* styles.css */
+
+th.id-column-head {
+    /* max-width: 150px; */
+    /*max-width: 40px;   !* Задаёт ширину элемента в 4% от ширины родительского контейнера. *!*/
+    /* width: 4%;   /* Задаёт ширину элемента в 4% от ширины родительского контейнера. */
+    /* white-space: nowrap;   /* предотвращает перенос текста на новую строку. */
+    /* overflow: hidden;   /* обрезает текст, выходящий за пределы заданной ширины. */
+    /* text-overflow: ellipsis; /* обрезает текст. Если хотите добавлять многоточие, используйте text-overflow: ellipsis;. / clip*/
+    /*display: inline-block;   !* Задаёт элементу блочно-строчное поведение. *!*/
+}
+
+th.username-column-head {
+    /*width: 13%;*/
+    /*max-width: 130px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+th.fullname-column-head {
+    /*width: 25%;*/
+    /*max-width: 266px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+th.datebirth-column-head {
+    /*width: 13%;*/
+    /*max-width: 130px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+th.address-column-head {
+    /*width: 20%;*/
+    /*max-width: 213px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+th.email-column-head {
+    /*width: 5%;*/
+    /*max-width: 53px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+th.role-column-head {
+    /*width: 4%;*/
+    /*max-width: 42px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+th.edit-column-head {
+    /*width: 8%;*/
+    /*max-width: 85px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+th.delete-column-head {
+    /*width: 8%;*/
+    /*max-width: 85px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*display: inline-block;*/
+}
+
+
+
+/* Содержимое ячеек */
+th.id-column {
+    /* max-width: 150px; */
+    max-width: 40px;   /* Задаёт ширину элемента в 4% от ширины родительского контейнера. */
+    width: 4%;   /* Задаёт ширину элемента в 4% от ширины родительского контейнера. */
+    white-space: nowrap;   /* предотвращает перенос текста на новую строку. */
+    overflow: hidden;   /* обрезает текст, выходящий за пределы заданной ширины. */
+    text-overflow: ellipsis; /* обрезает текст. Если хотите добавлять многоточие, используйте text-overflow: ellipsis;. / clip */
+    display: inline-block;   /* Задаёт элементу блочно-строчное поведение. */
+}
+
+th.username-column {
+    /*width: 13%;*/
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+th.fullname-column {
+    /*width: 25%;*/
+    max-width: 266px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+th.datebirth-column {
+    /*width: 13%;*/
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+th.address-column {
+    /*width: 20%;*/
+    max-width: 213px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+th.email-column {
+    /*width: 5%;*/
+    max-width: 53px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+th.role-column {
+    /*width: 4%;*/
+    max-width: 42px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+th.edit-column {
+    /*width: 8%;*/
+    max-width: 85px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+th.delete-column {
+    /*width: 8%;*/
+    max-width: 85px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}

@@ -44,11 +44,12 @@ public class UserGenerator {
 
             Scanner scanner = new Scanner(name);
             String login = transliterator.transliterate(scanner.next()
-                            + faker.number().numberBetween(1, 10)
-                            + scanner.next() + "."
-                            + dateBirth.getYear()).toLowerCase();
+                    + faker.number().numberBetween(1, 10)
+                    + scanner.next() + "."
+                    + dateBirth.getYear()).toLowerCase();
             String address = faker.address().fullAddress();
-            users[i] = new User(login, DEFAULT_PASSWORD, name, dateBirth, address);
+            String email = faker.internet().emailAddress(login);
+            users[i] = new User(login, DEFAULT_PASSWORD, name, dateBirth, address, email);
 
             Set<Role> roles = new HashSet<>();
             roles.add(role);

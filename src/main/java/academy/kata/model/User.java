@@ -41,6 +41,9 @@ public class User implements UserDetails {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "email")
+    private String email;
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) //* при LAZY выдает ошибку "org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: academy.kata.model.User.roles, could not initialize proxy - no Session ..."
     @JoinTable(name = "users_roles",
         joinColumns = @JoinColumn(name = "user_id"),
@@ -49,17 +52,19 @@ public class User implements UserDetails {
 
 
 
-    public User(String login, String password, Set<Role> roles, String fullName, Date dateBirth, String address) {
-        this(login, password, fullName, dateBirth, address);
+    public User(String login, String password, Set<Role> roles, String fullName, Date dateBirth, String address, String email) {
+        this(login, password, fullName, dateBirth, address, email);
         this.roles = roles;
+        this.email = email;
     }
 
-    public User(String login, String password, String fullName, Date dateBirth, String address) {
+    public User(String login, String password, String fullName, Date dateBirth, String address, String email) {
         this.username = login;
         this.password = password;
         this.fullName = fullName;
         this.dateBirth = dateBirth;
         this.address = address;
+        this.email = email;
     }
 
 
@@ -73,6 +78,7 @@ public class User implements UserDetails {
                 ", fullName='" + fullName + '\'' +
                 ", dateBirth=" + dateBirth +
                 ", address='" + address + '\'' +
+                ", email=" + email +
                 ", roles=" + roles +
                 '}';
     }
