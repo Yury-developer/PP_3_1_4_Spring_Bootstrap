@@ -19,11 +19,12 @@ CREATE TABLE t_role (
 -- Создание таблицы пользователей
 CREATE TABLE users (
     user_id BIGINT NOT NULL AUTO_INCREMENT,
-    address VARCHAR(255),
-    date_birth DATE,
-    full_name VARCHAR(50) NOT NULL,
-    password VARCHAR(128) NOT NULL,
     username VARCHAR(50) NOT NULL,
+    password VARCHAR(128) NOT NULL,
+    address VARCHAR(255),
+    full_name VARCHAR(50) NOT NULL,
+    date_birth DATE,
+	email VARCHAR(50) NOT NULL,
     PRIMARY KEY (user_id)
 ) ENGINE=InnoDB;
 
@@ -45,14 +46,14 @@ INSERT INTO t_role (role_id, role_name) VALUES (2, 'ROLE_ADMIN');
 INSERT INTO t_role (role_id, role_name) VALUES (3, 'ROLE_SUPERADMIN');
 
 -- Добавление пользователей
-INSERT INTO users (user_id, address, date_birth, full_name, password, username) 
-VALUES (1, 'User Address', '2000-01-01', 'User Name', '$2a$10$Iom7deSLgxAxykvuANH2s.KpMy5xWbjgQmcsuiycdJt0UMoQflKaC', 'user'); -- user // u
+INSERT INTO users (user_id, username, password, full_name, date_birth, address, email) 
+VALUES (1, 'user', '$2a$10$Iom7deSLgxAxykvuANH2s.KpMy5xWbjgQmcsuiycdJt0UMoQflKaC', 'Name is User', '2000-01-01', 'User Address', 'user@mail.ru'); -- user // u
 
-INSERT INTO users (user_id, address, date_birth, full_name, password, username) 
-VALUES (2, 'Admin Address', '1990-02-02', 'Admin Name', '$2a$10$dWJyopJqWj/PDxEozd6MzOzTwV.5c2GNoU6hUiou0YOF2CHkfDoZK', 'admin'); -- admin // a
+INSERT INTO users (user_id, username, password, full_name, date_birth, address, email) 
+VALUES (2, 'admin', '$2a$10$dWJyopJqWj/PDxEozd6MzOzTwV.5c2GNoU6hUiou0YOF2CHkfDoZK', 'Name is Admin', '1990-02-02', 'Admin Address', 'admin@ya.ru'); -- admin // a
 
-INSERT INTO users (user_id, address, date_birth, full_name, password, username) 
-VALUES (3, 'SUPER-Admin Address', '1980-03-03', 'SUPER-Admin Name', '$2a$10$BpTDSlU4gBqocZFn7/t7BuqoFww6wBaqMO5Tot7bvzarZDJJ9xwM2', 'superadmin'); -- superadmin // s
+INSERT INTO users (user_id, username, password, full_name, date_birth, address, email) 
+VALUES (3, 'superadmin', '$2a$10$BpTDSlU4gBqocZFn7/t7BuqoFww6wBaqMO5Tot7bvzarZDJJ9xwM2', 'Name is SUPER-Admin', '1980-03-03', 'SUPER-Admin Address', 'superAdmin@gmail.com'); -- superadmin // s
 
 -- Связывание пользователей с ролями
 INSERT INTO users_roles (user_id, role_id) VALUES (1, 1);  -- Связываем пользователя user с ролью USER

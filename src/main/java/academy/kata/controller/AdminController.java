@@ -136,6 +136,7 @@ public class AdminController implements Constants {
     @PutMapping("/edit")
     public String editUser(@RequestParam(name = "id") Long userId,
                            @ModelAttribute("editUser") User user) {
+        System.out.println("\n\n***\neditUser:" + user + "\n\n***\n");
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         logger.fine("AdminController: editUser, user_id = " + userId + "\n user = " + user);

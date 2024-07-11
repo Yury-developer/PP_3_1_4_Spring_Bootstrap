@@ -124,8 +124,7 @@
                                                             <td class="email-column" th:text="${user.getEmail()}">Email</td>
                                                             <td class="role-column">
                                                                 <span th:each="role : ${user.getRoles()}"
-                                                                      th:text="${role.getName()} + ' '"></span>
-                                                                <!--th:text="${role.getRoleNameWithoutRole()} + ' '"></span>-->
+                                                                      th:text="${role.getNameWithoutPrefix()} + ' '"></span>
                                                             </td>
 
                                                             <!--edit-->
@@ -134,8 +133,7 @@
                                                                         th:attr="data-bs-target=${'#editModal'+ user.id}">
                                                                     Edit</button>
 
-                                                                <div class="modal fade" th:id="${'editModal' + user.id}" tabindex="-1"
-                                                                     aria-labelledby="edit" aria-hidden="true">
+                                                                <div class="modal fade" th:id="${'editModal' + user.id}" tabindex="-1" aria-labelledby="edit" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -144,8 +142,11 @@
                                                                             </div>
 
                                                                             <div class="card-body text-center">
-                                                                                <form th:action="@{/admin/update/{id}(id=${user.id})}" th:method="PATCH" th:object="${user}">
+                                                                                <form th:action="@{/admin/edit}" th:method="PUT" th:object="${user}">
+<!--                                                                                <form th:action="@{/admin/edit/{id}(id=${user.id})}" th:method="PUT" th:object="${user}">-->
                                                                                     <div class="modal-body col-7 mx-auto text-center">
+                                                                                        <input type="hidden" th:value="${user.id}" name="id"/>
+
                                                                                         <label for="idEdit" class="form-label fw-bold mb-0">ID</label>
                                                                                         <input type="number" th:value="${user.id}" class="form-control" id="idEdit" readonly>
                                                                                         <br>
@@ -169,8 +170,14 @@
                                                                                         <br>
                                                                                         <label for="rolesEdit" class="form-label fw-bold mb-0">Role</label>
                                                                                         <select class="form-select" id="rolesEdit" size="2" multiple="multiple" name="rolesForController" required>
-                                                                                            <option th:value="${role_list.get(0).getName()}">USER</option>
-                                                                                            <option th:value="${role_list.get(1).getName()}">ADMIN</option>
+
+<!--                                                                                            <select class="form-select" id="role_user" size="2" multiple="multiple" th:field="*{roles}" required>-->
+                                                                                            <option value="" disabled>Select role</option>
+                                                                                            <option th:each="role : ${role_list}" th:value="${role.getId()}" th:text="${role.getNameWithoutPrefix()}"></option>
+<!--                                                                                            </select>-->
+
+<!--                                                                                            <option th:value="${role_list.get(0).getName()}">USER</option>-->
+<!--                                                                                            <option th:value="${role_list.get(1).getName()}">ADMIN</option>-->
                                                                                         </select>
                                                                                         <br>
                                                                                     </div>
@@ -228,9 +235,14 @@
                                                                                         <label for="rolesDelete" class="form-label fw-bold mb-0">Role</label>
                                                                                         <select class="form-select" id="rolesDelete" size="2" multiple="multiple" disabled>
                                                                                             <option th:each="role : ${user.getRoles()}"
-                                                                                                    th:text="${role.getName()}">
+                                                                                                    th:text="${role.getNameWithoutPrefix()}">
     <!--                                                                                                th:text="${role.getRoleNameWithoutRole()}">-->
+
                                                                                             </option>
+<!--                                                                                            <select class="form-select" id="rolesEdit" size="2" multiple="multiple" name="rolesForController" required>-->
+<!--                                                                                                <option th:value="${role_list.get(0).getName()}">USER</option>-->
+<!--                                                                                                <option th:value="${role_list.get(1).getName()}">ADMIN</option>-->
+<!--                                                                                            </select>-->
                                                                                         </select>
                                                                                         <br>
                                                                                     </div>
@@ -264,7 +276,7 @@
                                             </div>
                                             <div class="card-body col-5 mx-auto text-center mt-3">
                                                 <form th:method="POST" th:action="@{/admin/create}" th:object="${createdUser}">
-                                                    <label for="userName" class="form-label fw-bold mb-0">First name</label>
+                                                    <label for="userName" class="form-label fw-bold mb-0">User name</label>
                                                     <input type="text" class="form-control" id="userName" placeholder="User name" th:field="*{username}">
                                                     <br>
                                                     <label for="fullName" class="form-label fw-bold mb-0">Full name</label>
@@ -282,11 +294,13 @@
                                                     <label for="password" class="form-label fw-bold mb-0">Password</label>
                                                     <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}">
                                                     <br>
-                                                    <label for="roles" class="form-label fw-bold mb-0">Role</label>
-                                                    <select class="form-select" id="roles" size="2" multiple="multiple" name="rolesForController" required>
-                                                        <option th:value="${role_list.get(0).getName()}">USER</option>
-                                                        <option th:value="${role_list.get(1).getName()}">ADMIN</option>
+
+                                                    <label for="role_user" class="form-label fw-bold mb-0">Role (*):</label>
+                                                    <select id="role_user" class="form-select" th:field="*{roles}" size="2" multiple="multiple" required>
+                                                        <option value="" disabled>Select role</option>
+                                                        <option th:each="role : ${role_list}" th:value="${role.getId()}" th:text="${role.getNameWithoutPrefix()}"></option>
                                                     </select>
+
                                                     <br>
                                                     <div>
                                                         <button type="submit" class="btn btn-success">Add new user</button>
