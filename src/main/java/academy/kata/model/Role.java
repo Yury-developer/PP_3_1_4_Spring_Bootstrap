@@ -42,4 +42,12 @@ public class Role implements GrantedAuthority {
     public String getNameWithoutPrefix() { // возвращает имя роли, должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER
         return getName().replace("ROLE_", "");
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

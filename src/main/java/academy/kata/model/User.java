@@ -26,10 +26,10 @@ public class User implements UserDetails {
     @Column(name = "user_id", updatable = false, nullable = false) // поле не может быть обновлено при выполнении операции обновления (UPDATE) в базе данных; не может содержать значение NULL
     private Long id;
 
-    @Column(name = "username", length = 50, nullable = false) // login
-    private String username;
+    @Column(name = "user_name", length = 50, nullable = false) // login
+    private String userName;
 
-    @Column(name = "password", length = 128, nullable = false) // password
+    @Column(name = "user_password", length = 128, nullable = false) // password
     private String password;
 
     @Column(name = "full_name", length = 50, nullable = false)
@@ -59,7 +59,7 @@ public class User implements UserDetails {
     }
 
     public User(String login, String password, String fullName, Date dateBirth, String address, String email) {
-        this.username = login;
+        this.userName = login;
         this.password = password;
         this.fullName = fullName;
         this.dateBirth = dateBirth;
@@ -71,15 +71,15 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", dateBirth=" + dateBirth +
-                ", address='" + address + '\'' +
-                ", email=" + email +
-                ", roles=" + roles +
+        return "User{"  + "\n\t" +
+                "id = " + id + " ,\n\t" +
+                " userName = '" + userName + " ,\n\t" +
+                " password = '" + password + " ,\n\t" +
+                " fullName = '" + fullName + " ,\n\t" +
+                " dateBirth = " + dateBirth + " ,\n\t" +
+                " address = '" + address + " ,\n\t" +
+                " email = " + email + " ,\n\t" +
+                " roles = " + roles + ":\n\t" +
                 '}';
     }
 
@@ -95,7 +95,7 @@ public class User implements UserDetails {
     // Возвращает имя пользователя, используемое для аутентификации.
     @Override
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     //  Возвращает пароль пользователя.

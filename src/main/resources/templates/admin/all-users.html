@@ -129,9 +129,9 @@
 
                                                             <!--edit-->
                                                             <td>
-                                                                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
-                                                                        th:attr="data-bs-target=${'#editModal'+ user.id}">
-                                                                    Edit</button>
+                                                                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" th:attr="data-bs-target=${'#editModal'+ user.id}">
+                                                                    Edit
+                                                                </button>
 
                                                                 <div class="modal fade" th:id="${'editModal' + user.id}" tabindex="-1" aria-labelledby="edit" aria-hidden="true">
                                                                     <div class="modal-dialog">
@@ -143,42 +143,77 @@
 
                                                                             <div class="card-body text-center">
                                                                                 <form th:action="@{/admin/edit}" th:method="PUT" th:object="${user}">
-<!--                                                                                <form th:action="@{/admin/edit/{id}(id=${user.id})}" th:method="PUT" th:object="${user}">-->
                                                                                     <div class="modal-body col-7 mx-auto text-center">
-                                                                                        <input type="hidden" th:value="${user.id}" name="id"/>
 
                                                                                         <label for="idEdit" class="form-label fw-bold mb-0">ID</label>
-                                                                                        <input type="number" th:value="${user.id}" class="form-control" id="idEdit" readonly>
+                                                                                        <input type="number" th:value="${user.id}" class="form-control" id="idEdit" readonly  name="id">
                                                                                         <br>
+
                                                                                         <label for="userNameEdit" class="form-label fw-bold mb-0">User name</label>
                                                                                         <input type="text" th:value="${user.getUsername()}"  class="form-control" id="userNameEdit" name="userName">
                                                                                         <br>
+
                                                                                         <label for="fullNameEdit" class="form-label fw-bold mb-0">Full name</label>
                                                                                         <input type="text" th:value="${user.getFullName()}" class="form-control" id="fullNameEdit" name="fullName">
                                                                                         <br>
+
                                                                                         <label for="dateBirthEdit" class="form-label fw-bold mb-0">Date birth</label>
                                                                                         <input type="date" th:value="${user.getDateBirth()}"  class="form-control" id="dateBirthEdit" name="dateBirth">
                                                                                         <br>
-                                                                                        <label for="addressEdit" class="form-label fw-bold mb-0">Address</label>
+                                                                                        <label
+                                                                                                for="addressEdit" class="form-label fw-bold mb-0">Address</label>
                                                                                         <input type="text" th:value="${user.getAddress()}"  class="form-control" id="addressEdit" name="address">
                                                                                         <br>
+
                                                                                         <label for="emailEdit" class="form-label fw-bold mb-0">Email</label>
                                                                                         <input type="email" th:value="${user.getEmail()}"  class="form-control" id="emailEdit" name="email">
                                                                                         <br>
+
                                                                                         <label for="passwordEdit" class="form-label fw-bold mb-0">Password</label>
                                                                                         <input type="password" th:value="${user.getPassword()}"  class="form-control" id="passwordEdit" name="password">
                                                                                         <br>
+
                                                                                         <label for="rolesEdit" class="form-label fw-bold mb-0">Role</label>
-                                                                                        <select class="form-select" id="rolesEdit" size="2" multiple="multiple" name="rolesForController" required>
 
-<!--                                                                                            <select class="form-select" id="role_user" size="2" multiple="multiple" th:field="*{roles}" required>-->
+
+
+
+
+
+
+
+
+
+
+
+<!--                                                                                        <select class="form-select" id="rolesEdit" size="2" multiple="multiple" th:field="*{roles}" required>-->
+
+                                                                                        <select class="form-select" id="rolesEdit" size="2" multiple="multiple" name="selected_roles[]" required>
                                                                                             <option value="" disabled>Select role</option>
-                                                                                            <option th:each="role : ${role_list}" th:value="${role.getId()}" th:text="${role.getNameWithoutPrefix()}"></option>
-<!--                                                                                            </select>-->
 
-<!--                                                                                            <option th:value="${role_list.get(0).getName()}">USER</option>-->
-<!--                                                                                            <option th:value="${role_list.get(1).getName()}">ADMIN</option>-->
+                                                                                            <option th:each="role : ${role_list}" th:value="${role.id}" th:text="${role.nameWithoutPrefix}"></option>
+
                                                                                         </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                                                         <br>
                                                                                     </div>
                                                                                     <div class="modal-footer">

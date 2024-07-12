@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -134,13 +136,15 @@ public class AdminController implements Constants {
     }
 
     @PutMapping("/edit")
-    public String editUser(@RequestParam(name = "id") Long userId,
-                           @ModelAttribute("editUser") User user) {
-        System.out.println("\n\n***\neditUser:" + user + "\n\n***\n");
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encryptedPassword);
-        logger.fine("AdminController: editUser, user_id = " + userId + "\n user = " + user);
-        userService.updateUser(user);
+    public String editUser(@ModelAttribute("user") User user,
+                           @RequestParam("selected_roles[]") List<Long> selectedRoles) {
+
+        logger.fine("AdminController: editUser, " +
+                "user_id = " + user.getId() +
+                "\n user = " + user +
+                "\n roles = " + Arrays.toString(selectedRoles.toArray()));
+
+        userService.updateUser(user, selectedRoles);
         return "redirect:/admin";
     }
 

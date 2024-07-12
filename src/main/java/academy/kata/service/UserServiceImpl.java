@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import java.util.stream.Collectors;
 
 
 @Service
@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService, Constants {
 
 
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String userName) {
+        return userRepository.findByUsername(userName);
     }
 
 
@@ -63,7 +63,17 @@ public class UserServiceImpl implements UserService, Constants {
 
     @Override
     @Transactional
-    public void updateUser(User user) {
+    public void updateUser(User user, List<Long> selectedRoles) {
+
+        Set<Role> roleSet = selectedRoles.stream()
+                .map(roleService::findById)
+                .collect(Collectors.toSet());
+
+        user.setRoles(roleSet);
+
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
         userRepository.save(user);
     }
 
@@ -86,7 +96,7 @@ public class UserServiceImpl implements UserService, Constants {
         User[] users;
         if (count == 0) {
             users = userGenerator.generateUsers(1);
-            users[0].setUsername("userLogin");
+            users[0].setUserName("userLogin");
             users[0].setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
             users[0].setFullName("userName");
             users[0].setAddress("userAddress");

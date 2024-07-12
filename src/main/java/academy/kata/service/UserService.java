@@ -11,11 +11,11 @@ public interface UserService {
 
     User findById(Long id);
 
-    User findByUsername(String nsername);   //
+    User findByUsername(String userName);   //
 
     List<User> findAll();
 
-    void updateUser(User user);
+    void updateUser(User user, List<Long> selectedRoles);
 
     void deleteById(Long id);
 

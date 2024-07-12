@@ -25,6 +25,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Role findById(Long id) {
+        return roleRepository.findById(id).get(); // NoSuchElementException, если по данному id отсутствует Role.
+    }
+
+    @Override
     public List<Role> findAll() {
         List<Role> roleList = roleRepository.findAll();
         roleList.sort(Comparator.comparing(Role::getName)); // отсортируем для красивого вывода в браузере
