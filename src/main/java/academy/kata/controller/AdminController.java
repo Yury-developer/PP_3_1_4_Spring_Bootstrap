@@ -150,8 +150,10 @@ public class AdminController implements Constants {
 
 
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
+//    public String deleteUser(@RequestParam(name = "user_id") Long userId) {
     public String deleteUser(@RequestParam(name = "user_id") Long userId) {
+        System.out.println("\n***\n DELETE \n***\n");
         logger.fine("AdminController: deleteUser, user_id = " + userId);
         userService.deleteById(userId);
         return "redirect:/admin";
