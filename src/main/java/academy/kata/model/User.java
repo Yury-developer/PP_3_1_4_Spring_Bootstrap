@@ -27,7 +27,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "user_name", length = 50, nullable = false) // login
-    private String userName;
+    private String name;
 
     @Column(name = "user_password", length = 128, nullable = false) // password
     private String password;
@@ -59,7 +59,7 @@ public class User implements UserDetails {
     }
 
     public User(String login, String password, String fullName, Date dateBirth, String address, String email) {
-        this.userName = login;
+        this.name = login;
         this.password = password;
         this.fullName = fullName;
         this.dateBirth = dateBirth;
@@ -73,7 +73,7 @@ public class User implements UserDetails {
     public String toString() {
         return "User{"  + "\n\t" +
                 "id = " + id + " ,\n\t" +
-                " userName = '" + userName + " ,\n\t" +
+                " userName = '" + name + " ,\n\t" +
                 " password = '" + password + " ,\n\t" +
                 " fullName = '" + fullName + " ,\n\t" +
                 " dateBirth = " + dateBirth + " ,\n\t" +
@@ -95,7 +95,7 @@ public class User implements UserDetails {
     // Возвращает имя пользователя, используемое для аутентификации.
     @Override
     public String getUsername() {
-        return userName;
+        return name;
     }
 
     //  Возвращает пароль пользователя.

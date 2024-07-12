@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService, Constants {
         User[] users;
         if (count == 0) {
             users = userGenerator.generateUsers(1);
-            users[0].setUserName("userLogin");
+            users[0].setName("userLogin");
             users[0].setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
             users[0].setFullName("userName");
             users[0].setAddress("userAddress");
