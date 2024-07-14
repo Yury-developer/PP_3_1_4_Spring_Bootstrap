@@ -31,22 +31,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests() // настроим authorize requests
-                .antMatchers("/css/**", "/index").permitAll() // Разрешить доступ к стилям и главной странице
+//                .antMatchers("/css/**", "/index").permitAll() // Разрешить доступ к стилям и главной странице
+                .antMatchers("/css/**", "/index", "/login").permitAll() // Разрешить доступ к стилям и главной странице
 
                 .antMatchers("/user/**").authenticated() // если пойдем в сторону "/user/**" то пустит только авторизированных пользователей.
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "SUPERADMIN") // в админку пускаем только С РОЛЯМИ 'ADMIN' и 'SUPERADMIN'
 //                .antMatchers("/admin/**").hasAuthority("ONLY_REED") // а также в админку пустит С ПРАВАМИ 'ONLY_REED' (тут сравнивает один к одному)
+                .anyRequest().authenticated()
 
                 .and()
 //                .httpBasic() // стандартная аунтефикация
                 .formLogin() // для авторизации будет НАША красивая сверстанная форма/ либо по умолчанию Spring сгенерит, как в нашем случае.
-//                .loginProcessingUrl("/hellologin") // логиниться будем по этому альтернативному URL
-                .permitAll()  // Разрешение доступа к странице логина для всех
-                .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
+                    .loginPage("/login") // указываем страницу с формой логина
+                    .loginProcessingUrl("/process_login") // логиниться будем по этому альтернативному URL. указываем URL для обработки логина
+                    .usernameParameter("username") // указываем имя параметра для имени пользователя
+                    .passwordParameter("password") // указываем имя параметра для пароля
+                    .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
+                    .permitAll()  // Разрешение доступа к странице логина для всех
 
                 .and()
-                .logout().logoutSuccessUrl("/") // при logout будет вести на корневую страницу нашего приложения.
-                .permitAll();
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/") // при logout будет вести на корневую страницу нашего приложения.
+                    .permitAll()
+
+                .and()
+                    .exceptionHandling()
+                    .accessDeniedPage("/403"); // Указываем страницу для ошибки 403
     }
 
 
