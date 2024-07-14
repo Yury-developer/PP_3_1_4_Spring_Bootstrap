@@ -45,7 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(successUserHandler) // после залогинивания перекинет на successUserHandler
 
                 .and()
-                .logout().logoutSuccessUrl("/") // при logout будет вести на корневую страницу нашего приложения.
+                .logout()
+                .logoutSuccessUrl("/login") // при logout будет вести на корневую страницу нашего приложения.
                 .permitAll();
     }
 
