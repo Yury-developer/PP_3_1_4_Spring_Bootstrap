@@ -9,10 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -44,9 +41,11 @@ public class UserServiceImpl implements UserService, Constants {
         userRepository.save(user);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public User findById(Long id) {
-        return userRepository.getById(id);
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+//        return userRepository.getById(id);
     }
 
 
