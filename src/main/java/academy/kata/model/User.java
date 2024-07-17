@@ -1,5 +1,6 @@
 package academy.kata.model;
 
+import academy.kata.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -66,6 +67,11 @@ public class User implements UserDetails {
         this.address = address;
         this.email = email;
     }
+
+
+//    public User(UserDto userDto) {
+//        this(userDto.getName(), userDto.getPassword(), userDto.getFullName(), userDto.getDateBirth(), userDto.getAddress(), userDto.getEmail());
+//    }
 
 
 

@@ -80,8 +80,10 @@ public class AdminController implements Constants {
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("createdUser") User user) {
+
         System.out.println("AdminController: createUser. user = " + user);
         System.out.println("user.getUsername() = " + user.getName());
+
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         logger.fine("AdminController: addUser, user = " + user);

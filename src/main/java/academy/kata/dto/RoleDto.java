@@ -22,9 +22,5 @@ public class RoleDto {
         this.name = name;
     }
 
-    public RoleDto(Role role) {
-        this(role.getId(), role.getName());
-    }
-
 }
 
