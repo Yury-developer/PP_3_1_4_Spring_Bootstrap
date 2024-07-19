@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class UserServiceImpl implements UserService, Constants {
+public class UserServiceImpl implements UserService {
 
 
     private final UserRepository userRepository;
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService, Constants {
         if (count == 0) {
             users = userGenerator.generateUsers(1);
             users[0].setName("userLogin");
-            users[0].setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
+            users[0].setPassword(passwordEncoder.encode(Constants.DEFAULT_PASSWORD.get()));
             users[0].setFullName("userName");
             users[0].setAddress("userAddress");
             Set<Role> roles = new HashSet<>(roleService.findAll());
