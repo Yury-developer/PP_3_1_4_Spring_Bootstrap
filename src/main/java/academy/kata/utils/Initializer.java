@@ -5,29 +5,33 @@ import academy.kata.model.User;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 
-@Component
+@Configuration
 public class Initializer {
 
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final JdbcTemplate jdbcTemplate;
 
 
     @Autowired
-    public Initializer(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public Initializer(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder, JdbcTemplate jdbcTemplate) {
         this.userService = userService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @PreDestroy
@@ -37,7 +41,13 @@ public class Initializer {
     }
 
     @PostConstruct
-    private void init() {
+    private void init() throws IOException {
+        String createQuery = "CREATE SCHEMA IF NOT EXISTS `PP_3_1_4_spring-bootstrap` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;";
+        jdbcTemplate.execute(createQuery);
+        String useQuery = "USE `PP_3_1_4_spring-bootstrap`;";
+        jdbcTemplate.execute(useQuery);
+
+
         Role userRole = new Role(1L, "ROLE_USER");
         roleService.addRole(userRole);
 
