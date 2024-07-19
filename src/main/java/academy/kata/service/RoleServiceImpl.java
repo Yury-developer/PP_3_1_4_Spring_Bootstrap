@@ -35,4 +35,14 @@ public class RoleServiceImpl implements RoleService {
         roleList.sort(Comparator.comparing(Role::getName)); // отсортируем для красивого вывода в браузере
         return roleList;
     }
+
+    @Override
+    public void addRole(Role role) {
+        roleRepository.save(role);
+    }
+
+    @Override
+    public void deleteAll() {
+        roleRepository.deleteAll();
+    }
 }

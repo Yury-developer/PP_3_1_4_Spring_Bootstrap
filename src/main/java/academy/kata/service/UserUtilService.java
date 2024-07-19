@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserUtilService implements UserDetailsService {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     @Autowired
@@ -41,7 +42,6 @@ public class UserUtilService implements UserDetailsService {
 
     // перегоним наших User'ов в User'ов которые понимает SpringSequrity
     @Override
-    @Transactional
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username);
         if (user == null) {
