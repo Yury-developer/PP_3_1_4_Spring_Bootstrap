@@ -6,12 +6,10 @@ import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.io.IOException;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,15 +21,15 @@ public class Initializer {
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-    private final JdbcTemplate jdbcTemplate;
 
 
     @Autowired
-    public Initializer(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder, JdbcTemplate jdbcTemplate) {
+    public Initializer(UserService userService,
+                       RoleService roleService,
+                       PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
     @PreDestroy
@@ -41,13 +39,7 @@ public class Initializer {
     }
 
     @PostConstruct
-    private void init() throws IOException {
-        String createQuery = "CREATE SCHEMA IF NOT EXISTS `PP_3_1_4_spring-bootstrap` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;";
-        jdbcTemplate.execute(createQuery);
-        String useQuery = "USE `PP_3_1_4_spring-bootstrap`;";
-        jdbcTemplate.execute(useQuery);
-
-
+    private void init() {
         Role userRole = new Role(1L, "ROLE_USER");
         roleService.addRole(userRole);
 
