@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
-//public class User implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +46,8 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) //* при LAZY выдает ошибку "org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role: academy.kata.model.User.roles, could not initialize proxy - no Session ..."
     @JoinTable(name = "users_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")) // указываем внешний ключ в таблице ролей
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")) // указываем внешний ключ в таблице ролей
     private Set<Role> roles;
 
 
