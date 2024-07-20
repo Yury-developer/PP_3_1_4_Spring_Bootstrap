@@ -71,7 +71,16 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(roleSet);
 
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        /*
+         Если пароль введен не был - то используем пароль от существующего пользователя (старый)
+         Если введен новый пароль - то используем его (новый)
+         */
+        String encryptedPassword;
+        if (user.getPassword().isEmpty()) {
+            encryptedPassword = userRepository.getById(user.getId()).getPassword();
+        } else {
+            encryptedPassword = passwordEncoder.encode(user.getPassword());
+        }
         user.setPassword(encryptedPassword);
 
         userRepository.save(user);
@@ -110,7 +119,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
+//    @Transactional
     public void generateTestData(Integer count) {
         userRepository.saveAll(Arrays.asList(generateNewUsers(count)));
     }

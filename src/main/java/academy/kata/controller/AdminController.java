@@ -70,8 +70,6 @@ public class AdminController {
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("createdUser") User user) {
-        System.out.println("AdminController: createUser. user = " + user);
-        System.out.println("user.getUsername() = " + user.getName());
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         logger.fine("AdminController: addUser, user = " + user);
@@ -103,19 +101,6 @@ public class AdminController {
         return "admin/all-users";
     }
 
-//    private static UserDetailsImpl userToUserDetails(User currentUser) {
-//        UserDetailsImpl userDetails = new UserDetailsImpl();
-//        userDetails.setId(currentUser.getId());
-//        userDetails.setName(currentUser.getName());
-//        userDetails.setPassword(currentUser.getPassword());
-//        userDetails.setRoles(currentUser.getRoles());
-//        userDetails.setFullName(currentUser.getFullName());
-//        userDetails.setDateBirth(currentUser.getDateBirth());
-//        userDetails.setAddress(currentUser.getAddress());
-//        userDetails.setEmail(currentUser.getEmail());
-//        return userDetails;
-//    }
-
 
     @PutMapping("/edit")
     public String editUser(@ModelAttribute("user") User user,
@@ -133,11 +118,11 @@ public class AdminController {
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam(name = "user_id") Long userId) {
-        System.out.println("\n***\n DELETE \n***\n");
         logger.fine("AdminController: deleteUser, user_id = " + userId);
         userService.deleteById(userId);
         return "redirect:/admin";
     }
+
 
     @DeleteMapping("/delete-all")
     public String deleteAllUsers() {

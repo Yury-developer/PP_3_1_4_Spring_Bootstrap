@@ -49,8 +49,6 @@ public class Initializer {
         Role superAdminRole = new Role(3L, "ROLE_SUPERADMIN");
         roleService.addRole(superAdminRole);
 
-
-
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(roleService.findByName(userRole.getName()));
         User userUsr = new User(
@@ -64,7 +62,6 @@ public class Initializer {
         );
         userUsr.setId(1L);
         userService.saveUser(userUsr);
-
 
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(roleService.findByName(userRole.getName()));
@@ -80,7 +77,6 @@ public class Initializer {
         );
         adminUsr.setId(2L);
         userService.saveUser(adminUsr);
-
 
         Set<Role> superAdminRoles = new HashSet<>();
         superAdminRoles.add(roleService.findByName(userRole.getName()));

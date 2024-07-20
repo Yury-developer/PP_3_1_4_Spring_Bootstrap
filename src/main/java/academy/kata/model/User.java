@@ -3,15 +3,10 @@ package academy.kata.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @Entity
@@ -20,7 +15,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class User {
-//public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +46,6 @@ public class User {
     private Set<Role> roles;
 
 
-
     public User(String login, String password, Set<Role> roles, String fullName, Date dateBirth, String address, String email) {
         this(login, password, fullName, dateBirth, address, email);
         this.roles = roles;
@@ -69,7 +62,6 @@ public class User {
     }
 
 
-
     @Override
     public String toString() {
         return "User{"  + "\n\t" +
@@ -83,49 +75,4 @@ public class User {
                 " roles = " + roles + ":\n\t" +
                 '}';
     }
-
-
-//    // Возвращает коллекцию прав (или ролей), предоставленных пользователю. Возвращаемый тип — Collection<? extends GrantedAuthority>.
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roles.stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName()))
-//                .collect(Collectors.toList());
-//    }
-//
-//    // Возвращает имя пользователя, используемое для аутентификации.
-//    @Override
-//    public String getUsername() {
-//        return name;
-//    }
-//
-//    //  Возвращает пароль пользователя.
-//    @Override
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    // Указывает, не истёк ли срок действия аккаунта пользователя. Если истёк, то пользователю запрещается аутентификация.
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    // Указывает, не заблокирован ли аккаунт пользователя. Если аккаунт заблокирован, то пользователю запрещается аутентификация.
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    // Указывает, не истёк ли срок действия учетных данных пользователя (пароля). Если истёк, то пользователю запрещается аутентификация.
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    //  Указывает, включён ли пользователь. Отключённый пользователь не может быть аутентифицирован.
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
 }
