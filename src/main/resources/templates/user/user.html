@@ -24,9 +24,9 @@
     <header>
         <nav class="navbar navbar-dark bg-dark p-0 shadow ">
             <div class="nav-item text-white px-3">
-                <span class="fw-bold" th:text="${infoUser.getEmail()}"></span>
+                <span class="fw-bold" th:text="${info_user.getEmail()}"></span>
                 <span>with roles:</span>
-                <span th:each="authorities : ${infoUser.getAuthorities()}"
+                <span th:each="authorities : ${info_user.getAuthorities()}"
                       th:text="${#strings.substring(authorities.getAuthority(), 5)} + ' '">
                     </span>
             </div>
@@ -101,14 +101,14 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="id-column" th:text="${infoUser.getId()}">Id</td>
-                                                    <td class="username-column" th:text="${infoUser.getUsername()}">User Name</td>
-                                                    <td class="fullname-column" th:text="${infoUser.getFullName()}">First Name, Last Name, Patronymic</td>
-                                                    <td class="datebirth-column" th:text="${infoUser.getDateBirth()}">Date Birth</td>
-                                                    <td class="address-column" th:text="${infoUser.getAddress()}">Address</td>
-                                                    <td class="email-column" th:text="${infoUser.getEmail()}">Email</td>
+                                                    <td class="id-column" th:text="${info_user.getId()}">Id</td>
+                                                    <td class="username-column" th:text="${info_user.getName()}">User Name</td>
+                                                    <td class="fullname-column" th:text="${info_user.getFullName()}">First Name, Last Name, Patronymic</td>
+                                                    <td class="datebirth-column" th:text="${info_user.getDateBirth()}">Date Birth</td>
+                                                    <td class="address-column" th:text="${info_user.getAddress()}">Address</td>
+                                                    <td class="email-column" th:text="${info_user.getEmail()}">Email</td>
                                                     <td class="role-column">
-                                                        <span th:each="role : ${infoUser.getRoles()}" th:text="${role.getNameWithoutPrefix()} + ' '"></span>
+                                                        <span th:each="role : ${info_user.getRoles()}" th:text="${role.getNameWithoutPrefix()} + ' '"></span>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -121,94 +121,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<H2 class="page-info-text">page: User</H2>
-        <br/> <br/>
-
-        <h1>Welcome to the 'spring boot security page'!</h1>
-
-
-        <table border="5">
-            <tr>
-                <td style = "width: 200px; background-color: lightcyan; text-align: center;">Parameter</td>
-                <td style = "width: 500px; background-color: lightcyan; text-align: center;">Value</td>
-            </tr>
-            <tr>
-                <td  style = "background-color: aqua;"></td>
-                <td style = "background-color: aqua; text-align: center;">User info:</td>
-            </tr>
-            <tr>
-                <td>User Id</td>
-                <td th:text="${infoUser.getId()}">User Id</td>
-            </tr>
-            <tr>
-                <td>Login</td>
-                <td th:text="${infoUser.getUsername()}">Login</td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td th:text="${infoUser.getPassword()}">Password</td>
-            </tr>
-            <tr>
-                <td>Roles</td>
-                <td></td>
-            <tr th:each="itemRole : ${infoUser.roles}">
-                <td style="text-align: right;"> <em>Role:</em> </td>
-                <td style="text-align: center;" th:utext="${itemRole.getName()}">id</td>
-            </tr>
-            </tr>
-            <tr>
-                <td  style = "background-color: aqua;"></td>
-                <td style = "background-color: aqua; text-align: center;">Personal info:</td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td th:text="${infoUser.getFullName()}">Name</td>
-            </tr>
-            <tr>
-                <td>Date of Birth</td>
-                <td th:text="${infoUser.getDateBirth()}">dateBirth</td>
-            </tr>
-            <tr>
-                <td>Address</td>
-                <td th:text="${infoUser.getAddress()}">Address</td>
-            </tr>
-        </table>
-
-        <br/> <hr/> <br/> <br/>
-
-        <form th:method="GET" th:action="@{/logout}">
-            <input type="submit" value="Logout"/>
-        </form>
-        <br/> <br/> <hr/> <br/>-->
-
 
     </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

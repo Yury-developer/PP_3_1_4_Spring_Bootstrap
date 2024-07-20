@@ -115,9 +115,9 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr th:each="user : ${viewAllUsers}">
+                                                            <tr th:each="user : ${view_all_users}">
                                                                 <td class="id-column" th:text="${user.getId()}">Id</td>
-                                                                <td class="username-column" th:text="${user.getUsername()}">User Name</td>
+                                                                <td class="username-column" th:text="${user.getName()}">User Name</td>
                                                                 <td class="fullname-column" th:text="${user.getFullName()}">First Name, Last Name, Patronymic</td>
                                                                 <td class="datebirth-column" th:text="${user.getDateBirth()}">Date Birth</td>
                                                                 <td class="address-column" th:text="${user.getAddress()}">Address</td>
@@ -149,7 +149,7 @@
                                                                                             <br>
 
                                                                                             <label for="userNameEdit" class="form-label fw-bold mb-0">User name</label>
-                                                                                            <input type="text" th:value="${user.getUsername()}"  class="form-control" id="userNameEdit" name="name">
+                                                                                            <input type="text" th:value="${user.getName()}"  class="form-control" id="userNameEdit" name="name">
                                                                                             <br>
 
                                                                                             <label for="fullNameEdit" class="form-label fw-bold mb-0">Full name</label>
@@ -175,7 +175,7 @@
                                                                                             <label for="rolesEdit" class="form-label fw-bold mb-0">Role</label>
                                                                                             <select class="form-select" id="rolesEdit" size="2" multiple="multiple" name="selected_roles[]" required>
                                                                                                 <option value="" disabled>Select role</option>
-                                                                                                <option th:each="role : ${role_list}" th:value="${role.id}" th:text="${role.nameWithoutPrefix}"></option>
+                                                                                                <option th:each="role : ${role_list}" th:value="${role.getId()}" th:text="${role.getNameWithoutPrefix()}"></option>
                                                                                             </select>
                                                                                             <br>
                                                                                         </div>
@@ -212,7 +212,7 @@
                                                                                             <br>
 
                                                                                             <label for="userNameDelete" class="form-label fw-bold mb-0">User name</label>
-                                                                                            <input type="text" th:value="${user.getUsername()}" class="form-control" id="userNameDelete" readonly>
+                                                                                            <input type="text" th:value="${user.getName()}" class="form-control" id="userNameDelete" readonly>
                                                                                             <br>
 
                                                                                             <label for="fullNameDelete" class="form-label fw-bold mb-0">Full name</label>
@@ -273,7 +273,7 @@
                                                 </h5>
                                             </div>
                                             <div class="card-body col-5 mx-auto text-center mt-3">
-                                                <form th:method="POST" th:action="@{/admin/create}" th:object="${createdUser}">
+                                                <form th:method="POST" th:action="@{/admin/create}" th:object="${created_user}">
 
                                                     <label for="userName" class="form-label fw-bold mb-0">User name</label>
                                                     <input type="text" class="form-control" id="userName" placeholder="User name" th:field="*{name}">
@@ -380,14 +380,14 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="id-column" th:text="${currentUser.getId()}">Id</td>
-                                                        <td class="username-column" th:text="${currentUser.getUsername()}">User Name</td>
-                                                        <td class="fullname-column" th:text="${currentUser.getFullName()}">First Name, Last Name, Patronymic</td>
-                                                        <td class="datebirth-column" th:text="${currentUser.getDateBirth()}">Date Birth</td>
-                                                        <td class="address-column" th:text="${currentUser.getAddress()}">Address</td>
-                                                        <td class="email-column" th:text="${currentUser.getEmail()}">Email</td>
+                                                        <td class="id-column" th:text="${current_user.getId()}">Id</td>
+                                                        <td class="username-column" th:text="${current_user.getName()}">User Name</td>
+                                                        <td class="fullname-column" th:text="${current_user.getFullName()}">First Name, Last Name, Patronymic</td>
+                                                        <td class="datebirth-column" th:text="${current_user.getDateBirth()}">Date Birth</td>
+                                                        <td class="address-column" th:text="${current_user.getAddress()}">Address</td>
+                                                        <td class="email-column" th:text="${current_user.getEmail()}">Email</td>
                                                         <td class="role-column">
-                                                            <span th:each="role : ${currentUser.getRoles()}" th:text="${role.getName()} + ' '"></span>
+                                                            <span th:each="role : ${current_user.getRoles()}" th:text="${role.getName()} + ' '"></span>
                                                         </td>
                                                     </tr>
                                                 </tbody>

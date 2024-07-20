@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User implements UserDetails {
+public class User {
+//public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,47 +85,47 @@ public class User implements UserDetails {
     }
 
 
-    // Возвращает коллекцию прав (или ролей), предоставленных пользователю. Возвращаемый тип — Collection<? extends GrantedAuthority>.
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
-    }
-
-    // Возвращает имя пользователя, используемое для аутентификации.
-    @Override
-    public String getUsername() {
-        return name;
-    }
-
-    //  Возвращает пароль пользователя.
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    // Указывает, не истёк ли срок действия аккаунта пользователя. Если истёк, то пользователю запрещается аутентификация.
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    // Указывает, не заблокирован ли аккаунт пользователя. Если аккаунт заблокирован, то пользователю запрещается аутентификация.
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    // Указывает, не истёк ли срок действия учетных данных пользователя (пароля). Если истёк, то пользователю запрещается аутентификация.
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    //  Указывает, включён ли пользователь. Отключённый пользователь не может быть аутентифицирован.
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+//    // Возвращает коллекцию прав (или ролей), предоставленных пользователю. Возвращаемый тип — Collection<? extends GrantedAuthority>.
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return roles.stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getName()))
+//                .collect(Collectors.toList());
+//    }
+//
+//    // Возвращает имя пользователя, используемое для аутентификации.
+//    @Override
+//    public String getUsername() {
+//        return name;
+//    }
+//
+//    //  Возвращает пароль пользователя.
+//    @Override
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    // Указывает, не истёк ли срок действия аккаунта пользователя. Если истёк, то пользователю запрещается аутентификация.
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    // Указывает, не заблокирован ли аккаунт пользователя. Если аккаунт заблокирован, то пользователю запрещается аутентификация.
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    // Указывает, не истёк ли срок действия учетных данных пользователя (пароля). Если истёк, то пользователю запрещается аутентификация.
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    //  Указывает, включён ли пользователь. Отключённый пользователь не может быть аутентифицирован.
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
 }

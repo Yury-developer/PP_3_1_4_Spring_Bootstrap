@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 
 // pзадача - по имени пользователя предоставить самого User'a
 @Service
-public class UserUtilService implements UserDetailsService {
+public class UserUtilService {
+//public class UserUtilService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -39,14 +40,14 @@ public class UserUtilService implements UserDetailsService {
                 role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
-
-    // перегоним наших User'ов в User'ов которые понимает SpringSequrity
-    @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
-        }
-        return user;
-    }
+//
+//    // перегоним наших User'ов в User'ов которые понимает SpringSequrity
+//    @Override
+//    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = findByUsername(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+//        }
+//        return user;
+//    }
 }

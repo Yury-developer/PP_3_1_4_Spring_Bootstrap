@@ -3,8 +3,10 @@ package academy.kata.controller;
 import academy.kata.constants.Constants;
 import academy.kata.model.Role;
 import academy.kata.model.User;
+import academy.kata.security.UserDetailsImpl;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
+import academy.kata.utils.Utils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.core.Authentication;
@@ -82,25 +84,37 @@ public class AdminController {
     public String showAllUsersForm(Model model) {
         logger.fine("AdminController: showAllUsersForm");
         List<User> userList = userService.findAll();
-        model.addAttribute("viewAllUsers", userList);
+        model.addAttribute("view_all_users", userList);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        User currentUser = userService.findByUsername(currentUserName);
+
+        UserDetailsImpl currentUser = Utils.userToUserDetails(userService.findByUsername(currentUserName));
         model.addAttribute("current_user", currentUser);
 
         List<Role> roleList = roleService.findAll();
         model.addAttribute("role_list", roleList);
 
         User defaultUser = userService.generateNewUsers(0)[0];
-        model.addAttribute("createdUser", defaultUser);
-
-        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("created_user", defaultUser);
 
         model.addAttribute("default_password", Constants.DEFAULT_PASSWORD.get());
 
         return "admin/all-users";
     }
+
+//    private static UserDetailsImpl userToUserDetails(User currentUser) {
+//        UserDetailsImpl userDetails = new UserDetailsImpl();
+//        userDetails.setId(currentUser.getId());
+//        userDetails.setName(currentUser.getName());
+//        userDetails.setPassword(currentUser.getPassword());
+//        userDetails.setRoles(currentUser.getRoles());
+//        userDetails.setFullName(currentUser.getFullName());
+//        userDetails.setDateBirth(currentUser.getDateBirth());
+//        userDetails.setAddress(currentUser.getAddress());
+//        userDetails.setEmail(currentUser.getEmail());
+//        return userDetails;
+//    }
 
 
     @PutMapping("/edit")
