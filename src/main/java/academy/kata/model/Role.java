@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Role implements GrantedAuthority {
+public class Role {
 
     @Id
     @Column(name = "role_id")
@@ -33,11 +33,6 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-
-    @Override
-    public String getAuthority() { // возвращает имя роли, должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER
-        return getName();
-    }
 
     public String getNameWithoutPrefix() { // возвращает имя роли, должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER
         return getName().replace("ROLE_", "");
