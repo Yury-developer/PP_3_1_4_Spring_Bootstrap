@@ -36,6 +36,7 @@ public class RestAdminController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping
     public List<UserDto> getAll() {
         System.out.println("RestAdminController: getAll");   // ********** УДАЛИТЬ **********
@@ -43,6 +44,7 @@ public class RestAdminController {
         return userDtoList;
     }
 
+    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/{id}")
     public UserDto get(@PathVariable Long id) {
         System.out.println("RestAdminController: get(id); id = " + id);   // ********** УДАЛИТЬ **********
@@ -56,6 +58,7 @@ public class RestAdminController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:63343")
     @PostMapping("/")
     public UserDto addNewUser(@RequestBody UserDto userDto){
 
@@ -77,12 +80,14 @@ public class RestAdminController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/getRoles")
     public Set<RoleDto> getAllExistingRoles() {
         Set<RoleDto> roleDtoSet = modelTransfer.toRoleDtosSet(new HashSet<>(roleService.findAll()));
         return roleDtoSet;
     }
 
+    @CrossOrigin(origins = "http://localhost:63343")
     @PutMapping("/")
     public UserDto editUser(@RequestBody UserDto userDto) {
         System.out.println("*** Incoming User: ***\n " + userDto);   // ********** УДАЛИТЬ **********
@@ -97,6 +102,7 @@ public class RestAdminController {
         return updateUserDto;
     }
 
+    @CrossOrigin(origins = "http://localhost:63343")
     @DeleteMapping("/{id}")
     public UserDto deleteUser(@PathVariable Long id) {
         System.out.println("RestAdminController: deleteUser(id); id = " + id);   // ********** УДАЛИТЬ **********

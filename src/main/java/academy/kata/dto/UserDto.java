@@ -39,4 +39,18 @@ public class UserDto {
         this.email = email;
         this.roles = rolesDto;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                " id = " + id + ",\n" +
+                " name = '" + name + "',\n" +
+                " password = '" + password + "',\n" +
+                " fullName = '" + fullName + "',\n" +
+                " dateBirth = " + dateBirth + ",\n" +
+                " address = '" + address + "',\n" +
+                " email = '" + email + "',\n" +
+                " roles = " + roles +
+                '}';
+    }
 }
