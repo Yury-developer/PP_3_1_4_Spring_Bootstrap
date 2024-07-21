@@ -59,6 +59,8 @@ public class RestAdminController {
     @PostMapping("/")
     public UserDto addNewUser(@RequestBody UserDto userDto){
 
+        System.out.println("\n\n***** ***** *****\n");   // ********** УДАЛИТЬ **********
+        System.out.println("*** RestAdminController: addNewUser ***");   // ********** УДАЛИТЬ **********
         System.out.println("*** Incoming JSON ***");   // ********** УДАЛИТЬ **********
         System.out.println("*** userDto = " + userDto);   // ********** УДАЛИТЬ **********
 
@@ -66,6 +68,9 @@ public class RestAdminController {
 
         System.out.println("*** Converted User ***");   // ********** УДАЛИТЬ **********
         System.out.println("*** user = " + user);   // ********** УДАЛИТЬ **********
+        System.out.println("\n*** user.getClass() = " + user.getClass().getSimpleName());   // ********** УДАЛИТЬ **********
+        System.out.println("*** roles.getClass = " + user.getRoles().toArray()[0].getClass().getSimpleName());   // ********** УДАЛИТЬ **********
+        System.out.println("\n***** ***** *****\n\n");   // ********** УДАЛИТЬ **********
 
         userService.saveUser(user);
         return modelTransfer.toUserDto(user);

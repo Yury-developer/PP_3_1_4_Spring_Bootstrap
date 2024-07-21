@@ -18,14 +18,15 @@ import java.util.stream.Collectors;
 @Component
 public class ModelTransfer {
 
-    private final UserService userService;
+//    private final UserService userService;
     private final RoleService roleService;
 
 
 
     @Autowired
-    public ModelTransfer(UserService userService, RoleService roleService) {
-        this.userService = userService;
+    public ModelTransfer(RoleService roleService) {
+//    public ModelTransfer(UserService userService, RoleService roleService) {
+//        this.userService = userService;
         this.roleService = roleService;
     }
 
