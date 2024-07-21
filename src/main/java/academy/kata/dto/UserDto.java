@@ -1,7 +1,5 @@
 package academy.kata.dto;
 
-import academy.kata.model.Role;
-import academy.kata.model.User;
 import lombok.*;
 
 import java.sql.Date;
@@ -9,7 +7,6 @@ import java.util.Set;
 
 
 @NoArgsConstructor
-//@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -32,7 +29,6 @@ public class UserDto {
     private Set<RoleDto> roles;
 
 
-
     public UserDto(Long id, String name, String password, String fullName, Date dateBirth, String address, String email, Set<RoleDto> rolesDto) {
         this.id = id;
         this.name = name;
@@ -43,8 +39,4 @@ public class UserDto {
         this.email = email;
         this.roles = rolesDto;
     }
-
-//    public UserDto(User user) {
-//        this(user.getId(), user.getName(), user.getPassword(), user.getFullName(), user.getDateBirth(), user.getAddress(), user.getEmail(), user.getRoles());
-//    }
 }

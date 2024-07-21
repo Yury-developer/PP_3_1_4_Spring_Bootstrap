@@ -1,6 +1,5 @@
 package academy.kata.dto;
 
-import academy.kata.model.Role;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +20,5 @@ public class RoleDto {
         this.id = id;
         this.name = name;
     }
-
 }
 

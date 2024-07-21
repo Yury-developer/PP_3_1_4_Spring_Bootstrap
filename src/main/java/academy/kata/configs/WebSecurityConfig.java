@@ -1,8 +1,6 @@
 package academy.kata.configs;
 
-import academy.kata.security.UserDetailsImpl;
 import academy.kata.security.UserDetailsServiceImpl;
-import academy.kata.service.UserUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
     private final UserDetailsServiceImpl userUtilService;
-//    private final UserUtilService userUtilService;
 
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServiceImpl userUtilService) {
-//    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserUtilService userUtilService) {
         this.successUserHandler = successUserHandler;
         this.userUtilService = userUtilService;
     }
@@ -44,7 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //                .antMatchers("/api/**").permitAll()
 
-
                 .and()
 //                .httpBasic() // стандартная аунтефикация
                 .formLogin() // для авторизации будет НАША красивая сверстанная форма/ либо по умолчанию Spring сгенерит, как в нашем случае.
@@ -59,13 +54,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     // для преобразования паролей
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 
     // аутентификация jdbcAuthenticator

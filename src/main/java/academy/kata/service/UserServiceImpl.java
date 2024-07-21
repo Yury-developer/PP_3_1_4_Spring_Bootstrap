@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
-//        return userRepository.getById(id);
     }
 
 
@@ -118,7 +117,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-//    @Transactional
     public void generateTestData(Integer count) {
         userRepository.saveAll(Arrays.asList(generateNewUsers(count)));
     }

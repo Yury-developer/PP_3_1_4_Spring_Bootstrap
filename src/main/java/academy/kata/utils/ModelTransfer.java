@@ -18,15 +18,12 @@ import java.util.stream.Collectors;
 @Component
 public class ModelTransfer {
 
-//    private final UserService userService;
     private final RoleService roleService;
 
 
 
     @Autowired
     public ModelTransfer(RoleService roleService) {
-//    public ModelTransfer(UserService userService, RoleService roleService) {
-//        this.userService = userService;
         this.roleService = roleService;
     }
 
@@ -81,5 +78,4 @@ public class ModelTransfer {
         List<UserDto> userDtoList = userList.stream().map(user -> toUserDto(user)).collect(Collectors.toList());
         return userDtoList;
     }
-
 }

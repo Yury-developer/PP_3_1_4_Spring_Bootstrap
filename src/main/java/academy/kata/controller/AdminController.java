@@ -5,7 +5,6 @@ import academy.kata.model.Role;
 import academy.kata.model.User;
 import academy.kata.security.UserDetailsImpl;
 import academy.kata.service.RoleService;
-import academy.kata.service.RoleServiceImpl;
 import academy.kata.service.UserService;
 import academy.kata.utils.Utils;
 import org.springframework.core.io.ClassPathResource;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -32,7 +30,7 @@ import java.util.logging.Logger;
  */
 @Controller
 @RequestMapping(value = "/admin")
-public class AdminController implements Constants {
+public class AdminController {
 
     private final UserService userService;
     private final RoleService roleService;
