@@ -3,9 +3,11 @@ package academy.kata.controller;
 import academy.kata.constants.Constants;
 import academy.kata.model.Role;
 import academy.kata.model.User;
+import academy.kata.security.UserDetailsImpl;
 import academy.kata.service.RoleService;
 import academy.kata.service.RoleServiceImpl;
 import academy.kata.service.UserService;
+import academy.kata.utils.Utils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.core.Authentication;
@@ -68,22 +70,10 @@ public class AdminController implements Constants {
     }
 
 
-//    @GetMapping("/create")
-//    public String showCreateUserForm(Model model) {
-//        logger.fine("AdminController: showCreateUserForm");
-//        User defaultUser = userService.generateNewUsers(0)[0];
-//        model.addAttribute("createdUser", defaultUser);
-//        model.addAttribute("default_password", DEFAULT_PASSWORD);
-//        return "admin/create-user";
-//    }
-
-
     @PostMapping("/create")
     public String createUser(@ModelAttribute("createdUser") User user) {
-
         System.out.println("AdminController: createUser. user = " + user);
         System.out.println("user.getUsername() = " + user.getName());
-
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         logger.fine("AdminController: addUser, user = " + user);
@@ -92,51 +82,28 @@ public class AdminController implements Constants {
     }
 
 
-//    @GetMapping("/view")
-//    public String showUserDetailsForm(@RequestParam(defaultValue = "0", required = false, name = "user_id") Long userId,
-//                                      Model model) {
-//        logger.fine("AdminController: showUserDetailsForm, user_id = " + userId);
-//        User user = userService.findById(userId);
-//        model.addAttribute("viewUser", user);
-//        return "admin/view-user";
-//    }
-
-
     @GetMapping
     public String showAllUsersForm(Model model) {
         logger.fine("AdminController: showAllUsersForm");
         List<User> userList = userService.findAll();
-        model.addAttribute("viewAllUsers", userList);
+        model.addAttribute("view_all_users", userList);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        User currentUser = userService.findByUsername(currentUserName);
+
+        UserDetailsImpl currentUser = Utils.userToUserDetails(userService.findByUsername(currentUserName));
         model.addAttribute("current_user", currentUser);
 
         List<Role> roleList = roleService.findAll();
         model.addAttribute("role_list", roleList);
 
         User defaultUser = userService.generateNewUsers(0)[0];
-        model.addAttribute("createdUser", defaultUser);
+        model.addAttribute("created_user", defaultUser);
 
-        model.addAttribute("currentUser", currentUser);
-
-        model.addAttribute("default_password", DEFAULT_PASSWORD);
+        model.addAttribute("default_password", Constants.DEFAULT_PASSWORD.get());
 
         return "admin/all-users";
     }
-
-
-//    @GetMapping("/edit")
-//    public String showEditUserForm(@RequestParam(name = "user_id") Long userId,
-//                                   Model model) {
-//        logger.fine("AdminController: showEditUserForm, user_id = " + userId);
-//        User user = userService.findById(userId);
-//        model.addAttribute("editUser", user);
-//        User rolesSource = userService.generateNewUsers(0)[0]; // это нужно просто чтобы вытащить все возможные роли
-//        model.addAttribute("availableRoles", rolesSource.getRoles());
-//        return "admin/edit-user";
-//    }
 
 
     @PutMapping("/edit")
@@ -161,6 +128,7 @@ public class AdminController implements Constants {
         return "redirect:/admin";
     }
 
+
     @DeleteMapping("/delete-all")
     public String deleteAllUsers() {
         logger.fine("AdminController: deleteAllUsers");
@@ -168,18 +136,6 @@ public class AdminController implements Constants {
         return "redirect:/admin";
     }
 
-    // отдает страниц при входе  admin'a
-//    @GetMapping("/admin")
-//    public String greetingPage(Model model) {
-//        logger.fine("AdminController: greetingPage");
-//        Integer userCountDefault = 15;   // По умолчанию будет предложено создать такое количество пользователей.
-//        model.addAttribute(у"greeting", "Hello!");
-//        model.addAttribute("greetingMessage", "Практическая задача 3.1.3 Java pre-project. Задача 3.1.2. Spring Boot, Security.");
-//        model.addAttribute("author", "Выполнил: Лапицкий Юрий   //   Performed by: Yury Lapitski");
-//        model.addAttribute("user_count_default", userCountDefault);
-//        model.addAttribute("default_password", DEFAULT_PASSWORD);
-//        return "admin/admin";
-//    }
 
     @PostMapping(value = "/generate")
     public String generateTestData(@RequestParam(name = "user_count") Integer userCount) {

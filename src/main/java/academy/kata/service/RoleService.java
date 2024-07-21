@@ -13,4 +13,7 @@ public interface RoleService {
 
     List<Role> findAll();
 
+    void addRole(Role role);
+
+    void deleteAll();
 }

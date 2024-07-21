@@ -6,10 +6,7 @@ import academy.kata.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -17,9 +14,9 @@ import java.util.stream.Collectors;
 
 // pзадача - по имени пользователя предоставить самого User'a
 @Service
-public class UserUtilService implements UserDetailsService {
+public class UserUtilService {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     @Autowired
@@ -37,16 +34,5 @@ public class UserUtilService implements UserDetailsService {
         return roles.stream().map(
                 role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
-    }
-
-    // перегоним наших User'ов в User'ов которые понимает SpringSequrity
-    @Override
-    @Transactional
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
-        }
-        return user;
     }
 }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class UserServiceImpl implements UserService, Constants {
+public class UserServiceImpl implements UserService {
 
 
     private final UserRepository userRepository;
@@ -70,7 +70,16 @@ public class UserServiceImpl implements UserService, Constants {
 
         user.setRoles(roleSet);
 
-        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        /*
+         Если пароль введен не был - то используем пароль от существующего пользователя (старый)
+         Если введен новый пароль - то используем его (новый)
+         */
+        String encryptedPassword;
+        if (user.getPassword().isEmpty()) {
+            encryptedPassword = userRepository.getById(user.getId()).getPassword();
+        } else {
+            encryptedPassword = passwordEncoder.encode(user.getPassword());
+        }
         user.setPassword(encryptedPassword);
 
         userRepository.save(user);
@@ -96,7 +105,7 @@ public class UserServiceImpl implements UserService, Constants {
         if (count == 0) {
             users = userGenerator.generateUsers(1);
             users[0].setName("userLogin");
-            users[0].setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
+            users[0].setPassword(passwordEncoder.encode(Constants.DEFAULT_PASSWORD.get()));
             users[0].setFullName("userName");
             users[0].setAddress("userAddress");
             Set<Role> roles = new HashSet<>(roleService.findAll());
@@ -109,7 +118,7 @@ public class UserServiceImpl implements UserService, Constants {
 
 
     @Override
-    @Transactional
+//    @Transactional
     public void generateTestData(Integer count) {
         userRepository.saveAll(Arrays.asList(generateNewUsers(count)));
     }

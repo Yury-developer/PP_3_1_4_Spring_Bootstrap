@@ -1,5 +1,7 @@
 package academy.kata.configs;
 
+import academy.kata.security.UserDetailsImpl;
+import academy.kata.security.UserDetailsServiceImpl;
 import academy.kata.service.UserUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,10 +21,12 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
-    private final UserUtilService userUtilService;
+    private final UserDetailsServiceImpl userUtilService;
+//    private final UserUtilService userUtilService;
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserUtilService userUtilService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServiceImpl userUtilService) {
+//    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserUtilService userUtilService) {
         this.successUserHandler = successUserHandler;
         this.userUtilService = userUtilService;
     }

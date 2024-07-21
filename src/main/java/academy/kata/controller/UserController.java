@@ -1,7 +1,8 @@
 package academy.kata.controller;
 
-import academy.kata.model.User;
+import academy.kata.security.UserDetailsImpl;
 import academy.kata.service.UserService;
+import academy.kata.utils.Utils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.core.Authentication;
@@ -41,11 +42,9 @@ public class UserController {
     }
 
 
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
 
 
     @GetMapping
@@ -53,8 +52,8 @@ public class UserController {
         logger.fine("UserController: userPage");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
-        User currentUser = userService.findByUsername(currentUserName);
-        model.addAttribute("infoUser", currentUser);
+        UserDetailsImpl currentUser = Utils.userToUserDetails(userService.findByUsername(currentUserName));
+        model.addAttribute("info_user", currentUser);
         return "user/user";
     }
 }
