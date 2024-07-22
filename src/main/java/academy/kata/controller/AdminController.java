@@ -87,25 +87,25 @@ public class AdminController {
             @RequestParam(name = "current_displayed_role", required = false) Role currentDisplayedRole) {
         logger.fine("AdminController: showAllUsersForm");
 
-       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName(); // у меня аутентификация именно по имени пользователя
+        // у меня аутентификация именно по имени пользователя
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
         UserDetailsImpl currentUser = Utils.userToUserDetails(userService.findByUsername(currentUserName));
         model.addAttribute("current_user", currentUser);
 
         List<Role> existingRoles = roleService.findAll();
         model.addAttribute("all_existing_roles", existingRoles);
 
-        model.addAttribute("current_max_role", currentUser.getRoles().stream().max(Comparator.comparing(Role::getId)).get()); // тут мы возмем ту роль текущего пользователя, которая имеет максимальный id// т.е. максимальные права.
-
+        // тут мы возмем ту роль текущего пользователя, которая имеет максимальный id// т.е. максимальные права.
+        model.addAttribute("current_max_role", currentUser.getRoles().stream().max(Comparator.comparing(Role::getId)).get());
         User defaultUser = userService.generateNewUsers(0)[0];
         model.addAttribute("created_user", defaultUser); // шаблон пользователя по умолчанию.
         model.addAttribute("default_password", Constants.DEFAULT_PASSWORD.get()); // пароль по умолчанию для создаваемых пользователей.
 
-        if (currentDisplayedRole == null) { // текущая роль, ниже которой отображаем пользователей (включительно)
+        // текущая роль, ниже которой отображаем пользователей (включительно)
+        if (currentDisplayedRole == null) {
             currentDisplayedRole = RoleUtils.getRoleWithMaxPriority(existingRoles);
         }
-//        currentDisplayedRole = roleService.findByName("ROLE_ADMIN"); // вывести всех с ролью "ROLE_ADMIN" и ниже
-
         model.addAttribute("current_displayed_role", currentDisplayedRole);
 
         Role finalCurrentDisplayedRole = currentDisplayedRole;
@@ -115,13 +115,9 @@ public class AdminController {
                 .filter(user -> user
                         .getRoles()
                         .stream()
-                        .filter(role -> role.getId() == finalCurrentDisplayedRole.getId())
-                        .findAny()
-                        .isPresent()).collect(Collectors.toList());
+                        .anyMatch(role -> role.getId() == finalCurrentDisplayedRole.getId()))
+                .collect(Collectors.toList());
         model.addAttribute("users_selection", userSelection);
-
-//        userSelection.stream().forEach(System.out::println);
-
 
         return "admin/all-users";
     }
