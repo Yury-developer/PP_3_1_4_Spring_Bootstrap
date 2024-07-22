@@ -6,6 +6,7 @@ import academy.kata.model.User;
 import academy.kata.security.UserDetailsImpl;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
+import academy.kata.utils.RoleUtils;
 import academy.kata.utils.Utils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 /**
@@ -79,24 +82,46 @@ public class AdminController {
 
 
     @GetMapping
-    public String showAllUsersForm(Model model) {
+    public String showAllUsersForm(
+            Model model,
+            @RequestParam(name = "current_displayed_role", required = false) Role currentDisplayedRole) {
         logger.fine("AdminController: showAllUsersForm");
-        List<User> userList = userService.findAll();
-        model.addAttribute("view_all_users", userList);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = authentication.getName();
-
+       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName(); // у меня аутентификация именно по имени пользователя
         UserDetailsImpl currentUser = Utils.userToUserDetails(userService.findByUsername(currentUserName));
         model.addAttribute("current_user", currentUser);
 
-        List<Role> roleList = roleService.findAll();
-        model.addAttribute("role_list", roleList);
+        List<Role> existingRoles = roleService.findAll();
+        model.addAttribute("all_existing_roles", existingRoles);
+
+        model.addAttribute("current_max_role", currentUser.getRoles().stream().max(Comparator.comparing(Role::getId)).get()); // тут мы возмем ту роль текущего пользователя, которая имеет максимальный id// т.е. максимальные права.
 
         User defaultUser = userService.generateNewUsers(0)[0];
-        model.addAttribute("created_user", defaultUser);
+        model.addAttribute("created_user", defaultUser); // шаблон пользователя по умолчанию.
+        model.addAttribute("default_password", Constants.DEFAULT_PASSWORD.get()); // пароль по умолчанию для создаваемых пользователей.
 
-        model.addAttribute("default_password", Constants.DEFAULT_PASSWORD.get());
+        if (currentDisplayedRole == null) { // текущая роль, ниже которой отображаем пользователей (включительно)
+            currentDisplayedRole = RoleUtils.getRoleWithMaxPriority(existingRoles);
+        }
+//        currentDisplayedRole = roleService.findByName("ROLE_ADMIN"); // вывести всех с ролью "ROLE_ADMIN" и ниже
+
+        model.addAttribute("current_displayed_role", currentDisplayedRole);
+
+        Role finalCurrentDisplayedRole = currentDisplayedRole;
+        List<User> userSelection = userService
+                .findAll()
+                .stream()
+                .filter(user -> user
+                        .getRoles()
+                        .stream()
+                        .filter(role -> role.getId() <= finalCurrentDisplayedRole.getId())
+                        .findAny()
+                        .isPresent()).collect(Collectors.toList());
+        model.addAttribute("users_selection", userSelection);
+
+//        userSelection.stream().forEach(System.out::println);
+
 
         return "admin/all-users";
     }

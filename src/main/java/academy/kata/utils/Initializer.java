@@ -40,13 +40,13 @@ public class Initializer {
 
     @PostConstruct
     private void init() {
-        Role userRole = new Role(1L, "ROLE_USER");
+        Role userRole = new Role(1L, "ROLE_USER"); // самый низкий приоритет
         roleService.addRole(userRole);
 
         Role adminRole = new Role(2L, "ROLE_ADMIN");
         roleService.addRole(adminRole);
 
-        Role superAdminRole = new Role(3L, "ROLE_SUPERADMIN");
+        Role superAdminRole = new Role(3L, "ROLE_SUPERADMIN"); // самый высокий приоритет
         roleService.addRole(superAdminRole);
 
         Set<Role> userRoles = new HashSet<>();
