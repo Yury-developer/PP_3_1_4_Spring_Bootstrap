@@ -115,7 +115,7 @@ public class AdminController {
                 .filter(user -> user
                         .getRoles()
                         .stream()
-                        .filter(role -> role.getId() <= finalCurrentDisplayedRole.getId())
+                        .filter(role -> role.getId() == finalCurrentDisplayedRole.getId())
                         .findAny()
                         .isPresent()).collect(Collectors.toList());
         model.addAttribute("users_selection", userSelection);
