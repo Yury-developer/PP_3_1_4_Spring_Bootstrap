@@ -7,7 +7,8 @@
 
 [ссылка](https://platform.kata.academy/user/courses/23/3/1/3)
 
-1. Заходим в MySQL **WorkBench** и создаем таблицы и пользователей запустив скрипт '`PP_3_1_3_spring-boot-security_FullTablesScrypt_SQLs.sql`'
+1. Заходим в MySQL **WorkBench** и создаем саму базу используя скрипт '`PP_3_1_4_spring-bootstrap_BeforeLaunch.sql`' 
+Все таблицы (пользователи и роли) создадутся автоматически в **ПУСТОЙ** ~~только что созданной~~ базе. Но можно для их создания запустить скрипт '`PP_3_1_3_spring-boot-security_FullTablesScrypt_SQLs.sql`'
 
 2. логины и пароли пользователей:
 

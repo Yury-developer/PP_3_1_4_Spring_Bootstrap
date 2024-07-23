@@ -32,7 +32,7 @@ public class UserUtilService {
     // метод получает из коллекции ролей коллекцию прав доступа ((с точно такими-же строками.
     private Collection<? extends GrantedAuthority> mapRoleToAuthorities(Collection<Role> roles) {
         return roles.stream().map(
-                role -> new SimpleGrantedAuthority(role.getName()))
+                        role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
 }

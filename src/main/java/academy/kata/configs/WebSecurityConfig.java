@@ -1,6 +1,7 @@
 package academy.kata.configs;
 
 import academy.kata.security.UserDetailsServiceImpl;
+import academy.kata.utils.RoleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SuccessUserHandler successUserHandler;
     private final UserDetailsServiceImpl userUtilService;
+//    private final UserUtilService userUtilService;
 
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsServiceImpl userUtilService) {
+//    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserUtilService userUtilService) {
         this.successUserHandler = successUserHandler;
         this.userUtilService = userUtilService;
     }
@@ -90,6 +93,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.debug(true);
+    }
+
+    /*
+    Используем этот бин на стороне web-странички для поиска, присутствует-ли указанная роль в списке ролей пользователя
+     */
+    @Bean
+    public RoleUtils roleUtils() {
+        return new RoleUtils();
     }
 
     /*
