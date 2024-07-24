@@ -1,6 +1,5 @@
 const usersTableURL = 'http://localhost:8080/api/admin/getUsersByRoleName/';
 
-// getUsersByRoleName();
 document.addEventListener('DOMContentLoaded', getUsersByRoleName);
 
 function getUsersByRoleName() {
@@ -17,6 +16,9 @@ function getUsersByRoleName() {
                 return response.json(); // ответ конвертируется из JSON-формата в JavaScript объек
             })
         .then(function (users) {
+            console.log('users = ' + users)   // *** *** *** УДАЛИТЬ
+            users.forEach(user => console.log(user));   // *** *** *** УДАЛИТЬ
+
             let dataOfUsers = ''; // для хранения HTML-кода
             let rolesString = ''; // для хранения строковых представлений ролей пользователей.
 
@@ -24,7 +26,7 @@ function getUsersByRoleName() {
 
             // Заполняем таблицу данными
             for (let user of users) {
-                console.log(user)
+                console.log('user = ' + user)
 
                 rolesString = rolesToString(user.roles);
 
@@ -64,6 +66,7 @@ function getUsersByRoleName() {
 }
 
 function rolesToString(roles) {
+    // console.log('roles:', roles); //  для отладки -  ****** УДАЛИТЬ *******
     let rolesString = '';
     for (const element of roles) {
         rolesString += (element.name.toString().replace('ROLE_', '') + ', ');
