@@ -1,13 +1,15 @@
 package academy.kata.controller;
 
-
 import academy.kata.dto.RoleDto;
 import academy.kata.dto.UserDto;
 import academy.kata.exeption_hendling.NoSuchUserExeption;
+import academy.kata.model.Role;
 import academy.kata.model.User;
 import academy.kata.service.RoleService;
 import academy.kata.service.UserService;
 import academy.kata.utils.ModelTransfer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +19,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
 @RestController
 @RequestMapping(value = "/api/admin")
 public class RestAdminController {
-
 
     private final ModelTransfer modelTransfer;
     private final UserService userService;
@@ -36,22 +38,50 @@ public class RestAdminController {
     }
 
 
+
+
+
+
+
+
+
     @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping
-    public List<UserDto> getAll() {
-        System.out.println("RestAdminController: getAll");   // ********** УДАЛИТЬ **********
+    public ResponseEntity<List<UserDto>> getAll() {
+        System.out.println("***** ***** ***** ***** RestAdminController: getAll");   // ********** УДАЛИТЬ **********
         List<UserDto> userDtoList = modelTransfer.toUserDtosList(userService.findAll());
-        return userDtoList;
+        userDtoList.forEach(System.out::println);   // ********** УДАЛИТЬ **********
+        return new ResponseEntity<>(userDtoList, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:63343")
+    @GetMapping("/getUsersByRoleName/{role_name}")
+    public ResponseEntity<List<UserDto>> getUsersByRoleName(@PathVariable("role_name") String roleName) {
+            System.out.println("***** ***** ***** ***** RestAdminController: getUsersByRole");   // ********** УДАЛИТЬ **********
+            System.out.println("***** ***** ***** ***** role_name = " + roleName);   // ********** УДАЛИТЬ **********
+
+        Role role = roleService.findByName(roleName);
+
+            System.out.println("***** ***** ***** ***** role_name = " + roleName);   // ********** УДАЛИТЬ **********
+
+        List<UserDto> userDtoList = modelTransfer.toUserDtosList(userService.findUsersByRole(role));
+
+            userDtoList.forEach(System.out::println);   // ********** УДАЛИТЬ **********
+
+        return new ResponseEntity<>(userDtoList, HttpStatus.OK);
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/{id}")
-    public UserDto get(@PathVariable Long id) {
-        System.out.println("RestAdminController: get(id); id = " + id);   // ********** УДАЛИТЬ **********
+    public ResponseEntity<UserDto> get(@PathVariable Long id) {
+        System.out.println("***** ***** ***** ***** RestAdminController: get(id); id = " + id);   // ********** УДАЛИТЬ **********
         Optional<User> userOptional = userService.findById(id);
         if (userOptional.isPresent()) {
             System.out.println(userOptional.get());   // ********** УДАЛИТЬ **********
-            return modelTransfer.toUserDto(userOptional.get());
+            return new ResponseEntity<>(
+                    modelTransfer.toUserDto(userOptional.get()),
+                    HttpStatus.OK);
         } else  {
             throw new NoSuchUserExeption("Пользователь с id = " + id + " не найден!" +
                     " // User with id = " + id + " not found!");
@@ -60,7 +90,7 @@ public class RestAdminController {
 
     @CrossOrigin(origins = "http://localhost:63343")
     @PostMapping("/")
-    public UserDto addNewUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> addNewUser(@RequestBody UserDto userDto){
 
         System.out.println("\n\n***** ***** *****\n");   // ********** УДАЛИТЬ **********
         System.out.println("*** RestAdminController: addNewUser ***");   // ********** УДАЛИТЬ **********
@@ -76,20 +106,20 @@ public class RestAdminController {
         System.out.println("\n***** ***** *****\n\n");   // ********** УДАЛИТЬ **********
 
         userService.saveUser(user);
-        return modelTransfer.toUserDto(user);
+        return new ResponseEntity<>(modelTransfer.toUserDto(user), HttpStatus.OK);
     }
 
 
     @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/getRoles")
-    public Set<RoleDto> getAllExistingRoles() {
+    public ResponseEntity<Set<RoleDto>> getAllExistingRoles() {
         Set<RoleDto> roleDtoSet = modelTransfer.toRoleDtosSet(new HashSet<>(roleService.findAll()));
-        return roleDtoSet;
+        return new ResponseEntity<>(roleDtoSet, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:63343")
     @PutMapping("/")
-    public UserDto editUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> editUser(@RequestBody UserDto userDto) {
         System.out.println("*** Incoming User: ***\n " + userDto);   // ********** УДАЛИТЬ **********
         List<Long> selectedRoles = userDto.getRoles().stream().map(roleDto -> roleDto.getId()).collect(Collectors.toList());
 
@@ -99,23 +129,22 @@ public class RestAdminController {
         userService.updateUser(updateUser, selectedRoles);
         UserDto updateUserDto = modelTransfer.toUserDto(userService.findById(userDto.getId()).get());
         System.out.println("*** Saved User: " + userDto);   // ********** УДАЛИТЬ **********
-        return updateUserDto;
+        return new ResponseEntity<>(updateUserDto, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:63343")
     @DeleteMapping("/{id}")
-    public UserDto deleteUser(@PathVariable Long id) {
+    public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
         System.out.println("RestAdminController: deleteUser(id); id = " + id);   // ********** УДАЛИТЬ **********
         Optional<User> userOptional = userService.findById(id);
         if (userOptional.isPresent()) {
             UserDto userDto = modelTransfer.toUserDto(userOptional.get());
             userService.deleteById(userDto.getId());
             System.out.println(userDto);   // ********** УДАЛИТЬ **********
-            return userDto;
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
         } else  {
             throw new NoSuchUserExeption("Пользователь с id = " + id + " не найден!" +
                     " // User with id = " + id + " not found!");
         }
     }
-
 }

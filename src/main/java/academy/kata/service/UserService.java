@@ -1,5 +1,6 @@
 package academy.kata.service;
 
+import academy.kata.model.Role;
 import academy.kata.model.User;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface UserService {
     Optional<User> findById(Long id);
 
     User findByUsername(String userName);   //
+
+    List<User> findUsersByRole(Role role);
 
     List<User> findAll();
 
