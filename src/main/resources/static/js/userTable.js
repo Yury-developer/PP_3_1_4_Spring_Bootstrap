@@ -11,10 +11,11 @@ function getUsersByRoleName() {
     }
 
     fetch(usersTableURL + currentRoleName) // отправляет HTTP GET запрос
-        .then(
-            function (response) {
-                return response.json(); // ответ конвертируется из JSON-формата в JavaScript объек
-            })
+        .then(response => response.json()) // ответ конвертируется из JSON-формата в JavaScript объек
+        // .then(
+        //     function (response) {
+        //         return response.json();
+        //     })
         .then(function (users) {
             console.log('users = ' + users)   // *** *** *** УДАЛИТЬ
             users.forEach(user => console.log(user));   // *** *** *** УДАЛИТЬ

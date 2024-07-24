@@ -53,12 +53,11 @@ public class RestAdminController {
     @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/getUsersByRoleName/{role_name}")
     public ResponseEntity<List<User>> getUsersByRoleName(@PathVariable("role_name") String roleName) {
-            System.out.println("***** ***** ***** ***** RestAdminController: getUsersByRole");   // ********** УДАЛИТЬ **********
+            System.out.println("***** ***** ***** ***** RestAdminController: getUsersByRoleName");   // ********** УДАЛИТЬ **********
             System.out.println("***** ***** ***** ***** role_name = " + roleName);   // ********** УДАЛИТЬ **********
 
         Role role = roleService.findByName(roleName);
-
-            System.out.println("***** ***** ***** ***** role_name = " + roleName);   // ********** УДАЛИТЬ **********
+        System.out.println("***** ***** ***** ***** role = " + role);   // ********** УДАЛИТЬ **********
 
         List<User> userList = userService.findUsersByRole(role);
 

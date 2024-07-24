@@ -14,6 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> { // <(кла�
     @Query("Select u from User u left join fetch u.roles where u.name=:username") // Без этого отказывалось работать FetchType.LAZY в классе User, (type=Internal Server Error, status=500).
     User findByUsername(String username);
 
-    @Query("Select u from User u left join fetch u.roles r where r = :role")
+    @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles r WHERE :role MEMBER OF u.roles")
     List<User> findUsersByRole(Role role);
 }

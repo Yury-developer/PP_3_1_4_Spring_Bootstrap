@@ -1,5 +1,6 @@
 package academy.kata.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,7 +33,7 @@ public class Role {
         this.name = name;
     }
 
-
+    @JsonIgnore // Поле игнорируется при сериализации
     public String getNameWithoutPrefix() { // возвращает имя роли, должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER
         return getName().replace("ROLE_", "");
     }

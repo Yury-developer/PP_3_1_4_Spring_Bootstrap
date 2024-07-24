@@ -3,7 +3,6 @@ package academy.kata.utils;
 import academy.kata.model.User;
 import academy.kata.security.UserDetailsImpl;
 
-
 public class Utils {
 
     public static UserDetailsImpl userToUserDetails(User currentUser) {

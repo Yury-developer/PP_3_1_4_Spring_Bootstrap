@@ -55,7 +55,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findUsersByRole(Role role) {
-        return userRepository.findUsersByRole(role);
+        List<User> userList = userRepository.findUsersByRole(role);
+        System.out.println("\n\n*** *** *** \n\tUserServiceImpl: findUsersByRole\nList<User> userList = ");
+        userList.forEach(System.out::println);
+        System.out.println("*** *** ***\n\n\n");
+        return userList;
     }
 
     @Override

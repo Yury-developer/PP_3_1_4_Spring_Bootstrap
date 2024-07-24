@@ -1,5 +1,6 @@
 package academy.kata.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class User {
     @Column(name = "user_name", length = 50, nullable = false) // login
     private String name;
 
+    @JsonIgnore // Поле игнорируется при сериализации
     @Column(name = "user_password", length = 128, nullable = false) // password
     private String password;
 
