@@ -1,6 +1,7 @@
 const usersTableURL = 'http://localhost:8080/api/admin/getUsersByRoleName/';
 
-getUsersByRoleName();
+// getUsersByRoleName();
+document.addEventListener('DOMContentLoaded', getUsersByRoleName);
 
 function getUsersByRoleName() {
     let currentRoleName = document.getElementById('dataContainer').getAttribute('current_role_name');
@@ -59,6 +60,7 @@ function getUsersByRoleName() {
             }
             tableUsers.innerHTML = dataOfUsers; // Заполненный HTML-код вставляется в таблицу.
         })
+        .catch(error => console.error('*** *** *** Ошибка при загрузке списка пользователей:', error));
 }
 
 function rolesToString(roles) {
