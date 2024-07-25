@@ -118,8 +118,6 @@
 
 
 
-
-<!--                                                    <tbody>-->
                                                     <tbody id="userTable">
                                                         <tr th:each="user : ${users_selection}">
                                                             <td class="id-column" th:text="${user.getId()}">Id</td>
@@ -204,159 +202,114 @@
                                                                 </button>
 
                                                                 <!-- **********   Delete   ********** -->
-                                                                <div class="modal fade" th:id="${'deleteModal'+ user.getId}" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
-                                                                    <div class="modal-dialog">
+
+                                                                <div class="modal" tabindex="-1" id="deleteModal"
+                                                                     aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h4 class="modal-title">Delete user</h4>
-                                                                                <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                <h5 class="modal-title">Delete user</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                                                </button>
                                                                             </div>
-                                                                            <div class="card-body text-center">
-                                                                                <form id="formDelete">
 
-                                                                                    <div class="mb-3">
-                                                                                        <label for="delete-id">
-                                                                                            <b>ID</b>
-                                                                                        </label>
-                                                                                        <input class="form-control"
-                                                                                               type="text"
-                                                                                               name="id"
-                                                                                               id="delete-id"
-                                                                                               disabled>
+                                                                            <div class="modal-body text-center">
+                                                                                <div class="d-flex justify-content-center align-items-center container">
+                                                                                    <div class="row">
+                                                                                        <form id="formDelete">
+
+                                                                                            <div class="mb-3">
+                                                                                                <label for="delete-id">
+                                                                                                    <b>ID</b>
+                                                                                                </label>
+                                                                                                <input class="form-control"
+                                                                                                       type="number"
+                                                                                                       name="id"
+                                                                                                       id="delete-id"
+                                                                                                       disabled>
+                                                                                            </div>
+
+                                                                                            <div class="mb-3">
+                                                                                                <label for="delete-name">
+                                                                                                    <b>User Name</b>
+                                                                                                </label>
+                                                                                                <input class="form-control"
+                                                                                                       name="name"
+                                                                                                       type="text"
+                                                                                                       id="delete-name"
+                                                                                                       disabled/>
+                                                                                            </div>
+
+                                                                                            <div class="mb-3">
+                                                                                                <label for="delete-fullName">
+                                                                                                    <b>Full Name</b>
+                                                                                                </label>
+                                                                                                <input class="form-control"
+                                                                                                       name="fullName"
+                                                                                                       type="text"
+                                                                                                       id="delete-fullName"
+                                                                                                       disabled/>
+                                                                                            </div>
+
+                                                                                            <div class="mb-3">
+                                                                                                <label for="delete-dateBirth">
+                                                                                                    <b>Date Birth</b>
+                                                                                                </label>
+                                                                                                <input class="form-control"
+                                                                                                       name="dateBirth"
+                                                                                                       type="text"
+                                                                                                       id="delete-dateBirth"
+                                                                                                       disabled/>
+                                                                                            </div>
+
+                                                                                            <div class="mb-3">
+                                                                                                <label for="delete-address">
+                                                                                                    <b>Address</b>
+                                                                                                </label>
+                                                                                                <input class="form-control"
+                                                                                                       name="address"
+                                                                                                       type="text"
+                                                                                                       id="delete-address"
+                                                                                                       disabled/>
+                                                                                            </div>
+
+                                                                                            <div class="mb-3">
+                                                                                                <label for="delete-email">
+                                                                                                    <b>Email</b>
+                                                                                                </label>
+                                                                                                <input class="form-control"
+                                                                                                       name="email"
+                                                                                                       type="text"
+                                                                                                       id="delete-email"
+                                                                                                       disabled/>
+                                                                                            </div>
+
+                                                                                            <div class="mb-3">
+                                                                                                <label for="delete-roles"><b>Roles</b></label>
+                                                                                                <select multiple class="form-control col-12"
+                                                                                                        size="2"
+                                                                                                        id="delete-roles"
+                                                                                                        name="roles"
+                                                                                                        disabled>
+                                                                                                </select>
+                                                                                            </div>
+
+                                                                                            <div class="modal-footer text-end">
+                                                                                                <button type="button" class="btn btn-secondary"
+                                                                                                        id="deleteClose"
+                                                                                                        data-dismiss="modal">Close
+                                                                                                </button>
+                                                                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                                                                            </div>
+                                                                                        </form>
                                                                                     </div>
-
-                                                                                    <div class="mb-3">
-                                                                                        <label for="delete-name">
-                                                                                            <b>User Name</b>
-                                                                                        </label>
-                                                                                        <input class="form-control"
-                                                                                               name="name"
-                                                                                               type="text"
-                                                                                               id="delete-name"
-                                                                                               disabled/>
-                                                                                    </div>
-
-                                                                                    <div class="mb-3">
-                                                                                        <label for="delete-fullName">
-                                                                                            <b>Full Name</b>
-                                                                                        </label>
-                                                                                        <input class="form-control"
-                                                                                               name="fullName"
-                                                                                               type="text"
-                                                                                               id="delete-fullName"
-                                                                                               disabled/>
-                                                                                    </div>
-
-                                                                                    <div class="mb-3">
-                                                                                        <label for="delete-dateBirth">
-                                                                                            <b>Date Birth</b>
-                                                                                        </label>
-                                                                                        <input class="form-control"
-                                                                                               name="dateBirth"
-                                                                                               type="date"
-                                                                                               id="delete-dateBirth"
-                                                                                               disabled/>
-                                                                                    </div>
-
-                                                                                    <div class="mb-3">
-                                                                                        <label for="delete-address">
-                                                                                            <b>Address</b>
-                                                                                        </label>
-                                                                                        <input class="form-control"
-                                                                                               name="address"
-                                                                                               type="text"
-                                                                                               id="delete-address"
-                                                                                               disabled/>
-                                                                                    </div>
-
-                                                                                    <div class="mb-3">
-                                                                                        <label for="delete-email">
-                                                                                            <b>Email</b>
-                                                                                        </label>
-                                                                                        <input class="form-control"
-                                                                                               name="email"
-                                                                                               type="text"
-                                                                                               id="delete-email"
-                                                                                               disabled/>
-                                                                                    </div>
-
-
-                                                                                    <div class="mb-3">
-                                                                                        <label for="delete-roles"><b>Roles</b></label>
-                                                                                        <select multiple class="form-control col-12"
-                                                                                                size="2"
-                                                                                                id="delete-roles"
-                                                                                                name="roles"
-                                                                                                disabled>
-                                                                                        </select>
-                                                                                    </div>
-
-                                                                                    <div class="modal-footer text-end">
-                                                                                        <button type="button" class="btn btn-secondary"
-                                                                                                id="deleteClose"
-                                                                                                data-dismiss="modal">Close
-                                                                                        </button>
-                                                                                        <input type="submit" class="btn btn-danger" value="Delete">
-                                                                                    </div>
-
-<!--                                                                                <form th:method="POST" th:action="@{/admin/delete}" id="deleteForm">-->
-<!--                                                                                    <div class="modal-body col-7 mx-auto text-center">-->
-<!--                                                                                        <label for="idDelete" class="form-label fw-bold mb-0">ID</label>-->
-<!--                                                                                        <input type="number" th:value="${user.getId()}" class="form-control" id="idDelete" readonly>-->
-<!--                                                                                        <br>-->
-
-<!--                                                                                        <label for="userNameDelete" class="form-label fw-bold mb-0">User name</label>-->
-<!--                                                                                        <input type="text" th:value="${user.getName()}" class="form-control" id="userNameDelete" readonly>-->
-<!--                                                                                        <br>-->
-
-<!--                                                                                        <label for="fullNameDelete" class="form-label fw-bold mb-0">Full name</label>-->
-<!--                                                                                        <input type="text" th:value="${user.getFullName()}" class="form-control" id="fullNameDelete" readonly>-->
-<!--                                                                                        <br>-->
-
-<!--                                                                                        <label for="dateBirthDelete" class="form-label fw-bold mb-0">Date Birth</label>-->
-<!--                                                                                        <input type="date" th:value="${user.getDateBirth()}" class="form-control" id="dateBirthDelete" readonly>-->
-<!--                                                                                        <br>-->
-
-<!--                                                                                        <label for="addressDelete" class="form-label fw-bold mb-0">Address</label>-->
-<!--                                                                                        <input type="text" th:value="${user.getAddress()}" class="form-control" id="addressDelete" readonly>-->
-<!--                                                                                        <br>-->
-
-<!--                                                                                        <label for="emailDelete" class="form-label fw-bold mb-0">Email</label>-->
-<!--                                                                                        <input type="email" th:value="${user.getEmail()}" class="form-control" id="emailDelete" readonly>-->
-<!--                                                                                        <br>-->
-
-<!--                                                                                        <label for="rolesDelete" class="form-label fw-bold mb-0">Role</label>-->
-<!--                                                                                        <select class="form-select" id="rolesDelete" size="2" multiple="multiple" disabled>-->
-<!--                                                                                            <option th:each="role : ${user.getRoles()}"-->
-<!--                                                                                                    th:text="${role.getNameWithoutPrefix()}">-->
-<!--                                                                                            </option>-->
-<!--                                                                                        </select>-->
-<!--                                                                                        <br>-->
-<!--                                                                                    </div>-->
-<!--                                                                                    <div class="modal-footer">-->
-<!--                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">-->
-<!--                                                                                            Close-->
-<!--                                                                                        </button>-->
-<!--                                                                                        <input type="hidden" th:value="${user.getId()}" name="user_id">-->
-<!--                                                                                        <input type="submit" class="btn btn-danger" value="Delete"/>-->
-<!--                                                                                    </div>-->
-                                                                                </form>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                         </tr>
-
-
-
-
-
-
-
-
-
-
 
 
                                                     </tbody>

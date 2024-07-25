@@ -1,5 +1,7 @@
 let formDelete = document.forms["formDelete"]
-deleteUser();
+
+document.addEventListener('DOMContentLoaded', deleteUser);
+
 
 async function deleteModal(id) {
     const modalDelete = new bootstrap.Modal(document.querySelector('#deleteModal'));
