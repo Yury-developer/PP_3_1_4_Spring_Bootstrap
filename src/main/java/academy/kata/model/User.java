@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User implements Cloneable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
