@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -15,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+public class User implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class User {
     @Column(name = "user_name", length = 50, nullable = false) // login
     private String name;
 
-    @JsonIgnore // Поле игнорируется при сериализации
+//    @JsonIgnore // Поле игнорируется при сериализации
     @Column(name = "user_password", length = 128, nullable = false) // password
     private String password;
 
@@ -61,6 +62,21 @@ public class User {
         this.dateBirth = dateBirth;
         this.address = address;
         this.email = email;
+    }
+
+    public User(User user) {
+        this(
+                new String(user.name),
+                new String(user.password),
+                new String(user.fullName),
+                new Date(user.dateBirth.getTime()),
+                new String(user.address),
+                new String(user.email)
+        );
+        this.id = user.id;
+        this.roles = user.roles.stream()
+                .map(role -> new Role(role.getId(), new String(role.getName())))
+                .collect(Collectors.toSet());
     }
 
 

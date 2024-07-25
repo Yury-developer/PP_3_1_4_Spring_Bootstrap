@@ -97,6 +97,9 @@ public class RestAdminController {
         System.out.println("*** roles.getClass = " + user.getRoles().toArray()[0].getClass().getSimpleName());   // ********** УДАЛИТЬ **********
         System.out.println("\n***** ***** *****\n\n");   // ********** УДАЛИТЬ **********
 
+        user.setRoles(user.getRoles().stream()
+                .map(role -> roleService.findById(role.getId()))
+                .collect(Collectors.toSet()));
         userService.saveUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -112,8 +115,11 @@ public class RestAdminController {
     @CrossOrigin(origins = "http://localhost:63343")
     @PutMapping("/")
     public ResponseEntity<User> editUser(@RequestBody User user) {
-        System.out.println("*** Incoming User: ***\n " + user);   // ********** УДАЛИТЬ **********
-        List<Long> selectedRoles = user.getRoles().stream().map(role -> role.getId()).collect(Collectors.toList());
+        System.out.println("\n\n***** ***** *****\n");   // ********** УДАЛИТЬ **********
+        System.out.println("*** RestAdminController: editUser ***\nuser = " + user);   // ********** УДАЛИТЬ **********System.out.println("*** Incoming User: ***\n " + user);   // ********** УДАЛИТЬ **********
+        List<Long> selectedRoles = user.getRoles().stream()
+                .map(role -> role.getId())
+                .collect(Collectors.toList());
 
         userService.updateUser(user, selectedRoles);
         User updateUser = userService.findById(user.getId()).get();
@@ -124,13 +130,16 @@ public class RestAdminController {
     @CrossOrigin(origins = "http://localhost:63343")
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        System.out.println("RestAdminController: deleteUser(id); id = " + id);   // ********** УДАЛИТЬ **********
+        System.out.println("\n\n***** ***** *****\n");   // ********** УДАЛИТЬ **********
+        System.out.println("*** RestAdminController: deleteUser ***");   // ********** УДАЛИТЬ **********
+        System.out.println("*** RestAdminController: deleteUser(id); id = " + id + " ***");   // ********** УДАЛИТЬ **********
         Optional<User> userOptional = userService.findById(id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+            User deletedUser = new User(user);
             userService.deleteById(user.getId());
-            System.out.println(user);   // ********** УДАЛИТЬ **********
-            return new ResponseEntity<>(user, HttpStatus.OK);
+            System.out.println("*** Удален пользователь:\n" + deletedUser);   // ********** УДАЛИТЬ **********
+            return new ResponseEntity<>(deletedUser, HttpStatus.OK);
         } else  {
             throw new NoSuchUserExeption("Пользователь с id = " + id + " не найден!" +
                     " // User with id = " + id + " not found!");
