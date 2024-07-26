@@ -41,7 +41,7 @@ public class RestAdminController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:63343")
+//    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
         System.out.println("***** ***** ***** ***** RestAdminController: getAll");   // ********** УДАЛИТЬ **********
@@ -50,7 +50,7 @@ public class RestAdminController {
         return new ResponseEntity<>(dtosList, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+//    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/getUsersByRoleName/{role_name}")
     public ResponseEntity<List<User>> getUsersByRoleName(@PathVariable("role_name") String roleName) {
             System.out.println("***** ***** ***** ***** RestAdminController: getUsersByRoleName");   // ********** УДАЛИТЬ **********
@@ -67,7 +67,7 @@ public class RestAdminController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:63343")
+//    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/{id}")
     public ResponseEntity<User> get(@PathVariable Long id) {
         System.out.println("***** ***** ***** ***** RestAdminController: get(id); id = " + id);   // ********** УДАЛИТЬ **********
@@ -83,7 +83,7 @@ public class RestAdminController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+//    @CrossOrigin(origins = "http://localhost:63343")
     @PostMapping("/")
     public ResponseEntity<User> addNewUser(@RequestBody User user){
 
@@ -105,14 +105,14 @@ public class RestAdminController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:63343")
+//    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/getRoles")
     public ResponseEntity<Set<Role>> getAllExistingRoles() {
         Set<Role> roleDtoSet = new HashSet<>(roleService.findAll());
         return new ResponseEntity<>(roleDtoSet, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+//    @CrossOrigin(origins = "http://localhost:63343")
     @PutMapping("/")
     public ResponseEntity<User> editUser(@RequestBody User user) {
         System.out.println("\n\n***** ***** *****\n");   // ********** УДАЛИТЬ **********
@@ -127,7 +127,7 @@ public class RestAdminController {
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:63343")
+//    @CrossOrigin(origins = "http://localhost:63343")
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         System.out.println("\n\n***** ***** *****\n");   // ********** УДАЛИТЬ **********
