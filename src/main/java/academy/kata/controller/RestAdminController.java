@@ -112,6 +112,19 @@ public class RestAdminController {
         return new ResponseEntity<>(roleDtoSet, HttpStatus.OK);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    @CrossOrigin(origins = "http://localhost:63343")
     @PutMapping("/")
     public ResponseEntity<User> editUser(@RequestBody User user) {
@@ -126,6 +139,20 @@ public class RestAdminController {
         System.out.println("*** Saved User: " + user);   // ********** УДАЛИТЬ **********
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    @CrossOrigin(origins = "http://localhost:63343")
     @DeleteMapping("/{id}")

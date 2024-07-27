@@ -21,9 +21,16 @@ function getUsersByRoleName() {
 
             const tableUsers = document.getElementById('userTable'); // Получаем элемент таблицы, в который будут вставлены данные пользователей.
 
+            document.getElementById('roleDescription').innerHTML =
+                `All users, who have a role   '${currentRoleName.replace('ROLE_', '')}'`;
+
+
             // Заполняем таблицу данными
             for (let user of users) {
-                console.log('user = ' + user)
+                // console.log('*-* userTable.js: user = ' + user.id);
+                // console.log('*-* userTable.js: user = ' + user.name);
+                // console.log('*-* userTable.js: user = ' + user);
+                // console.log('*-* userTable.js: user = ' + user.toString());
 
                 rolesString = rolesToString(user.roles);
 
@@ -35,6 +42,8 @@ function getUsersByRoleName() {
                         <td>${user.address}</td>
                         <td>${user.email}</td>
                         <td>${rolesString}</td>
+                        
+                        
 
                         <td>
                             <button type="button" 
@@ -55,7 +64,13 @@ function getUsersByRoleName() {
                                 Delete
                             </button>
                         </td>
+                        
                     </tr>`;
+                // <b>
+                //     console.log("*** editModal( user.id = ")
+                //     console.log(${user.id}))
+                //     console.log(user.id)
+                // </b>
             }
             tableUsers.innerHTML = dataOfUsers; // Заполненный HTML-код вставляется в таблицу.
         })
